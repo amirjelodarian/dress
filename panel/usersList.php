@@ -1,7 +1,7 @@
 <?php include "../Incluedes/panel-menu.php"; ?>
 <?php
     !empty($_GET['page']) ? $page = $DB->escapeValue($_GET['page'],true) : $page = 1;
-    $recordPerPage = 5;
+    $recordPerPage = 50;
     $startFrom = ($page-1)*$recordPerPage;
 
 if (!empty($_GET['orderBy']) && !empty($_GET['keyword'])) $searchMode = true;
@@ -9,7 +9,7 @@ else $searchMode = false;
 
 if ($searchMode){
     !empty($_GET['searchPage']) ? $searchPage = $DB->escapeValue($_GET['searchPage'],true) : $searchPage = 1;
-    $searchRecordPerPage = 5;
+    $searchRecordPerPage = 50;
     $searchStartFrom = ($searchPage-1)*$searchRecordPerPage;
     if (!empty($_GET['keyword']) && !empty($_GET['orderBy'])) {
         $result = $Users->searchByUsernameOrEmailOrTell('users', $_GET['keyword'], $_GET['orderBy'], " LIMIT {$searchStartFrom},{$searchRecordPerPage}");
@@ -45,7 +45,9 @@ if ($searchMode){
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while ($allUser = $DB->fetchArray($result)): ?>
+                        <?php
+                    if ($Funcs->checkValue(array($result),false,true) && $DB->numRows($result) > 0) {
+                        while ($allUser = $DB->fetchArray($result)): ?>
                             <tr class="text-center">
                                 <th scope="row">
                                     <?= $allUser['id'] ?>
@@ -149,7 +151,11 @@ if ($searchMode){
                                     }
                                 ?>
                             </tr>
-                        <?php endwhile; ?>
+                        <?php
+                        endwhile;
+                    }else
+                        echo "<p class='product-route' style='position: relative;top: 20px;font-size: 20px;float: right;right: 0;'>Error 404 ! Not Found</p>";
+                        ?>
                     </tbody>
                 </table>
                 <?php

@@ -1,11 +1,11 @@
 <?php
 require_once "../Classes/initialize.php";
 !empty($_GET['searchPage']) ? $searchPage = $DB->escapeValue($_GET['searchPage'],true) : $searchPage = 1;
-$recordPerPage = 5;
+$recordPerPage = 50;
 $startFrom = ($searchPage-1)*$recordPerPage;
 if (isset($_POST['usersSearch']) && !(empty($_POST['usersSearch'])) && isset($_POST['usersOrderBy']) && !(empty($_POST['usersOrderBy']))){
     $allResult = $Users->searchByUsernameOrEmailOrTell('users',$_POST['usersSearch'],$_POST['usersOrderBy']," LIMIT {$startFrom},{$recordPerPage}");
-    if ($Funcs->checkValue([$allResult],false,true) && $DB->numRows($allResult) > 0) : ?>
+    if ($Funcs->checkValue([$allResult],false,true) && $DB->numRows($allResult) > 0){  ?>
         <?php if ($Users->isAdministrator() || $Users->isAdmin()) : ?>
             <?= $users->user_mode ?>
             <table class="table table-bordered table-striped">
@@ -116,14 +116,16 @@ if (isset($_POST['usersSearch']) && !(empty($_POST['usersSearch'])) && isset($_P
                         }
                         ?>
                     </tr>
-                <?php endwhile; ?>
+                <?php
+                endwhile;
+                ?>
                 </tbody>
             </table>
         <?php endif; ?>
 <?php
-        endif;
-    }else
+        }else
         echo "<p class='product-route' style='position: relative;top: 20px;font-size: 20px;float: right;right: 0;'>Error 404 ! Not Found</p>";
+    }
     ?>
 
 
