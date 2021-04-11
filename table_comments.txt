@@ -1,0 +1,9 @@
+CREATE TABLE comments(
+    id INT(9) NOT NULL AUTO_INCREMENT,
+    user_id INT(9) NOT NULL,
+    clothes_id INT(9) NOT NULL,
+    title TEXT,description TEXT NOT NULL,
+    create_at VARCHAR(255) NOT NULL,
+    score VARCHAR(255),
+    PRIMARY KEY(id)
+)

@@ -1,0 +1,15 @@
+CREATE TABLE users(
+    id INT(9) NOT NULL AUTO_INCREMENT,
+    user_mode VARCHAR(255) NOT NULL, standard,user,administrator
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255),
+    tell VARCHAR(255),
+    email VARCHAR(1000),
+    address TEXT,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    create_at DATETIME NOT NULL,
+    last_login DATETIME NOT NULL,
+    pro_pic TEXT,
+    account_status VARCHAR(255) NOT NULL, not_verified verified
+PRIMARY KEY(id))

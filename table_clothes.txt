@@ -1,0 +1,13 @@
+CREATE TABLE clothes(
+    id INT(9) NOT NULL AUTO_INCREMENT,
+    type TINYTEXT NOT NULL,    man    woman   child
+    model TINYTEXT NOT NULL,   shirt  scarf   mybaby
+    title TINYTEXT NOT NULL,   man shirt with best fabric type
+    fabric_type TINYINT,       yarn   plastic
+    description TEXT,          this shirt is very good
+    size TINYINT,              xxl
+    color TINYINT,             blue
+    price TINYTEXT NOT NULL,   123 000
+    off_price TINYTEXT,        156 000
+    pic_loc   TINYTEXT,        anskdnskad.jpg
+PRIMARY KEY(id))
