@@ -1,6 +1,38 @@
 /* this is for panel */
 $(document).ready(function(){
 
+    // commentsList.php Page
+    $('#comments-search').keyup(function () {
+        $('#comments-search-result,.loader-outside').hide();
+        var commentsSearch = $("#comments-search").val();
+        var commentsOrderBy = $('#comments-order-by').val();
+        if (commentsSearch != '' && commentsOrderBy != ''){
+            $('#comments-search-result').html('');
+            $.ajax({
+                url: "commentsListSearchRequests.php",
+                method: "post",
+                dataType: "text",
+                beforeSend: function() {
+                    $('.loader-outside').val('Searching...');
+                    $('.loader-outside').show();
+                },
+                data: {commentsSearch: commentsSearch,commentsOrderBy: commentsOrderBy},
+                success:function (data) {
+                    $('#comments-main-result,.loader-outside').hide();
+                    $('#comments-search-result').show();
+                    $("#comments-search-result").html(data);
+                    if (data == "" || data == null){
+                        $('#comments-search-result').hide();
+                    }
+                }
+            });
+        }else{
+            $('#comments-main-result').show();
+        }
+    });
+    ///////////////////////////////////////////////////
+
+
     // usersList.php Page
     $('#users-search').keyup(function () {
         $('#users-search-result,.loader-outside').hide();

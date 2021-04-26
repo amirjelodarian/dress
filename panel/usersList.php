@@ -24,6 +24,7 @@ if ($searchMode){
             <option value="user_username">نام کاربری</option>
             <option value="user_email">ایمیل</option>
             <option value="user_tell">موبایل</option>
+            <option value="user_id">Id</option>
         </select>
     </div>
     <div class="loader-outside">

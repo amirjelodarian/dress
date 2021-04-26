@@ -30,6 +30,7 @@ if(!empty($_GET['clothesType']) && !empty($_GET['clothesModel']) && !$searchMode
             <select name="clothesOrderBy" id="clothes-order-by" class="order-by">
                 <option value="clothes_title">مدل</option>
                 <option value="clothes_price">قیمت</option>
+                <option value="clothes_id">Id</option>
             </select>
         </div>
         <!--        Start-Man-Pirhan-Product-->
@@ -67,6 +68,7 @@ if(!empty($_GET['clothesType']) && !empty($_GET['clothesModel']) && !$searchMode
                                     <a href='../singleProduct.php?id=<?= $allRow["id"] ?>'><img src=<?= $Funcs->showPic("../style/images/ProductPics/",$allRow['pic_loc'],'../style/images/Defaults/default-product.jpg'); ?> alt=<?= stripslashes($allRow['pic_loc']) ?> /></a>
                                 </div>
                                 <div class="aboutProduct">
+                                    <?= $allRow["id"] ?>
                                     <div class="Price">
                                         <p><?= $Funcs->EnFa($allRow['off_price'],true) ?> تومان</p>
                                     </div>

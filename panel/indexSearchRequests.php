@@ -26,6 +26,7 @@ if ($Funcs->checkValue([$allResult],false,true) && $DB->numRows($allResult) > 0)
                     <a href='../singleProduct.php?id=<?= $allRow["id"] ?>'><img src=<?= $Funcs->showPic("../style/images/ProductPics/",$allRow['pic_loc'],'../style/images/Defaults/default-product.jpg'); ?> alt=<?= stripslashes($allRow['pic_loc']) ?> /></a>
                 </div>
                 <div class="aboutProduct">
+                    <?= $allRow["id"] ?>
                     <div class="Price">
                         <p><?= $Funcs->EnFa($allRow['off_price'],true) ?> تومان</p>
                     </div>

@@ -8,15 +8,53 @@ $startFrom = ($page-1)*$recordPerPage;
 if (isset($_GET['deleteComment'])){
     $id = $DB->escapeValue($_GET['deleteCommentId'],true);
     $Comments->deleteComment($id);
-} ?>
+}
+if (!empty($_GET['orderBy']) && !empty($_GET['keyword'])) $searchMode = true;
+else $searchMode = false;
+
+if ($searchMode){
+    !empty($_GET['searchPage']) ? $searchPage = $DB->escapeValue($_GET['searchPage'],true) : $searchPage = 1;
+    $searchRecordPerPage = 20;
+    $searchStartFrom = ($searchPage-1)*$searchRecordPerPage;
+    if (!empty($_GET['keyword']) && !empty($_GET['orderBy'])) {
+        if ($Users->isStandard())
+            $commentsResult = $Comments->searchByTitleOrDescriptionOrUsernameOrEmail('comments',$_GET['keyword'],$_GET['orderBy']," LIMIT {$startFrom},{$recordPerPage}",true,true);
+        elseif ($Users->isAdministrator() || $Users->isAdmin())
+            $commentsResult = $Comments->searchByTitleOrDescriptionOrUsernameOrEmail('comments',$_GET['keyword'],$_GET['orderBy']," LIMIT {$startFrom},{$recordPerPage}",true);
+    }
+}else{
+    if ($Users->isStandard())
+        $commentsResult = $Comments->selectCommentStandardUser($publish_mode,$startFrom,$recordPerPage);
+    elseif ($Users->isAdministrator() || $Users->isAdmin())
+        $commentsResult = $Comments->allComments($publish_mode,$startFrom,$recordPerPage);
+}
+
+?>
 <div class="main-col">
-    <div id="comment_title_result"></div>
-    <div id="comment_description_result"></div>
-    <div id="comment_publish_mode_result"></div>
+    <div class="panel-search">
+        <input type="text" name="commentsSearch" id="comments-search" class="panel-search-bar"  placeholder="Search" />
+        <select name="commentsOrderBy" id="comments-order-by" class="order-by">
+            <option value="comment_title">موضوع</option>
+            <option value="comment_description">نظر</option>
+            <option value="comment_username">نام کاربری</option>
+            <option value="comment_user_id">آیدی کاربر</option>
+            <option value="comment_email">ایمیل</option>
+            <option value="comment_id">Id</option>
+        </select>
+    </div>
+    <div class="loader-outside">
+        <div class="loader"></div>
+    </div>
+    <div id="comments-search-result"></div>
+    <div id="comments-main-result">
+        <div id="comment_title_result"></div>
+        <div id="comment_description_result"></div>
+        <div id="comment_publish_mode_result"></div>
     <a class="btn btn-success" id="btn-publish-mode" href="<?= $_SERVER['PHP_SELF'] ?>?publish_mode=published">منتشر شده ها</a>
     <a class="btn btn-danger" id="btn-publish-mode" href="<?= $_SERVER['PHP_SELF'] ?>?publish_mode=unpublished">منتشر نشده ها</a>
     <?php
-    switch ($publish_mode){
+    if (!$searchMode){
+        switch ($publish_mode){
         case 'published':
             if ($Users->isStandard())
                 $publishedCount = $DB->count('comments','id'," WHERE user_id = {$Users->id} AND publish_mode='published'");
@@ -35,15 +73,17 @@ if (isset($_GET['deleteComment'])){
         default:
             return null;
             break;
+    }
     } ?>
     <div class="container">
         <div class="row">
             <?php
-            if ($Users->isStandard())
-                $commentsResult = $Comments->selectCommentStandardUser($publish_mode,$startFrom,$recordPerPage);
-            elseif ($Users->isAdministrator() || $Users->isAdmin())
-                $commentsResult = $Comments->allComments($publish_mode,$startFrom,$recordPerPage);
-
+            if (!$searchMode) {
+                if ($Users->isStandard())
+                    $commentsResult = $Comments->selectCommentStandardUser($publish_mode, $startFrom, $recordPerPage);
+                elseif ($Users->isAdministrator() || $Users->isAdmin())
+                    $commentsResult = $Comments->allComments($publish_mode, $startFrom, $recordPerPage);
+            }
             while($commentsRow = $DB->fetchArray($commentsResult)):
                 $userResult = $DB->selectById('users',$commentsRow['user_id']);
                 if($userRow = $DB->fetchArray($userResult)):
@@ -98,9 +138,13 @@ if (isset($_GET['deleteComment'])){
             ?>
         </div>
     </div>
-
+        <?php
+        if ($searchMode)
+            $Funcs->commentsSearchPagination('comments', $_GET['keyword'], $_GET['orderBy'], 'id', $searchPage, $recordPerPage);
+        else
+            $Funcs->commentPagination('comments','id',$page,$recordPerPage,$publish_mode); ?>
+    </div>
 </div>
-<?php $Funcs->commentPagination('comments','id',$page,$recordPerPage,$publish_mode); ?>
 <script>
     <?php if($Users->isAdministrator() || $Users->isAdmin()): ?>
     $(document).ready(function(){

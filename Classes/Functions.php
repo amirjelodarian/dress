@@ -189,6 +189,10 @@ use Rakit\Validation\Validator;
                 case 'clothes_price':
                     $result = $DB->selectAll('*',$tableName,"WHERE off_price LIKE '{$keyword}%'");
                     break;
+                case 'clothes_id':
+                    settype($keyword,'integer');
+                    $result = $DB->selectAll('*',$tableName,"WHERE id = {$keyword}");
+                    break;
                 default:
                     echo 'I know You Are A Hacker :)';
                     break;
@@ -224,6 +228,10 @@ use Rakit\Validation\Validator;
                 case 'user_tell':
                     $result = $DB->selectAll('*',$tableName,"WHERE tell LIKE '{$keyword}%'");
                     break;
+                case 'user_id':
+                        settype($keyword,'integer');
+                        $result = $DB->selectAll('*',$tableName,"WHERE id = {$keyword}");
+                    break;
                 default:
                     echo 'I know You Are A Hacker :)';
                     break;
@@ -234,6 +242,51 @@ use Rakit\Validation\Validator;
                 $Zebra->_properties['variable_name'] = 'searchPage';
             }else{
                 $Zebra->base_url('usersList.php?'.'orderBy='.$orderBy.'&keyword='.$keyword);
+                $Zebra->_properties['variable_name'] = 'orderBy='.$orderBy.'&keyword='.$keyword.'&searchPage';
+                $Zebra->_properties['avoid_duplicate_content'] = false;
+            }
+
+//            $Zebra->_build_uri('index.php');
+            $Zebra->set_page($page);
+            $Zebra->records($totalRecord);
+            $Zebra->navigation_position('center');
+            $Zebra->labels('قبلی', 'بعدی',$page);
+            $Zebra->records_per_page($recordsPerPage);
+            $Zebra->render();
+        }
+
+        public function commentsSearchPagination($tableName,$keyword,$orderBy,$tableId,$page = 1,$recordsPerPage = 10,$indexPage = ''){
+            global $Zebra,$DB;
+            switch ($orderBy){
+                case 'comment_title':
+                    $result = $DB->selectAll('*',$tableName,"WHERE title LIKE '%{$keyword}%'");
+                    break;
+                case 'comment_description':
+                    $result = $DB->selectAll('*',$tableName,"WHERE description LIKE '%{$keyword}%'");
+                    break;
+                case 'comment_user_id':
+                    $result = $DB->selectAll('*',$tableName,"WHERE user_id LIKE '{$keyword}%'");
+                    break;
+                case 'comment_username':
+                        $result = $DB->selectAll('*',$tableName,"INNER JOIN users ON users.username LIKE '{$keyword}%'");
+                    break;
+                case 'comment_email':
+                    $result = $DB->selectAll('*',$tableName,"WHERE email LIKE '{$keyword}%'");
+                    break;
+                case 'comment_id':
+                    settype($keyword,'integer');
+                    $result = $DB->selectAll('*',$tableName,"WHERE id = {$keyword}");
+                    break;
+                default:
+                    echo 'I know You Are A Hacker :)';
+                    break;
+            }
+
+            $totalRecord = $DB->numRows($result);
+            if ($indexPage == true){
+                $Zebra->_properties['variable_name'] = 'searchPage';
+            }else{
+                $Zebra->base_url('commentsList.php?'.'orderBy='.$orderBy.'&keyword='.$keyword);
                 $Zebra->_properties['variable_name'] = 'orderBy='.$orderBy.'&keyword='.$keyword.'&searchPage';
                 $Zebra->_properties['avoid_duplicate_content'] = false;
             }

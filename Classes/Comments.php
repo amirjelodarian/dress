@@ -56,7 +56,10 @@ namespace Comments;
         }
         public function allComments($publish_mode,$startFrom,$recordPerPage){
             global $DB;
-            $allUsersResult = $DB->selectAll('*','comments'," WHERE publish_mode='{$publish_mode}' ORDER BY comments.id DESC LIMIT {$startFrom},{$recordPerPage}");
+            if ($publish_mode !== false)
+                $allUsersResult = $DB->selectAll('*','comments'," WHERE publish_mode='{$publish_mode}' ORDER BY comments.id DESC LIMIT {$startFrom},{$recordPerPage}");
+            else
+                $allUsersResult = $DB->selectAll('*','comments'," ORDER BY comments.id DESC LIMIT {$startFrom},{$recordPerPage}");
             return $allUsersResult;
         }
 
@@ -125,7 +128,10 @@ namespace Comments;
         public function selectCommentStandardUser($publish_mode,$startFrom,$recordPerPage){
             global $DB,$Users;
             $userId = $DB->escapeValue($Users->id,true);
-            $userCommentResult = $DB->selectAll('*','comments',"WHERE user_id = {$userId} AND publish_mode='{$publish_mode}' ORDER BY comments.id DESC LIMIT {$startFrom},{$recordPerPage}");
+            if ($publish_mode !== false)
+                $userCommentResult = $DB->selectAll('*','comments',"WHERE user_id = {$userId} AND publish_mode='{$publish_mode}' ORDER BY comments.id DESC LIMIT {$startFrom},{$recordPerPage}");
+            else
+                $userCommentResult = $DB->selectAll('*','comments',"WHERE user_id = {$userId} ORDER BY comments.id DESC LIMIT {$startFrom},{$recordPerPage}");
             return $userCommentResult;
         }
         public function selectCommentByProductId($productId,$startFrom,$recordPerPage){
@@ -135,6 +141,66 @@ namespace Comments;
             return $productCommentResult;
         }
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        public function searchByTitleOrDescriptionOrUsernameOrEmail($tableName,$keyword,$titleOrDescriptionOrUsernameOrEmail,$customSQL = "",$reverseId = "",$limitToUserComment = ''){
+            global $DB,$Users;
+            $keyword = $DB->escapeValue($keyword);
+            if ($limitToUserComment == true)
+                $limitToUserComment = " user_id = {$Users->id} AND ";
+            else
+                $limitToUserComment = '';
+            $titleOrDescriptionOrUsernameOrEmail = $DB->escapeValue($titleOrDescriptionOrUsernameOrEmail);
+            switch ($titleOrDescriptionOrUsernameOrEmail){
+                case 'comment_title':
+                    if ($reverseId == true)
+                        $result = $DB->selectAll('*',$tableName,"WHERE {$limitToUserComment} title LIKE '%{$keyword}%' ORDER BY id DESC {$customSQL}");
+                    else
+                        $result = $DB->selectAll('*',$tableName,"WHERE {$limitToUserComment} title LIKE '%{$keyword}%' {$customSQL}");
+                    break;
+                case 'comment_description':
+                    if ($reverseId == true)
+                        $result = $DB->selectAll('*',$tableName,"WHERE {$limitToUserComment} description LIKE '%{$keyword}%' ORDER BY id DESC {$customSQL}");
+                    else
+                        $result = $DB->selectAll('*',$tableName,"WHERE {$limitToUserComment} description LIKE '%{$keyword}%' {$customSQL}");
+                    break;
+                case 'comment_username':
+                    if ($limitToUserComment == true){
+                        return "Access Denied !";
+                    }else
+                        $result = $DB->selectAll('*',$tableName,"INNER JOIN users ON users.username LIKE '{$keyword}%' ORDER BY comments.id DESC {$customSQL}");
+                    break;
+                case 'comment_user_id':
+                    if ($reverseId == true)
+                        $result = $DB->selectAll('*',$tableName,"WHERE {$limitToUserComment} user_id LIKE '{$keyword}%' ORDER BY id DESC {$customSQL}");
+                    else
+                        $result = $DB->selectAll('*',$tableName,"WHERE {$limitToUserComment} user_id LIKE '{$keyword}%' {$customSQL}");
+                    break;
+                case 'comment_email':
+                    if ($reverseId == true)
+                        $result = $DB->selectAll('*',$tableName,"WHERE email LIKE '{$keyword}%' ORDER BY id DESC {$customSQL}");
+                    else
+                        $result = $DB->selectAll('*',$tableName,"WHERE email LIKE '{$keyword}%' {$customSQL}");
+                    break;
+                case 'comment_id':
+                    settype($keyword,'integer');
+                    if ($reverseId == true)
+                        $result = $DB->selectAll('*',$tableName,"WHERE id = {$keyword} ORDER BY id DESC {$customSQL}");
+                    else
+                        $result = $DB->selectAll('*',$tableName,"WHERE id = {$keyword} {$customSQL}");
+                    break;
+                default:
+                    echo 'I know You Are A Hacker :)';
+                    break;
+            }
+            if (isset($result)){
+                if($DB->numRows($result) > 0){
+                    return $result;
+                }else{
+                    return false;
+                }
+            }else
+                return false;
+        }
     }
     $Comments = new Comments();
 ?>

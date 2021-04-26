@@ -207,6 +207,13 @@ namespace Clothes;
                     else
                         $result = $DB->selectAll('*',$tableName,"WHERE off_price LIKE '{$keyword}%' {$customSQL}");
                     break;
+                case 'clothes_id':
+                    settype($keyword,'integer');
+                    if ($reverseId == true)
+                        $result = $DB->selectAll('*',$tableName,"WHERE id = {$keyword} ORDER BY id DESC {$customSQL}");
+                    else
+                        $result = $DB->selectAll('*',$tableName,"WHERE id = {$keyword} {$customSQL}");
+                    break;
                 default:
                     echo 'I know You Are A Hacker :)';
                     break;

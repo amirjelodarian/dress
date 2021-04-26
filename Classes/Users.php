@@ -287,6 +287,13 @@ namespace Users;
                     else
                         $result = $DB->selectAll('*',$tableName,"WHERE tell LIKE '{$keyword}%' {$customSQL}");
                     break;
+                case 'user_id':
+                    settype($keyword,'integer');
+                    if ($reverseId == true)
+                        $result = $DB->selectAll('*',$tableName,"WHERE id = {$keyword} ORDER BY id DESC {$customSQL}");
+                    else
+                        $result = $DB->selectAll('*',$tableName,"WHERE id = {$keyword} {$customSQL}");
+                    break;
                 default:
                     echo 'I know You Are A Hacker :)';
                     break;
