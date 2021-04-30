@@ -68,6 +68,7 @@ if (isset($_GET['id'])) {
                                       break;
                               }
                               ?>
+                                <?= $allRow['id'] ?>
                                 <div class="del-btn">
                                     <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="get">
                                         <input name="deletePanelUserId" type="hidden" value='<?= $allRow["id"] ?>' />

@@ -36,7 +36,7 @@ if ($searchMode){
         <select name="commentsOrderBy" id="comments-order-by" class="order-by">
             <option value="comment_title">موضوع</option>
             <option value="comment_description">نظر</option>
-            <option value="comment_username">نام کاربری</option>
+<!--            <option value="comment_username">نام کاربری</option>-->
             <option value="comment_user_id">آیدی کاربر</option>
             <option value="comment_email">ایمیل</option>
             <option value="comment_id">Id</option>
@@ -104,6 +104,7 @@ if ($searchMode){
                                 <div class="Main_InComment">
                                     <div class="top_Main_COMMMENT">
                                         <p><i class="fa fa-id-card"></i> : <?= $commentsRow['id'] ?></p>
+                                        <p><i class="fa fa-id-badge"></i> : <?= $userRow['id'] ?></p>
                                         <p><i class="fa fa-envelope"></i> : <?= $userRow['email'] ?></p>
                                     </div>
                                     <a href="editUser.php?id=<?= htmlspecialchars($userRow['id']) ?>"><span style="float: right;color: #007bff"><?= $userRow['username'] ?></span><br /></a>

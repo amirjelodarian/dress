@@ -182,6 +182,7 @@ use Rakit\Validation\Validator;
         }
         public function clothesSearchPagination($tableName,$keyword,$orderBy,$tableId,$page = 1,$recordsPerPage = 10,$indexPage = ''){
             global $Zebra,$DB;
+            $keyword = $DB->escapeValue($keyword);
             switch ($orderBy){
                 case 'clothes_title':
                     $result = $DB->selectAll('*',$tableName,"WHERE title LIKE '%{$keyword}%'");
@@ -218,6 +219,7 @@ use Rakit\Validation\Validator;
 
         public function usersSearchPagination($tableName,$keyword,$orderBy,$tableId,$page = 1,$recordsPerPage = 10,$indexPage = ''){
             global $Zebra,$DB;
+            $keyword = $DB->escapeValue($keyword);
             switch ($orderBy){
                 case 'user_username':
                     $result = $DB->selectAll('*',$tableName,"WHERE username LIKE '%{$keyword}%'");
@@ -257,6 +259,7 @@ use Rakit\Validation\Validator;
 
         public function commentsSearchPagination($tableName,$keyword,$orderBy,$tableId,$page = 1,$recordsPerPage = 10,$indexPage = ''){
             global $Zebra,$DB;
+            $keyword = $DB->escapeValue($keyword);
             switch ($orderBy){
                 case 'comment_title':
                     $result = $DB->selectAll('*',$tableName,"WHERE title LIKE '%{$keyword}%'");
@@ -265,11 +268,12 @@ use Rakit\Validation\Validator;
                     $result = $DB->selectAll('*',$tableName,"WHERE description LIKE '%{$keyword}%'");
                     break;
                 case 'comment_user_id':
-                    $result = $DB->selectAll('*',$tableName,"WHERE user_id LIKE '{$keyword}%'");
+                    settype($keyword,'integer');
+                    $result = $DB->selectAll('*',$tableName,"WHERE user_id = {$keyword}");
                     break;
-                case 'comment_username':
-                        $result = $DB->selectAll('*',$tableName,"INNER JOIN users ON users.username LIKE '{$keyword}%'");
-                    break;
+//                case 'comment_username':
+//                        $result = $DB->selectAll('*',$tableName,"INNER JOIN users ON users.username LIKE '{$keyword}%'");
+//                    break;
                 case 'comment_email':
                     $result = $DB->selectAll('*',$tableName,"WHERE email LIKE '{$keyword}%'");
                     break;
@@ -306,6 +310,7 @@ use Rakit\Validation\Validator;
         }
         public function commentPagination($tableName,$tableId,$page = 1,$recordsPerPage = 10,$publish_mode){
             global $Zebra,$DB;
+            $publish_mode = $DB->escapeValue($publish_mode);
             $result = $DB->selectAll($tableId,$tableName," WHERE publish_mode='{$publish_mode}'");
             $totalRecord = $DB->numRows($result);
             $Zebra->records($totalRecord);
@@ -316,7 +321,8 @@ use Rakit\Validation\Validator;
         }
         public function userCommentPagination($tableName,$tableId,$page = 1,$recordsPerPage = 10,$userId){
             global $Zebra,$DB;
-            $result = $DB->selectAll($tableId,$tableName," WHERE user_id='{$userId}'");
+            $userId = $DB->escapeValue($userId,true);
+            $result = $DB->selectAll($tableId,$tableName," WHERE user_id = {$userId}");
             $totalRecord = $DB->numRows($result);
             $Zebra->records($totalRecord);
             $Zebra->navigation_position('center');
@@ -326,7 +332,8 @@ use Rakit\Validation\Validator;
         }
         public function clothesCommentPagination($tableName,$tableId,$page = 1,$recordsPerPage = 10,$productId){
             global $Zebra,$DB;
-            $result = $DB->selectAll($tableId,$tableName," WHERE clothes_id='{$productId}'");
+            $productId = $DB->escapeValue($productId,true);
+            $result = $DB->selectAll($tableId,$tableName," WHERE clothes_id = {$productId}");
             $totalRecord = $DB->numRows($result);
             $Zebra->records($totalRecord);
             $Zebra->navigation_position('center');

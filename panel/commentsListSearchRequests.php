@@ -36,6 +36,7 @@ if (isset($_POST['commentsSearch']) && !(empty($_POST['commentsSearch'])) && iss
                                         <div class="Main_InComment">
                                             <div class="top_Main_COMMMENT">
                                                 <p><i class="fa fa-id-card"></i> : <?= $commentsRow['id'] ?></p>
+                                                <p><i class="fa fa-id-badge"></i> : <?= $userRow['id'] ?></p>
                                                 <p><i class="fa fa-envelope"></i> : <?= $userRow['email'] ?></p>
                                             </div>
                                             <a href="editUser.php?id=<?= htmlspecialchars($userRow['id']) ?>"><span style="float: right;color: #007bff"><?= $userRow['username'] ?></span><br /></a>
@@ -84,3 +85,125 @@ if (isset($_POST['commentsSearch']) && !(empty($_POST['commentsSearch'])) && iss
 </div>
 <?php $Funcs->commentsSearchPagination('comments',$_POST['commentsSearch'],$_POST['commentsOrderBy'],'id',$searchPage,$recordPerPage); ?>
 </div>
+<script>
+    <?php if($Users->isAdministrator() || $Users->isAdmin()): ?>
+    $(document).ready(function(){
+        $("#comment_publish_mode_result").hide();
+        $("#comment_title_result").hide();
+        $("#comment_description_result").hide();
+        $('.comment-publish-mode').click(function (){
+            var commentPublishModeValue = this.value;
+            $.ajax({
+                url: "editCommentsRequests.php",
+                method: "post",
+                dataType: "text",
+                // beforeSend: function() {
+                //     $('.loader-outside').fadeIn(500);
+                // },
+                data: {commentPublishModeValue: commentPublishModeValue},
+                success:function (data) {
+                    $("#comment_publish_mode_result").show();
+                    $("#comment_publish_mode_result").html(data);
+                }
+            });
+        });
+    });
+    $(function () {
+        //Loop through all Labels with class 'editable'.
+        $('.comment-title').click(function (){
+            $(".comment-title").each(function () {
+                //Reference the Label.
+                var label = $(this);
+                //Add a TextBox next to the Label.
+                label.after("<input type = 'text' style = 'display:none;direction: rtl' />");
+
+                //Reference the TextBox.
+                var textbox = $(this).next();
+
+                //Set the name attribute of the TextBox.
+                textbox[0].name = this.id.replace("lbl", "txt");
+
+                //Assign the value of Label to TextBox.
+                textbox.val(label.html());
+
+                //When Label is clicked, hide Label and show TextBox.
+                label.click(function () {
+                    $(this).hide();
+                    $(this).next().show();
+                });
+
+                //When focus is lost from TextBox, hide TextBox and show Label.
+                textbox.focusout(function () {
+                    $(this).hide();
+                    $(this).prev().html($(this).val());
+                    $(this).prev().show();
+                    var commentTitleId = this.name;
+                    var commentTitleValue = this.value;
+                    $.ajax({
+                        url: "editCommentsRequests.php",
+                        method: "post",
+                        dataType: "text",
+                        // beforeSend: function() {
+                        //     $('.loader-outside').fadeIn(500);
+                        // },
+                        data: {commentTitleId: commentTitleId,commentTitleValue: commentTitleValue},
+                        success:function (data) {
+                            $("#comment_title_result").show();
+                            $("#comment_title_result").html(data);
+                        }
+                    });
+                });
+            });
+
+        });
+
+        $('.comment-description').click(function (){
+            $(".comment-description").each(function () {
+                //Reference the Label.
+                var label = $(this);
+                //Add a TextBox next to the Label.
+                label.after("<textarea type = 'text' style = 'display:none;direction: rtl'></textarea>");
+
+                //Reference the TextBox.
+                var textbox = $(this).next();
+
+                //Set the name attribute of the TextBox.
+                textbox[0].name = this.id.replace("lbl", "txt");
+
+                //Assign the value of Label to TextBox.
+                textbox.val(label.html());
+
+                //When Label is clicked, hide Label and show TextBox.
+                label.click(function () {
+                    $(this).hide();
+                    $(this).next().show();
+                });
+
+                //When focus is lost from TextBox, hide TextBox and show Label.
+                textbox.focusout(function () {
+                    $(this).hide();
+                    $(this).prev().html($(this).val());
+                    $(this).prev().show();
+                    var commentDescriptionId = this.name;
+                    var commentDescriptionValue = this.value;
+                    $.ajax({
+                        url: "editCommentsRequests.php",
+                        method: "post",
+                        dataType: "text",
+                        // beforeSend: function() {
+                        //     $('.loader-outside').fadeIn(500);
+                        // },
+                        data: {commentDescriptionId: commentDescriptionId,commentDescriptionValue: commentDescriptionValue},
+                        success:function (data) {
+                            $("#comment_description_result").show();
+                            $("#comment_description_result").html(data);
+                        }
+                    });
+                });
+            });
+
+        });
+
+    });
+    <?php endif; ?>
+</script>

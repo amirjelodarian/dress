@@ -12,15 +12,11 @@
   <component name="ChangeListManager">
     <list default="true" id="7bc37dbe-818f-4b1d-8856-92ed697e32a3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Clothes.php" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Clothes.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Classes/Comments.php" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Comments.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Classes/Functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Functions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Users.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/panel/commentsList.php" beforeDir="false" afterPath="$PROJECT_DIR$/panel/commentsList.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panel/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/panel/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panel/indexSearchRequests.php" beforeDir="false" afterPath="$PROJECT_DIR$/panel/indexSearchRequests.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panel/usersList.php" beforeDir="false" afterPath="$PROJECT_DIR$/panel/usersList.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/style/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/style/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panel/commentsListSearchRequests.php" beforeDir="false" afterPath="$PROJECT_DIR$/panel/commentsListSearchRequests.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panel/editUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/panel/editUser.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/stefangabos/zebra_pagination" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/stefangabos/zebra_pagination" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -68,7 +64,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../nubdesign" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -212,6 +208,8 @@
       <workItem from="1618475037256" duration="1491000" />
       <workItem from="1618850581523" duration="1021000" />
       <workItem from="1618852376210" duration="14117000" />
+      <workItem from="1619420319526" duration="8356000" />
+      <workItem from="1619782821687" duration="4111000" />
     </task>
     <servers />
   </component>

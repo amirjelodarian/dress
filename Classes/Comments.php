@@ -163,17 +163,18 @@ namespace Comments;
                     else
                         $result = $DB->selectAll('*',$tableName,"WHERE {$limitToUserComment} description LIKE '%{$keyword}%' {$customSQL}");
                     break;
-                case 'comment_username':
-                    if ($limitToUserComment == true){
-                        return "Access Denied !";
-                    }else
-                        $result = $DB->selectAll('*',$tableName,"INNER JOIN users ON users.username LIKE '{$keyword}%' ORDER BY comments.id DESC {$customSQL}");
-                    break;
+//                case 'comment_username':
+//                    if ($limitToUserComment == true){
+//                        return "Access Denied !";
+//                    }else
+//                        $result = $DB->selectAll('*',$tableName,"INNER JOIN users ON users.username LIKE '{$keyword}%' ORDER BY comments.id DESC {$customSQL}");
+//                    break;
                 case 'comment_user_id':
+                    settype($keyword,'integer');
                     if ($reverseId == true)
-                        $result = $DB->selectAll('*',$tableName,"WHERE {$limitToUserComment} user_id LIKE '{$keyword}%' ORDER BY id DESC {$customSQL}");
+                        $result = $DB->selectAll('*',$tableName,"WHERE {$limitToUserComment} user_id = {$keyword} ORDER BY id DESC {$customSQL}");
                     else
-                        $result = $DB->selectAll('*',$tableName,"WHERE {$limitToUserComment} user_id LIKE '{$keyword}%' {$customSQL}");
+                        $result = $DB->selectAll('*',$tableName,"WHERE {$limitToUserComment} user_id = {$keyword} {$customSQL}");
                     break;
                 case 'comment_email':
                     if ($reverseId == true)
