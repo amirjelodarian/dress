@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/dress.iml" filepath="$PROJECT_DIR$/.idea/dress.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../laravel-redis/.idea/laravel-redis.iml" filepath="$PROJECT_DIR$/../laravel-redis/.idea/laravel-redis.iml" />
     </modules>
   </component>
 </project>

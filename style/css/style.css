@@ -2523,6 +2523,11 @@ main #Baby{
     font-weight: bold;
     font-family: 'IRANSansB'
 }
+.add-cart-message{
+    color: #ed5565;
+    font-weight: bold;
+    font-family: 'IRANSansB'
+}
 #deactive-star,#active-star{
     width: 15px;
     height: 15px;

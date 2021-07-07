@@ -217,6 +217,8 @@ namespace Users;
                         $pic_name = $row['pro_pic'];
                         unlink("../style/images/UsersPics/{$pic_name}");
                         $DB->delete("users", "id", $id);
+                        $DB->delete("comments", "user_id", $id);
+                        $DB->delete("cart", "user_id", $id);
                         $Funcs->redirectTo("index.php");
                     } else
                     $_SESSION['errorMessage'] = "خطایی رخ داد !|";

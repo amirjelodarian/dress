@@ -1,0 +1,10 @@
+CREATE TABLE cart(
+    id INT(9) NOT NULL AUTO_INCREMENT,
+    clothes_id INT(9) NOT NULL,
+    user_id INT(9) NOT NULL,
+  	count_cart VARCHAR(255) NOT NULL,
+    create_at VARCHAR(255),
+  	FOREIGN KEY (clothes_id)
+        REFERENCES clothes(id)
+        ON DELETE CASCADE
+  ,PRIMARY KEY(id));

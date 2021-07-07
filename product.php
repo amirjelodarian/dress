@@ -1,8 +1,8 @@
 <?php
-require_once "Classes/initialize.php";
-$Funcs->pageTitle = "تمام محصولات";
-include "Incluedes/header.php";
-$DB->tableName = 'clothes';
+    require_once "Classes/initialize.php";
+    $Funcs->pageTitle = "تمام محصولات";
+    include "Incluedes/header.php";
+    $DB->tableName = 'clothes';
 ?>
 
 <!--End-for-bars-->
@@ -55,7 +55,7 @@ $DB->tableName = 'clothes';
         <div class="row">
             <div class="col-12">
                 <div class="aboutSelect">
-                    <h6>جنسیت را مشخص کنید .</h6>
+                    <h6>دسته را مشخص کنید .</h6>
                 </div>
             </div>
         </div>
@@ -84,7 +84,7 @@ $DB->tableName = 'clothes';
             <div class="row">
                 <div class="col-12">
                     <div class="aboutSelect">
-                        <h6>مدل را مشخص کنید .</h6>
+                        <h6>زیر دسته را مشخص کنید .</h6>
                     </div>
                 </div>
             </div>
@@ -112,7 +112,7 @@ $DB->tableName = 'clothes';
         <!--        End-Man-List-->
 <!--Start-for-man-->
 <!--            Edit-for-amir!-->
-            <? $allModels = $Clothes->selectPanelMenu('model',$DB->tableName,true);
+            <?php $allModels = $Clothes->selectPanelMenu('model',$DB->tableName,true);
             if ($Funcs->checkValue(array($allModels),false,true) && $DB->numRows($allModels) > 0) {
                 while ($allModel = $DB->fetchArray($allModels)):
             ?>
@@ -124,7 +124,7 @@ $DB->tableName = 'clothes';
                         </div>
                     </div>
                     <div class="row ManProduct">
-                        <? $allResults = $Clothes->selectByModel($DB->tableName,$allModel['model'],' LIMIT 4',true);
+                        <?php $allResults = $Clothes->selectByModel($DB->tableName,$allModel['model'],' LIMIT 4',true);
                         while ($allResult = $DB->fetchArray($allResults)):  ?>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                             <div class="product product1">
@@ -167,6 +167,5 @@ $DB->tableName = 'clothes';
 </main>
 <br><br><br>
 <!--End-Main-->
-
 <!--End-footer-->
 <?php include "Incluedes/footer.php"; ?>

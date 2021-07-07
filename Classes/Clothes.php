@@ -140,6 +140,8 @@ namespace Clothes;
                         $pic_name = $row['pic_loc'];
                         unlink("../style/images/ProductPics/{$pic_name}");
                         $DB->delete("clothes", "id", $id);
+                        $DB->delete("cart", "clothes_id", $id);
+                        $DB->delete("comments", "clothes_id", $id);
                         $Funcs->redirectTo("index.php");
                     } else
                     $_SESSION['errorMessage'] = "خطایی رخ داد !|";

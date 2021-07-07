@@ -7,3 +7,5 @@ CREATE TABLE comments(
     score VARCHAR(255),
     PRIMARY KEY(id)
 )
+ALTER TABLE comments ADD FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+ALTER TABLE comments ADD FOREIGN KEY (clothes_id) REFERENCES clothes(id) ON DELETE CASCADE;

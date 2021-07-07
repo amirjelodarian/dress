@@ -2,6 +2,7 @@
     "require": {
         "stefangabos/zebra_pagination": "dev-master",
         "rakit/validation": "^1.4",
-        "phpmailer/phpmailer": "^6.2"
+        "phpmailer/phpmailer": "^6.2",
+      "ext-redis": "*"
     }
 }

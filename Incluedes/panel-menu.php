@@ -1,4 +1,4 @@
-<?
+<?php
 require_once "../Classes/initialize.php";
 $DB->tableName = 'clothes';
 if (!($SS->loggedIn())) $Funcs->redirectTo('../product.php');
@@ -26,7 +26,7 @@ if (!($SS->loggedIn())) $Funcs->redirectTo('../product.php');
 
 </head>
 <body onload="startTime()" id="bgc">
-<?
+<?php
 /* This is Error Message For All Request */
 /* Start */
 if ($Funcs->checkValue($_SESSION["errorMessage"],false,true)){
@@ -74,7 +74,7 @@ if ($Funcs->checkValue($_SESSION["errorMessage"],false,true)){
                     <li><a href="#">شرت</a></li><br />
                 </ul>
             </li><br />
-            <?
+            <?php
             if($Users->isAdministrator() || $Users->isAdmin()){
                     if ($Clothes->selectPanelMenu('type',$DB->tableName)):
                         $menuResult = $Clothes->selectPanelMenu('type',$DB->tableName);
@@ -85,7 +85,7 @@ if ($Funcs->checkValue($_SESSION["errorMessage"],false,true)){
                                     <span style="color: #007bff"><?= $DB->count('clothes','id',"WHERE type='{$Menu['type']}'") ?></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <?
+                                    <?php
                                     $subMenuResult = $Clothes->selectPanelSubMenu('model',$DB->tableName,$Menu['type']);
                                     while ($subMenu = $DB->fetchArray($subMenuResult)): ?>
                                         <li>
@@ -95,10 +95,10 @@ if ($Funcs->checkValue($_SESSION["errorMessage"],false,true)){
                                                     <?= $subMenu['model']; ?>
                                             </a>
                                         </li><br />
-                                    <? endwhile; ?>
+                                    <?php endwhile; ?>
                                 </ul>
                             </li><br />
-                        <?
+                        <?php
                         endwhile;
                     endif; ?>
                     <li class="dropdown-main">

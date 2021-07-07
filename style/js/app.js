@@ -3,7 +3,6 @@ $(document).ready(function(){
 
     // commentsList.php Page
     $('#comments-search').keyup(function () {
-        $('#comments-search-result,.loader-outside').hide();
         var commentsSearch = $("#comments-search").val();
         var commentsOrderBy = $('#comments-order-by').val();
         if (commentsSearch != '' && commentsOrderBy != ''){
@@ -13,7 +12,6 @@ $(document).ready(function(){
                 method: "post",
                 dataType: "text",
                 beforeSend: function() {
-                    $('.loader-outside').val('Searching...');
                     $('.loader-outside').show();
                 },
                 data: {commentsSearch: commentsSearch,commentsOrderBy: commentsOrderBy},
@@ -22,12 +20,13 @@ $(document).ready(function(){
                     $('#comments-search-result').show();
                     $("#comments-search-result").html(data);
                     if (data == "" || data == null){
-                        $('#comments-search-result').hide();
+                        $('#comments-main-result').show();
                     }
                 }
             });
         }else{
             $('#comments-main-result').show();
+            $('#comments-search-result').hide();
         }
     });
     ///////////////////////////////////////////////////
@@ -254,8 +253,8 @@ $(document).ready(function(){
             }
         // });
     });
-        
-    
+
+
     // $("#add-product-submit").click(function () {
     //     var add_product_submit = $("#add-product-submit").val();
     //     var add_product = $("#add-product").val();
@@ -603,7 +602,7 @@ $(document).ready(function(){
         var comment_description = $('#comment-description').val();
         var product_id = $('#product-id').val();
         var comment_score = $('#comment-score').val();
-        
+
         if (comment_title != '' && comment_description != '' && product_id != ''){
             $('#verify-message').html('');
             $.ajax({
@@ -622,7 +621,7 @@ $(document).ready(function(){
             });
         }else{
             $("#verify-message").html('برخی فیلد ها خالی است');
-            
+
         }
     });
     //////////////////////////////////////////////////////////
@@ -631,7 +630,7 @@ $(document).ready(function(){
         location = this.options[this.selectedIndex].value;
     });
 
- 
+
     $('#header-panel .fa-bars').click(function () {
         $('.panels').css('right','0');
         $('#header-panel,#main-for-panel,.main-col').css('width','75%');

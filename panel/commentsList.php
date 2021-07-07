@@ -121,7 +121,7 @@ if ($searchMode){
                                         <small class='icon-clock-8' id='panel-time-comment'><?= $Funcs->EnFa($divid_date_time[0],true) ?></small>
                                         <div class='comment-panel-btns col-xs-12 col-sm-12 col-md-12 col-lg-12'>
                                             <a href='../singleProduct.php?id=<?= $commentsRow["clothes_id"] ?>'>
-                                                <p id='see-room-btn' class='submit_edit'>بازدید اتاق</p>
+                                                <p id='see-room-btn' class='submit_edit'>محصول</p>
                                             </a>
                                             <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="get" style="display: inline-block">
                                                 <input name="deleteCommentId" type="hidden" value='<?= $commentsRow["id"] ?>' />

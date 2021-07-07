@@ -28,8 +28,10 @@ if ($DB->numRows($allResult) !== 0){
                 <img src=<?= $Funcs->showPic("style/images/ProductPics/",$allRow['pic_loc'],'style/images/Defaults/default-product.jpg'); ?> alt=<?= stripslashes($allRow['pic_loc']) ?> />
             </div>
             <div class="Single L_single">
-                <h4><?= $allRow['title'] ?></h4><br>
-                <a href="#">افزودن به سبد خرید</a>
+                <h4><?= $allRow['title'] ?></h4><br>aaa
+                <button id="add-to-cart" class="btn btn-primary">افزودن به سبد خرید</button>
+                <input type="hidden" name="addToCart" id="add-to-cart-value" value="true" />
+                <div id="add-to-cart-result" class="add-cart-message"></div>
                 <div class="Sin_boxes">
                     <div class="sin L_Sin" style="border-left: 0!important;">
                         <h6>رنگ</h6>
@@ -132,6 +134,32 @@ if ($DB->numRows($allResult) !== 0){
             </div>
     </div>
 </main>
+    <script>
+        $(document).ready(function (){
+            $('#add-to-cart').click(function (){
+                var product_id = $('#product-id').val();
+                var add_to_cart = $('#add-to-cart-value').val();
+                if (product_id != ''){
+                    $('#add-to-cart-result').html('');
+                    $.ajax({
+                        url: "singleProductRequest.php",
+                        method: "post",
+                        dataType: "text",
+                        data: {addToCart: add_to_cart,productId: product_id},
+                        success:function (data) {
+                            $('#add-to-cart-result').show();
+                            $("#add-to-cart-result").html(data);
+                            if (data == "" || data == null){
+                                $('#add-to-cart-result').hide();
+                            }
+                        }
+                    });
+                }else{
+                    $("#add-to-cart-result").html('برخی پارامتر ها خالی است');
+                }
+            });
+        });
+    </script>
 
 <?php
     endif;

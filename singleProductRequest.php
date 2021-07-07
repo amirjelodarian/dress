@@ -1,5 +1,6 @@
 <?php require_once 'Classes/initialize.php'; ?>
-<?php 
+<?php
+    // Add Comment
     if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['productId'])){
         if($SS->loggedIn()){
             if(!empty($_POST['score'])){
@@ -23,4 +24,12 @@
                   </ul>";
         }
     }
+    // Add Comment End
+
+
+    // Add To Cart
+    if(!empty($_POST['addToCart']) && !empty($_POST['productId']))
+        $Cart->addCart($_POST['productId']);
+    // End Add To Cart
+
 ?>
