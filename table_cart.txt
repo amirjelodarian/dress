@@ -4,7 +4,4 @@ CREATE TABLE cart(
     user_id INT(9) NOT NULL,
   	count_cart VARCHAR(255) NOT NULL,
     create_at VARCHAR(255),
-  	FOREIGN KEY (clothes_id)
-        REFERENCES clothes(id)
-        ON DELETE CASCADE
   ,PRIMARY KEY(id));

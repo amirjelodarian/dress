@@ -28,7 +28,7 @@ if ($DB->numRows($allResult) !== 0){
                 <img src=<?= $Funcs->showPic("style/images/ProductPics/",$allRow['pic_loc'],'style/images/Defaults/default-product.jpg'); ?> alt=<?= stripslashes($allRow['pic_loc']) ?> />
             </div>
             <div class="Single L_single">
-                <h4><?= $allRow['title'] ?></h4><br>aaa
+                <h4><?= $allRow['title'] ?></h4><br>
                 <button id="add-to-cart" class="btn btn-primary">افزودن به سبد خرید</button>
                 <input type="hidden" name="addToCart" id="add-to-cart-value" value="true" />
                 <div id="add-to-cart-result" class="add-cart-message"></div>
