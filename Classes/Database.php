@@ -74,9 +74,10 @@
             return $result;
         }
 
-        public function selectById($tableName,$id,$columnsName = "*",$customSQL = ""){
+        public function selectById($tableName,$id,$columnsName = "*",$customSQL = "",$idColName = "id"){
             $id = $this->escapeValue($id,true);
-            $sql = "SELECT {$columnsName} FROM {$tableName} WHERE id={$id}";
+//            isset($idColName) ? $idColName = $idColName : $idColName = "id";
+            $sql = "SELECT {$columnsName} FROM {$tableName} WHERE {$idColName}={$id}";
             !empty($sql) ? $sql .= $customSQL : false;
             $result = $this->Query($sql);
             return $result;
@@ -136,7 +137,7 @@
 
         }
 
-        public function delete($tableName,$columnsName,$values = array(),$customSQL = ""){
+        public function delete($tableName,$columnsName,$values = array(),$deleteCondition = "AND",$customSQL = ""){
             if (is_array($values)){
                 foreach ($values as $Value) {
                     if (preg_match("/'/",$Value))
@@ -150,15 +151,16 @@
                 $setSql = "";
                 if (sizeof($columnsName) == sizeof($values)){
                     for($i = 0;$i < sizeof($columnsName);$i++){
-                        $setSql .= "{$columnsName[$i]} = {$allValues[$i]} , ";
+                        $setSql .= "{$columnsName[$i]} = {$allValues[$i]} ";
+                        if ($i !== sizeof($columnsName)-1)
+                            $setSql .= " " . $deleteCondition . " ";
                     }
-                    $setSql = substr($setSql,0,strlen($setSql)-2);
                     $sql = "DELETE FROM {$tableName} WHERE {$setSql} ";
                     !empty($customSQL) ? $sql .= " {$customSQL}" : false;
                     $result = $this->Query($sql);
                     if($result) return true; else return false;
                 }else
-                    $_SESSION['errorMessage'] .= "Update Query Argument Not Valid !";
+                    $_SESSION['errorMessage'] .= "DELETE Query Argument Not Valid !";
             }else{
                 $values = $this->escapeValue($values);
                 $sql = "DELETE FROM {$tableName} WHERE {$columnsName}={$values} ";

@@ -129,18 +129,19 @@
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                             <div class="product product1">
                                 <div class="img-Product" id="product-img">
-                                    <div class="off">
-                                        <p><?= $Funcs->EnFa($Funcs->calcOff($allResult['price'], $allResult['off_price']),true) ?>%</p>
-<!--                                        <b>--><?//= $allResult['type'] ?><!--</b>-->
-<!--                                        <p id="product-color">--><?//= $allResult['color'] ?><!--</p>-->
-                                    </div>
+                                    <?php $offer = $Funcs->calcOff($allResult['price'], $allResult['off_price']);
+                                    if ($offer !== (float)0): ?>
+                                        <div class="off">
+                                            <p><?= $Funcs->EnFa($offer,true) ?>%</p>
+                                        </div>
+                                    <?php endif; ?>
                                     <img src=<?= $Funcs->showPic("style/images/ProductPics/",$allResult['pic_loc'],'style/images/Defaults/default-product.jpg'); ?> alt=<?= stripslashes($allResult['pic_loc']) ?> />
                                     <a  href=singleProduct.php?id=<?= $allResult['id'] ?> id="more-details" class="more-details">...جزئیات بیشتر</a>
                                 </div>
                                 <input name="deleteProductId" type="hidden" value='<?= $allResult["id"] ?>' />
                                     <div class="Mark">
                                         <div class="container d-flex justify-content-between">
-                                            <p style="font-size: 13px;padding: 5px;position: relative;top: 6px;"><?= $allResult['off_price'] ?> تومان</p>
+                                            <p style="font-size: 13px;padding: 5px;position: relative;top: 6px;"><?= $Funcs->insertSeperator($allResult['off_price']) ?> تومان</p>
                                             <h5 style="font-size: 13px;padding: 5px;position: relative;top: 8px;"><?= $allResult['title'] ?></h5>
                                         </div>
                                     </div>

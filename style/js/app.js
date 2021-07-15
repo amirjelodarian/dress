@@ -1001,3 +1001,55 @@ function checkTime(i) {
     if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
     return i;
 }
+function increaseValue(id,maxValue) {
+    var value = parseInt(document.getElementById('number-'+id).value, 10);
+    var increase = document.getElementById('increase-'+id);
+    if (maxValue > value){
+        value = isNaN(value) ? 1 : value;
+        value++;
+        if(value == (maxValue))
+            increase.style.display = "none";
+        else
+            increase.style.display = "inline-block";
+    }
+    document.getElementById('number-'+id).value = value;
+}
+
+function decreaseValue(id,maxValue) {
+    var value = parseInt(document.getElementById('number-'+id).value, 10);
+    var increase = document.getElementById('increase-'+id);
+    value = isNaN(value) ? 1 : value;
+    value < 1 ? value = 1 : '';
+    value--;
+    if(value == (maxValue))
+        increase.style.display = "none";
+    else
+        increase.style.display = "inline-block";
+    document.getElementById('number-'+id).value = value;
+}
+function increaseValueSingleProduct(maxValue) {
+    var value = parseInt(document.getElementById('number').value, 10);
+    var increase = document.getElementById('increase');
+    if (maxValue > value){
+        value = isNaN(value) ? 1 : value;
+        value++;
+        if(value == (maxValue))
+            increase.style.display = "none";
+        else
+            increase.style.display = "inline-block";
+    }
+    document.getElementById('number').value = value;
+}
+
+function decreaseValueSingleProduct(maxValue) {
+    var value = parseInt(document.getElementById('number').value, 10);
+    var increase = document.getElementById('increase');
+    value = isNaN(value) ? 1 : value;
+    value < 1 ? value = 1 : '';
+    value--;
+    if(value == (maxValue))
+        increase.style.display = "none";
+    else
+        increase.style.display = "inline-block";
+    document.getElementById('number').value = value;
+}

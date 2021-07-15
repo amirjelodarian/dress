@@ -1,0 +1,14 @@
+CREATE TABLE checkout(
+   id INT(9) NOT NULL AUTO_INCREMENT,
+   first_name VARCHAR(255) NOT NULL,
+   last_name VARCHAR(255) NOT NULL,
+   tell VARCHAR(255) NOT NULL,
+   state VARCHAR(255) NOT NULL,
+   city VARCHAR(255) NOT NULL,
+    address TEXT NOT NULL,
+    zip VARCHAR(255) NOT NULL,
+    order_description TEXT,
+    delivery_at VARCHAR(255),
+    create_at VARCHAR(255) NOT NULL,
+    PRIMARY KEY(id)
+);

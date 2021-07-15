@@ -109,6 +109,7 @@ header{
     position: absolute;
     top: 50%;
     transform: translate(0,-50%);
+    font-family: 'IRANSansL';
 }
 .C-header img{
     width: 70px;
@@ -130,6 +131,7 @@ header{
     color: black;
     text-decoration: none;
     transition: all 0.2s;
+    font-family: 'IRANSansM';
 }
 .R-header nav ul li a:hover{
     color: gray;
@@ -2029,8 +2031,6 @@ main #Baby{
     height: auto;
     margin-top: 20px;
     background-color: #ffffff;
-    border: 1px solid #ffffff;
-    box-shadow: 1px 1px 10px grey;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -2038,7 +2038,7 @@ main #Baby{
 }
 #order-main .orders .L-order{
     width: 100%;
-    height: 300px;
+    height: 210px;
 }
 #order-main .orders .L-order .btns p{
     margin-top: 10px;
@@ -2286,15 +2286,6 @@ main #Baby{
     width: 50%;
     position: relative;
 }
-.R_single img{
-    max-width: 100%;
-    max-height: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    padding: 10px;
-}
 .L_single{
     text-align: right;
 }
@@ -2523,15 +2514,48 @@ main #Baby{
     font-weight: bold;
     font-family: 'IRANSansB'
 }
-.add-cart-message{
+.add-cart-message {
     color: #ed5565;
+    margin-top: 10px;
     font-weight: bold;
-    font-family: 'IRANSansB'
+    font-family: 'IRANSansB';
 }
 #deactive-star,#active-star{
     width: 15px;
     height: 15px;
     color: darkorange;
+}
+.number-increase-decrease {
+    display: inline-block;
+}
+.add-to-cart-value{
+    width: 50px;
+    text-align: center;
+}
+.value-button-decrease,.value-button-increase {
+    display: inline-block;
+    border: 1px solid #ddd;
+    margin: 0px;
+    width: 40px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    background: #eee;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-top: -2px;
+}
+.value-button-increase{
+    margin-left: -5px !important;
+    border-radius: 0px 5px 5px 0px !important;
+}
+.value-button-decrease{
+    margin-right: -5px !important;
+    border-radius: 5px 0px 0px 5px !important;
 }
 
 /* Non-essential */
@@ -2848,7 +2872,47 @@ main #Baby{
     -webkit-transition: .4s;
     transition: .4s;
 }
-
+.sum-product{
+    background: #007bff!important;
+    color: white!important;
+    padding: 5px;
+    font-family: 'IRANSansL';
+}
+.sum-product-price{
+    font-family: 'IRANSansB';
+}
+.bg-warning-customize{
+    font-family: 'IRANSansL'!important;
+    opacity: 0.7;
+    font-size: 14px;
+}
+.refresh-page-btn{
+    margin-top: -5px;
+    font-size: 14px;
+    font-family: 'IRANSansM';
+}
+.refresh-page-btn img{
+    width: 27px;
+    height: 27px;
+    margin-top: 13px;
+    background: #007bff;
+    padding: 1px;
+    border-radius: 100%;
+    border: 2px solid #007bff;
+    margin-left: 4px;
+    margin-bottom: 14px;
+}
+.sum-product-word{
+    text-align: center;
+}
+.cart-table td{
+    direction: rtl!important;
+    font-family: 'IRANSansL';
+}
+.count-product-order{
+    font-family: 'IRANSansB';
+    display:inline-block;
+}
 .change-publish-mode-span:before {
     position: absolute;
     content: "";
@@ -2936,6 +3000,10 @@ main #Baby{
     .Main_Comment{
         width: 100%;
     }
+    .R_single img {
+        max-width: 100%;
+        max-height: 100%;
+    }
 }
 /*End_Comment_Page*/
 @media (max-width: 1200px) {
@@ -2998,6 +3066,10 @@ main #Baby{
 @media (min-width: 1201px){
     .about-filter{
         display: none !important;
+    }
+    .R_single img{
+        max-width: 100%;
+        max-height: 100%;
     }
 }
 @media (max-width: 767px) {
@@ -3116,6 +3188,16 @@ main #Baby{
     .product .img-Product img {
         height: 250px;
         max-height: 250px;
+    }
+}
+
+@media (min-width: 992px){
+    .customize-col-lg-3-order{
+        max-width: 24%!important;
+    }
+    .row-customize-orders{
+        margin-right: -7%!important;
+        margin-left: 2%!important;
     }
 }
 /*@media (max-width: 950px){*/

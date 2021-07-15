@@ -25,12 +25,26 @@ if ($DB->numRows($allResult) !== 0){
         <div class="SingleBox">
 
             <div class="Single R_single">
+                <?php $offer = $Funcs->calcOff($allRow['price'], $allRow['off_price']);
+                if ($offer !== (float)0): ?>
+                    <div class="off">
+                        <p><?= $Funcs->EnFa($offer,true) ?>%</p>
+                    </div>
+                <?php endif; ?>
                 <img src=<?= $Funcs->showPic("style/images/ProductPics/",$allRow['pic_loc'],'style/images/Defaults/default-product.jpg'); ?> alt=<?= stripslashes($allRow['pic_loc']) ?> />
             </div>
             <div class="Single L_single">
                 <h4><?= $allRow['title'] ?></h4><br>
                 <button id="add-to-cart" class="btn btn-primary">افزودن به سبد خرید</button>
-                <input type="hidden" name="addToCart" id="add-to-cart-value" value="true" />
+                <div class="number-increase-decrease">
+                    <div class="value-button-decrease" id="decrease" onclick="decreaseValueSingleProduct(<?= $allRow['count'] ?>)" value="Decrease Value">-</div>
+                    <input id="number" class="add-to-cart-value" name="addToCartValue" value="1" min="1" max=<?= $allRow['count'] ?> />
+                    <div class="value-button-increase" id="increase" onclick="increaseValueSingleProduct(<?= $allRow['count'] ?>)" value="Increase Value">+</div>
+                </div>
+                <div class="S_Description">
+                    موجودی در انبار
+                    <p><?= $allRow['count'] ?> عدد</p>
+                </div>
                 <div id="add-to-cart-result" class="add-cart-message"></div>
                 <div class="Sin_boxes">
                     <div class="sin L_Sin" style="border-left: 0!important;">
@@ -43,19 +57,20 @@ if ($DB->numRows($allResult) !== 0){
                     </div>
                     <div class="sin R_Sin">
                         <h6>قیمت قبل تخفیف</h6>
-                        <h6><b><?= $allRow['price'] ?></b></h6>
+                        <h6><b><?= $Funcs->insertSeperator($allRow['price']) ?></b></h6>
                     </div>
                 </div>
                 <div class="row_single">
                     <div class="rows R_row">
-                        <h6><b><?= $allRow['off_price'] ?> تومان</b></h6>
+                        <h6><b><?= $Funcs->insertSeperator($allRow['off_price']) ?> تومان</b></h6>
                     </div>
                     <div class="rows L_row">
                         <h6>قیمت </h6>
                     </div>
                 </div>
                 <div class="S_Description">
-                    <p><?= $allRow['description'] ?></p>
+                    توضیحات
+                    <p><?= nl2br(htmlspecialchars($allRow['description'])) ?></p>
                 </div>
 
             </div>
@@ -122,7 +137,7 @@ if ($DB->numRows($allResult) !== 0){
                                         </div>
                                         <div class="L_Comment">
                                             <h4><?= $commentsRow['title'] ?></h4>
-                                            <p><?= htmlspecialchars($commentsRow['description']) ?></p>
+                                            <p><?= nl2br(htmlspecialchars($commentsRow['description'])) ?></p>
                                         </div>
                                     </div>
                                     <?php
@@ -138,14 +153,14 @@ if ($DB->numRows($allResult) !== 0){
         $(document).ready(function (){
             $('#add-to-cart').click(function (){
                 var product_id = $('#product-id').val();
-                var add_to_cart = $('#add-to-cart-value').val();
+                var add_to_cart_value = $('.add-to-cart-value').val();
                 if (product_id != ''){
                     $('#add-to-cart-result').html('');
                     $.ajax({
                         url: "singleProductRequest.php",
                         method: "post",
                         dataType: "text",
-                        data: {addToCart: add_to_cart,productId: product_id},
+                        data: {productId: product_id,addToCartValue: add_to_cart_value},
                         success:function (data) {
                             $('#add-to-cart-result').show();
                             $("#add-to-cart-result").html(data);

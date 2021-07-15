@@ -1,13 +1,13 @@
 <?
     include "../Incluedes/panel-menu.php";
 if (isset($_POST['addNewProduct'])){
-    if ($Funcs->checkValue([$_POST["type"], $_POST["model"], $_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"], $_POST["price"], $_POST["offPrice"]],true,true)){
+    if ($Funcs->checkValue([$_POST["type"], $_POST["model"], $_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"], $_POST["price"], $_POST["offPrice"],$_POST['count']],true,true)){
         if($_FILES['uploadFile']['size'] == 0 && $_FILES['uploadFile']['name'] == "")
-            $Clothes->addProduct([$_POST["type"], $_POST["model"], $_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"], $Funcs->EnFa($_POST["price"],false,true), $Funcs->EnFa($_POST["offPrice"],false,true)]);
+            $Clothes->addProduct([$_POST["type"], $_POST["model"], $_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"], $Funcs->EnFa($_POST["price"],false,true), $Funcs->EnFa($_POST["offPrice"],false,true),$Funcs->EnFa($_POST["count"],false,true)]);
         else
-            $Clothes->addProduct([$_POST["type"], $_POST["model"], $_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"], $Funcs->EnFa($_POST["price"],false,true), $Funcs->EnFa($_POST["offPrice"],false,true)], "uploadFile");
+            $Clothes->addProduct([$_POST["type"], $_POST["model"], $_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"], $Funcs->EnFa($_POST["price"],false,true), $Funcs->EnFa($_POST["offPrice"],false,true),$Funcs->EnFa($_POST["count"],false,true)], "uploadFile");
     }else{
-        $_SESSION["errorMessage"] .= "برخی از فیلد ها خالیست .";
+        $_SESSION["errorMessage"] .= "برخی از فیلد ها خالیست |";
         $Funcs->redirectTo("addProduct.php");
     }
 }
@@ -37,10 +37,10 @@ if (isset($_POST['addNewProduct'])){
             </div>
             <div class="themselve-clothes-type">
 
-                <input type="text" id='type-clothes' class="clothes-type" name="type" placeholder="مردانه" autocomplete="off" required />
+                <input type="text" id='type-clothes' class="clothes-type" name="type" placeholder="شاخه" autocomplete="off" required />
                 <ul class="result-list" id="type-result"></ul>
 
-                <input type="text" id="model-clothes" class="clothes-type" name="model" placeholder="تیشرت" autocomplete="off" required />
+                <input type="text" id="model-clothes" class="clothes-type" name="model" placeholder="زیر شاخه" autocomplete="off" required />
                 <ul class="result-list" id="model-result"></ul>
 
                 <input type="text" id="fabricType-clothes" class="clothes-type" name="fabricType" placeholder="جنس محصول" autocomplete="off" required />
@@ -51,6 +51,9 @@ if (isset($_POST['addNewProduct'])){
 
                 <input type="text" id="color-clothes" class="clothes-type" name="color" placeholder="رنگ" autocomplete="off"  required />
                 <ul class="result-list" id="color-result"></ul>
+
+                <input type="text" id="count-clothes" class="clothes-type" name="count" placeholder="تعداد" autocomplete="off"  required />
+
 
             </div>
 

@@ -98,16 +98,16 @@ namespace Clothes;
         }
         public function addProduct($values = array(),$fileNameForUpload = ""){
             global $DB,$Funcs,$Sessions;
-
+            ($values[9] == "" || empty($values[9]) || !(filter_var($values[9], FILTER_VALIDATE_INT))) ? $values[9] = "1" : TRUE;
             if ($Funcs->checkValue($fileNameForUpload,true,true)){
                 $Funcs->uploadPic($fileNameForUpload, '../style/images/ProductPics/', '2097152');
                     array_push($values,Functions::$fileName);
-                    if($DB->insert("clothes", "type,model,title,fabric_type,description,size,color,price,off_price,pic_loc", $values))
+                    if($DB->insert("clothes", "type,model,title,fabric_type,description,size,color,price,off_price,count,pic_loc", $values))
                         $Funcs->redirectTo("addProduct.php");
                     else
                         $_SESSION['errorMessage'] = "خطایی رخ داد !|";
             } else {
-                if($DB->insert("clothes", "type,model,title,fabric_type,description,size,color,price,off_price", $values))
+                if($DB->insert("clothes", "type,model,title,fabric_type,description,size,color,price,off_price,count", $values))
                     $Funcs->redirectTo("addProduct.php");
                 else
                     $_SESSION['errorMessage'] = "خطایی رخ داد !|";
@@ -117,15 +117,16 @@ namespace Clothes;
         public function editProduct($values = array(),$fileNameForUpload = "",$id){
             global $DB,$Funcs,$Sessions;
             $id = $DB->escapeValue($id,true);
+            ($values[9] == "" || empty($values[9]) || !(filter_var($values[9], FILTER_VALIDATE_INT))) ? $values[9] = "1" : TRUE;
             if ($Funcs->checkValue($fileNameForUpload,true,true)){
                 $Funcs->uploadPic($fileNameForUpload, '../style/images/ProductPics/', '2097152');
                 array_push($values,Functions::$fileName);
-                if($DB->update("clothes", "title,fabric_type,description,size,color,model,type,price,off_price,pic_loc", $values," WHERE id = {$id}"))
+                if($DB->update("clothes", "title,fabric_type,description,size,color,model,type,price,off_price,count,pic_loc", $values," WHERE id = {$id}"))
                     $Funcs->redirectTo("editProduct.php?id={$id}");
                 else
                     $_SESSION['errorMessage'] = "خطایی رخ داد !|";
             } else {
-                if($DB->update("clothes", "title,fabric_type,description,size,color,model,type,price,off_price", $values," WHERE id = {$id} "))
+                if($DB->update("clothes", "title,fabric_type,description,size,color,model,type,price,off_price,count", $values," WHERE id = {$id} "))
                     $Funcs->redirectTo("editProduct.php?id={$id}");
                 else
                     $_SESSION['errorMessage'] = "خطایی رخ داد !|";

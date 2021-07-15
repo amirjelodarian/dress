@@ -11,9 +11,12 @@ if ($Funcs->checkValue([$allResult],false,true) && $DB->numRows($allResult) > 0)
         <div class="col-12 col-sm-6 col-md-6 col-lg-3">
             <div class="product product1">
                 <div class="img-Product">
-                    <div class="off">
-                        <p><?= $Funcs->EnFa($Funcs->calcOff($allRow['price'], $allRow['off_price']),true) ?>%</p>
-                    </div>
+                    <?php $offer = $Funcs->calcOff($allRow['price'], $allRow['off_price']);
+                    if ($offer !== (float)0): ?>
+                        <div class="off">
+                            <p><?= $Funcs->EnFa($offer,true) ?>%</p>
+                        </div>
+                    <?php endif; ?>
                     <div class="del-btn">
                         <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="get">
                             <input name="deleteProductId" type="hidden" value='<?= $allRow["id"] ?>' />
@@ -28,7 +31,7 @@ if ($Funcs->checkValue([$allResult],false,true) && $DB->numRows($allResult) > 0)
                 <div class="aboutProduct">
                     <?= $allRow["id"] ?>
                     <div class="Price">
-                        <p><?= $Funcs->EnFa($allRow['off_price'],true) ?> تومان</p>
+                        <p><?= $Funcs->EnFa($Funcs->insertSeperator($allRow['off_price']),true) ?> تومان</p>
                     </div>
                     <div class="Mark">
                         <div class="container">

@@ -180,6 +180,16 @@ use Rakit\Validation\Validator;
             $Zebra->records_per_page($recordsPerPage);
             $Zebra->render();
         }
+        public function cartPagination($tableName,$tableId,$page = 1,$recordsPerPage = 10){
+            global $Zebra,$DB,$Users;
+            $result = $DB->selectAll($tableId,$tableName,"WHERE user_id={$Users->id}");
+            $totalRecord = $DB->numRows($result);
+            $Zebra->records($totalRecord);
+            $Zebra->navigation_position('center');
+            $Zebra->labels('قبلی', 'بعدی',$page);
+            $Zebra->records_per_page($recordsPerPage);
+            $Zebra->render();
+        }
         public function clothesSearchPagination($tableName,$keyword,$orderBy,$tableId,$page = 1,$recordsPerPage = 10,$indexPage = ''){
             global $Zebra,$DB;
             $keyword = $DB->escapeValue($keyword);
@@ -557,6 +567,25 @@ use Rakit\Validation\Validator;
             if ($value == $value2){
                 return $doAnyThing;
             }
+        }
+        public function insertSeperator($num) {
+            settype($num,"String");
+            $n = strlen($num);
+            $i = 0;
+            $help = $n % 3;
+            while ($help != 0) {
+                $num = '0'.$num;
+                $i++;
+                $n = strlen($num);
+                $help = $n % 3;
+            }
+            $arr = str_split($num,3);
+            $str = "";
+            foreach ($arr as $index) {
+                $str = $str.",".$index;
+            }
+            $i++;
+            return substr($str,$i);
         }
     }
     $Funcs = new Functions();

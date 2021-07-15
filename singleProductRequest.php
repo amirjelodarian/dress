@@ -28,8 +28,8 @@
 
 
     // Add To Cart
-    if(!empty($_POST['addToCart']) && !empty($_POST['productId']))
-        $Cart->addCart($_POST['productId']);
+    if(!empty($_POST['productId']) && !empty($_POST['addToCartValue']))
+        $Cart->addCart($_POST['productId'],$_POST['addToCartValue']);
     // End Add To Cart
 
 ?>

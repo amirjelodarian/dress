@@ -3,11 +3,11 @@ include "../Incluedes/panel-menu.php";
 
     if (isset($_POST['editProduct'])) {
         $id = $DB->escapeValue($_POST['id'],true);
-        if ($Funcs->checkValue([$_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"],$_POST["model"],$_POST["type"], $_POST["price"], $_POST["offPrice"]], true, true)) {
+        if ($Funcs->checkValue([$_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"],$_POST["model"],$_POST["type"], $_POST["price"], $_POST["offPrice"],$_POST["count"]], true, true)) {
             if ($_FILES['uploadFile']['size'] == 0 && $_FILES['uploadFile']['name'] == "")
-                $Clothes->editProduct([$_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"],$_POST["model"],$_POST["type"], $Funcs->EnFa($_POST["price"], false, true), $Funcs->EnFa($_POST["offPrice"], false, true)],'',$_POST['id']);
+                $Clothes->editProduct([$_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"],$_POST["model"],$_POST["type"], $Funcs->EnFa($_POST["price"], false, true), $Funcs->EnFa($_POST["offPrice"], false, true), $Funcs->EnFa($_POST["count"], false, true)],'',$_POST['id']);
             else
-                $Clothes->editProduct([$_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"],$_POST["model"],$_POST["type"], $Funcs->EnFa($_POST["price"], false, true), $Funcs->EnFa($_POST["offPrice"], false, true)], "uploadFile",$_POST['id']);
+                $Clothes->editProduct([$_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"],$_POST["model"],$_POST["type"], $Funcs->EnFa($_POST["price"], false, true), $Funcs->EnFa($_POST["offPrice"], false, true), $Funcs->EnFa($_POST["count"], false, true)], "uploadFile",$_POST['id']);
         } else {
             $_SESSION["errorMessage"] .= "برخی از فیلد ها خالیست .";
             $Funcs->redirectTo("editProduct.php?id={$id}");
@@ -118,6 +118,12 @@ include "../Incluedes/panel-menu.php";
                                         <div class="container">
                                             <span>جنس</span>
                                             <input id="editpage-inputs" type="text" name="fabricType" value="<?= $allRow['fabric_type'] ?>" required />
+                                        </div>
+                                    </div><br />
+                                    <div class="textProduct">
+                                        <div class="container">
+                                            <span>تعداد</span>
+                                            <input id="editpage-inputs" type="text" name="count" value="<?= $allRow['count'] ?>" required />
                                         </div>
                                     </div><br />
                                     <input type="submit" id="add-product-submit" name="editProduct" value="ویرایش محصول" />
