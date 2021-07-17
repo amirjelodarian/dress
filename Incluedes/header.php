@@ -61,7 +61,14 @@ if ($Funcs->checkValue($_SESSION["errorMessage"],false,true)){
                         <ul>
                             <li><a href="index.php">صفحه اصلی</a></li>
                             <li><a href="product.php">محصولات</a></li>
-                            <li><a href="orders.php"><i class="fa fa-shopping-cart"></i> سبد خرید</a></li>
+                            <li>
+                                <a href="cart.php"><i class="fa fa-shopping-cart"></i>
+                                    <?php if($SS->loggedIn()){ ?>
+                                        <span style="color: red"><?=  $cart->cartOrderCount() ?></span>
+                                    <?php } ?>
+                                    سبد خرید
+                                </a>
+                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -136,7 +143,12 @@ if ($Funcs->checkValue($_SESSION["errorMessage"],false,true)){
             <div class="col-12">
                 <div class="box">
                     <div class="container">
-                        <a href="orders.php"><i class="fa fa-shopping-cart"></i> سبد خرید</a>
+                        <a href="cart.php"><i class="fa fa-shopping-cart"></i>
+                            <?php if($SS->loggedIn()){ ?>
+                                <span style="color: red"><?=  $cart->cartOrderCount() ?></span>
+                            <?php } ?>
+                            سبد خرید
+                        </a>
                     </div>
                 </div>
             </div>

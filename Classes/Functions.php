@@ -182,7 +182,7 @@ use Rakit\Validation\Validator;
         }
         public function cartPagination($tableName,$tableId,$page = 1,$recordsPerPage = 10){
             global $Zebra,$DB,$Users;
-            $result = $DB->selectAll($tableId,$tableName,"WHERE user_id={$Users->id}");
+            $result = $DB->selectAll($tableId,$tableName,"WHERE user_id={$Users->id} AND checkout_id = 0 ");
             $totalRecord = $DB->numRows($result);
             $Zebra->records($totalRecord);
             $Zebra->navigation_position('center');
@@ -586,6 +586,43 @@ use Rakit\Validation\Validator;
             }
             $i++;
             return substr($str,$i);
+        }
+
+        public function hash($password){
+            $salt = "ODIN-NIDO-ENOLA-FERI-FERYR-THOR-LOKI-RAGNAROK";
+            $salt2 = "OdIn-nIDo-EnOlA-FeRi-feRyR-tHoR-LokI-raGNaROk";
+            $password = $salt.$password.$salt2;
+            echo $password . "<hr />";
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            echo $hashed_password."<hr />".strlen($hashed_password)."<hr />";
+            if(password_verify($password,$hashed_password))
+                return false;
+            else
+                return true;
+        }
+        public function encrypt_decrypt($action, $string){
+            /* =================================================
+             * ENCRYPTION-DECRYPTION
+             * =================================================
+             * ENCRYPTION: encrypt_decrypt('encrypt', $string);
+             * DECRYPTION: encrypt_decrypt('decrypt', $string) ;
+             */
+            $output = false;
+            $encrypt_method = "AES-256-CBC";
+            $secret_key = 'ODIN-NIDO-ENOLA-FERI-FERYR-THOR-LOKI-RAGNAROK';
+            $secret_iv = 'OdIn-nIDo-EnOlA-FeRi-feRyR-tHoR-LokI-raGNaROk';
+            // hash
+            $key = hash('sha256', $secret_key);
+            // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+            $iv = substr(hash('sha256', $secret_iv), 0, 16);
+            if ($action == 'encrypt') {
+                $output = base64_encode(openssl_encrypt($string, $encrypt_method, $key, 0, $iv));
+            } else {
+                if ($action == 'decrypt') {
+                    $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+                }
+            }
+            return $output;
         }
     }
     $Funcs = new Functions();

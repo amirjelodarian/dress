@@ -31,9 +31,9 @@ namespace Clothes;
         public function selectPanelMenu($columnName = "",$tableName,$reverseId = ""){
             global $DB;
                 if ($reverseId == true)
-                    $result = $DB->selectAll('DISTINCT('.$columnName.')',$tableName,' ORDER BY id DESC');
+                    $result = $DB->selectAll('DISTINCT('.$columnName.')',$tableName,'WHERE count != 0 ORDER BY id DESC');
                 else
-                    $result = $DB->selectAll('DISTINCT('.$columnName.')',$tableName);
+                    $result = $DB->selectAll('DISTINCT('.$columnName.')',$tableName,'WHERE count != 0');
                 if($DB->numRows($result) > 0)
                     return $result;
                 else
@@ -87,9 +87,9 @@ namespace Clothes;
             $allSubMenu[] = array();
             $model = $DB->escapeValue($model);
             if ($reverseId == true)
-                $result = $DB->selectAll('*',$tableName,"WHERE model='{$model}' ORDER BY id DESC {$customSQL}");
+                $result = $DB->selectAll('*',$tableName,"WHERE model='{$model}' AND count != 0 ORDER BY id DESC {$customSQL}");
             else
-                $result = $DB->selectAll('*',$tableName,"WHERE model='{$model}' {$customSQL}");
+                $result = $DB->selectAll('*',$tableName,"WHERE model='{$model}' AND count != 0 {$customSQL}");
             if($DB->numRows($result) > 0){
                 return $result;
             }else{

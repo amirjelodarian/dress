@@ -84,7 +84,7 @@ if (isset($_GET['deleteComment'])){
                                     $_POST['captcha'] => $_SESSION['randomCode']
                                 ]);
                                 if (Validate::$errors == ""){
-                                    $DB->update('users', 'password', $_POST['password'], "WHERE id = {$users->id}");
+                                    $DB->update('users', 'password', $Funcs->encrypt_decrypt('encrypt',$_POST['password']), "WHERE id = {$users->id}");
                                     $_SESSION['errorMessage'] .= "رمز با موفقیت تغییر کرد = {$_POST['password']}";
                                     $Funcs->redirectTo('profile.php');
                                 }

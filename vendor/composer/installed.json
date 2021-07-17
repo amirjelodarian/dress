@@ -183,5 +183,6 @@
             "install-path": "../stefangabos/zebra_pagination"
         }
     ],
-    "dev": true
+    "dev": true,
+    "dev-package-names": []
 }

@@ -52,6 +52,7 @@ date_default_timezone_set('Asia/Tehran');
     require_once "Users.php";
     require_once "Comments.php";
     require_once "Cart.php";
+    require_once "Checkout.php";
     $currentDir = getcwd();
     if (preg_match('/\/panel/',$currentDir) || preg_match('/\/Classes/',$currentDir)) {
         require_once '../vendor/stefangabos/zebra_pagination/Zebra_Pagination.php';

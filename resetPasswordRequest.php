@@ -15,7 +15,7 @@ if (!empty($_POST['resetPasswordInput']) && !empty($_POST['resetPasswordInputCon
         }
         if ($checkValue == true){
             $password = $DB->escapeValue($password);
-            $DB->update('users','password',$password," WHERE email='{$_SESSION['resetPasswordEmail']}'");
+            $DB->update('users','password',$Funcs->encrypt_decrypt('encrypt',$password)," WHERE email='{$_SESSION['resetPasswordEmail']}'");
             $_SESSION['errorMessage'] = "رمز با موفقیت تغییر کرد = {$password}";
             $Funcs->redirectTo('login.php',true);
         }

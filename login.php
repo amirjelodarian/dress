@@ -55,7 +55,7 @@ else
             }
             if (Validate::$errors == ""){
                 echo "<div class='e-message'><p>";
-                $Users->selectByUsernameOrEmailAndPassword($_POST['usernameOrEmail'],$_POST['password'],$redirect);
+                $Users->selectByUsernameOrEmailAndPassword($_POST['usernameOrEmail'],$Funcs->encrypt_decrypt('encrypt',$_POST['password']),$redirect);
                 echo "</p></div>";
             }
 

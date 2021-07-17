@@ -16,13 +16,13 @@ $startFrom = ($page-1)*$recordPerPage;
            <div class="col-12">
             <a href="#"><i class="fa fa-shopping-cart"></i><span id="cartOrderCount"><?=  $cart->cartOrderCount() ?></span></a>
            <hr>
-            <a href="orders.php?page=<?= $page ?>" class="refresh-page-btn" id="refresh-page">بارگذاری مجدد<img src="style/images/SitePics/refresh-icon.png" /></a>
+            <a href="cart.php?page=<?= $page ?>" class="refresh-page-btn" id="refresh-page">بارگذاری مجدد<img src="style/images/SitePics/refresh-icon.png" /></a>
        <?php else: ?>
             <div class="single-product-message" id="verify-message">
                برای درج محصول و مشاهده سبد خرید باید وارد شوید یا حسابی بسازید
                <ul>
-                   <li><a href='login.php?from=orders.php'>ورود</a></li>
-                   <li><a href='register.php?from=orders.php'>ثبت نام</a></li>
+                   <li><a href='login.php?from=cart.php'>ورود</a></li>
+                   <li><a href='register.php?from=cart.php'>ثبت نام</a></li>
                </ul>
            </div>
            </div>
@@ -61,6 +61,7 @@ $startFrom = ($page-1)*$recordPerPage;
                    <span class="sum-product">جمع کل : </span>
                    <span class="sum-product sum-product-price"><?= $Funcs->insertSeperator($cart->calculateCart()['sum']) ?> تومان </span>
                </div>
+               <a class="checkout-btn" href="checkout.php">نهایی کردن خرید</a>
            </div>
            <?php
            $userCartResult = $cart->showCartByUserId($startFrom,$recordPerPage);
@@ -68,10 +69,12 @@ $startFrom = ($page-1)*$recordPerPage;
                $userClothesResult = $DB->selectById('clothes',$userCartRow['clothes_id']);
                 if ($userClothesRow = $DB->fetchArray($userClothesResult)): ?>
                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 customize-col-lg-3-order" id="cart-<?= $userCartRow['clothes_id'] ?>">
+                       <div class="around-single-cart">
                        <div class="orders" id="orders1">
                            <div class="L-order text-right">
                                <div class="container"><br>
                                    <img src=<?= $Funcs->showPic("style/images/ProductPics/",$userClothesRow['pic_loc'],'style/images/Defaults/default-product.jpg'); ?> alt=<?= stripslashes($userClothesRow['pic_loc']) ?> />
+                               </div>
                                </div>
                            </div>
                            <br>
@@ -102,7 +105,7 @@ $startFrom = ($page-1)*$recordPerPage;
                                                if (product_id != ''){
                                                    $("#add-to-cart-result-<?= $userCartRow['clothes_id'] ?>").html('');
                                                    $.ajax({
-                                                       url: "ordersRequest.php",
+                                                       url: "cartRequest.php",
                                                        method: "post",
                                                        dataType: "text",
                                                        data: {productId: product_id,addToCartValue: add_to_cart_value},
@@ -134,7 +137,7 @@ $startFrom = ($page-1)*$recordPerPage;
                                                if (product_id != '' && trash){
                                                    $("#add-to-cart-result-<?= $userCartRow['clothes_id'] ?>").html('');
                                                    $.ajax({
-                                                       url: "ordersRequest.php",
+                                                       url: "cartRequest.php",
                                                        method: "post",
                                                        dataType: "text",
                                                        beforeSend: function() {
@@ -163,10 +166,11 @@ $startFrom = ($page-1)*$recordPerPage;
                                </div>
                            </div>
                        </div>
-                   </div>
+                       </div>
                 <?php endif;
            endwhile;
            ?>
+       </div>
            <?php $Funcs->cartPagination('cart','user_id',$page,$recordPerPage); ?>
        </div>
        <?php endif; ?>

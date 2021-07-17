@@ -8,7 +8,7 @@ class Cart{
         if ($SS->loggedIn()) {
             $userId = $DB->escapeValue($Users->id, true);
             $productId = $DB->escapeValue($productId, true);
-            $cartCountResult = $DB->selectAll('count', 'cart', "WHERE user_id={$userId} AND clothes_id={$productId}");
+            $cartCountResult = $DB->selectAll('count', 'cart', "WHERE user_id={$userId} AND clothes_id={$productId} AND checkout_id=0");
             $clothesCountResult = $DB->selectAll('count', 'clothes', "WHERE id={$productId}");
             if ($clothesCount = $DB->fetchArray($clothesCountResult)) {
                 if ($this->cartCountValidate($count, $clothesCount['count'])){
@@ -54,7 +54,7 @@ class Cart{
 
     public function cartOrderCount(){
         global $DB,$Users;
-        $result = $DB->selectById('cart',$Users->id,'SUM(count) AS count','','user_id');
+        $result = $DB->selectById('cart',$Users->id,'SUM(count) AS count',' AND checkout_id = 0','user_id');
         if($row = $DB->fetchArray($result))
                 $order = $row['count'];
         ($order == "" || empty($order)) ? $order = '0' : $order;
@@ -63,7 +63,12 @@ class Cart{
 
     public function showCartByUserId($startFrom,$recordPerPage){
         global $DB,$Users;
-        $result = $DB->selectAll('*','cart',"WHERE user_id={$Users->id} ORDER BY cart.id DESC LIMIT {$startFrom},{$recordPerPage}");
+        $result = $DB->selectAll('*','cart',"WHERE user_id={$Users->id} AND checkout_id = 0 ORDER BY cart.id DESC LIMIT {$startFrom},{$recordPerPage}");
+        return $result;
+    }
+    public function cartByUserId(){
+        global $DB,$Users;
+        $result = $DB->selectAll('*','cart',"WHERE user_id={$Users->id} AND checkout_id = 0");
         return $result;
     }
 
@@ -76,7 +81,7 @@ class Cart{
     public function calculateCart(){
         global $DB,$Users;
 //        $userCartResult = $DB->selectAll('*','cart',"WHERE user_id={$Users->id}");
-        $userCartResult = $DB->selectById('cart',$Users->id,'*','','user_id');
+        $userCartResult = $DB->selectById('cart',$Users->id,'*',' AND checkout_id = 0','user_id');
         $sum = 0;
         $count = [];
         $price = [];

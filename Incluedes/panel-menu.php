@@ -65,15 +65,18 @@ if ($Funcs->checkValue($_SESSION["errorMessage"],false,true)){
             <li class="dropdown-main">
                 <a href="profile.php">پروفایل</a>
             </li><br />
-            <li class="dropdown">
-                <a href="#" data-toggle="dropdown">سفارش های ساخته شده <i class="icon-arrow"></i></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">تیشرت</a></li><br />
-                    <li><a href="#">آستین بلند</a></li><br />
-                    <li><a href="#">شلوارک</a></li><br />
-                    <li><a href="#">شرت</a></li><br />
-                </ul>
-            </li><br />
+<!--            <li class="dropdown">-->
+<!--                <a href="#" data-toggle="dropdown">سفارش های ساخته شده <i class="icon-arrow"></i></a>-->
+<!--                <ul class="dropdown-menu">-->
+<!--                    <li><a href="#">تیشرت</a></li><br />-->
+<!--                    <li><a href="#">آستین بلند</a></li><br />-->
+<!--                    <li><a href="#">شلوارک</a></li><br />-->
+<!--                    <li><a href="#">شرت</a></li><br />-->
+<!--                </ul>-->
+<!--            </li><br />-->
+                <li class="dropdown">
+                    <a href="checkouts.php" data-toggle="dropdown">سفارش ها<i class="icon-arrow"></i></a>
+                </li><br />
             <?php
             if($Users->isAdministrator() || $Users->isAdmin()){
                     if ($Clothes->selectPanelMenu('type',$DB->tableName)):

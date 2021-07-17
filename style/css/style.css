@@ -203,10 +203,63 @@ header{
     line-height: 65px;
     color: black;
     transition: all 0.2s;
+    font-family: 'IRANSansM';
 }
 .bars main .box a:hover{
     color: gray;
     text-decoration: none;
+}
+.checkout-btn{
+    border-radius: 5px;
+    width: 150px;
+    height: 41px;
+    background: rgba(0,175,2,0.96);
+    font-size: 17px;
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    font-family: 'IRANSansB';
+    display: inline-block;
+    margin-top: 12px;
+    cursor: pointer;
+}
+.checkout-btn:hover{
+    text-decoration: none;
+    color: white;
+    background: gray;
+}
+.checkout{
+    text-align: center;
+    background: #d6d6d6;
+}
+.outside-checkout-submit{
+    width: 100%;
+    text-align: center;
+    text-align: -moz-center;
+    text-align: -webkit-center;
+    margin-bottom: 30px;
+}
+.checkout input{
+    margin-top: 10px;
+    font-family: 'IRANSansL';
+    direction: rtl;
+    text-align: center;
+
+}
+.checkout label{
+    margin-top: 13px;
+    font-family: 'IRANSansM';
+    direction: rtl;
+    text-align: center;
+}
+.checkout-submit{
+    border: none;
+    display: block;
+    text-align: center;
+}
+.checkout-title{
+    color: rgba(0,175,2,0.96);
+    font-family: 'IRANSansM';
 }
 /*End-header-for-phone*/
 /*Start-Main*/
@@ -392,6 +445,7 @@ header{
     margin-right: 20px;
     list-style: none;
     line-height: 100px;
+    font-family: 'IRANSansM';
 }
 .L-header nav ul li a{
     text-decoration: none;
@@ -2909,6 +2963,9 @@ main #Baby{
     direction: rtl!important;
     font-family: 'IRANSansL';
 }
+.around-single-cart{
+    background: white;
+}
 .count-product-order{
     font-family: 'IRANSansB';
     display:inline-block;
@@ -3198,6 +3255,17 @@ main #Baby{
     .row-customize-orders{
         margin-right: -7%!important;
         margin-left: 2%!important;
+    }
+}
+@media (min-width: 768px){
+    #checkout-first-name,#checkout-state{
+        position: absolute;
+        right: 0;
+    }
+    #checkout-last-name,#checkout-city{
+        position: absolute;
+        float: right;
+        right: 33%;
     }
 }
 /*@media (max-width: 950px){*/

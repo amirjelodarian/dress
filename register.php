@@ -69,9 +69,9 @@ else
             }
             if (Validate::$errors == ""){
                 if(Validate::fileUploadEmpty('uploadProFile'))
-                    $Users->addUser([$_POST['username'],$_POST['password'],$_POST['email'],$Funcs::nowDataTime(),$Funcs::nowDataTime()],'',$_POST['username'],$_POST['email'],$_POST['password'],$redirect);
+                    $Users->addUser([$_POST['username'],$Funcs->encrypt_decrypt('encrypt',$_POST['password']),$_POST['email'],$Funcs::nowDataTime(),$Funcs::nowDataTime()],'',$_POST['username'],$_POST['email'],$Funcs->encrypt_decrypt('encrypt',$_POST['password']),$redirect);
                 else
-                    $Users->addUser([$_POST['username'],$_POST['password'],$_POST['email'],$Funcs::nowDataTime(),$Funcs::nowDataTime()],'uploadProFile',$_POST['username'],$_POST['email'],$_POST['password'],$redirect);
+                    $Users->addUser([$_POST['username'],$Funcs->encrypt_decrypt('encrypt',$_POST['password']),$_POST['email'],$Funcs::nowDataTime(),$Funcs::nowDataTime()],'uploadProFile',$_POST['username'],$_POST['email'],$Funcs->encrypt_decrypt('encrypt',$_POST['password']),$redirect);
             }
 
 

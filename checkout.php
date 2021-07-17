@@ -1,163 +1,137 @@
 <?php
 require_once "Classes/initialize.php";
-$Funcs->pageTitle = "سبد خرید";
+$Funcs->pageTitle = "نهایی کردن خرید";
 include "Incluedes/header.php";
-!empty($_GET['page']) ? $page = $DB->escapeValue($_GET['page'],true) : $page = 1;
-$recordPerPage = 50;
-$startFrom = ($page-1)*$recordPerPage;
-?>
-
-
-
-    <main id="order-main">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <?php if($SS->loggedIn()): ?>
-                        <a href="#"><i class="fa fa-shopping-cart"></i><span id="cartOrderCount"><?=  $cart->cartOrderCount() ?></span></a>
-                    <?php else: ?>
-                        <div class="single-product-message" id="verify-message">
-                            برای ثبت نظر بایستی به حساب کاربری خود وارد شوید یا حسابی بسازید
-                            <ul>
-                                <li><a href='login.php?from=singleProduct.php?id=<?= $allRow['id'] ?>'>ورود</a></li>
-                                <li><a href='register.php?from=singleProduct.php?id=<?= $allRow['id'] ?>'>ثبت نام</a></li>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
-                </div>
-                <!--Start-order-1-->
-                <?php
-                $userCartResult = $cart->showCartByUserId($startFrom,$recordPerPage);
-                while($userCartRow = $DB->fetchArray($userCartResult)):
-                    $userClothesResult = $DB->selectById('clothes',$userCartRow['clothes_id']);
-                    if ($userClothesRow = $DB->fetchArray($userClothesResult)):
-                        ?>
-                        <div class="col-12 col-sm-6 col-md-6 col-lg-4 pt-5" id="cart-<?= $userCartRow['clothes_id'] ?>">
-                            <div class="orders" id="orders1">
-                                <div class="L-order text-right">
-                                    <div class="container"><br>
-                                        <img src=<?= $Funcs->showPic("style/images/ProductPics/",$userClothesRow['pic_loc'],'style/images/Defaults/default-product.jpg'); ?> alt=<?= stripslashes($userClothesRow['pic_loc']) ?> />
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="R-order text-right">
-                                    <div class="container">
-                                        <h5><?= $userClothesRow['title'] ?></h5>
-                                        <p>قیمت نهایی : <?= $userClothesRow['off_price'] ?></p>
-                                        <p>رنگ : <span><?= $userClothesRow['color'] ?></span></p>
-
-                                        <div class="btns d-flex float-right">
-                                            <div class="number-increase-decrease">
-                                                <div class="value-button-decrease" id="decrease-<?= $userCartRow['clothes_id'] ?>" onclick="decreaseValue(<?= $userCartRow['clothes_id'] ?>,<?= $userClothesRow['count'] ?>);reloadCartOrderCount();" value="Decrease Value">-</div>
-                                                <input value="<?= $userCartRow['count'] ?>" id="number-<?= $userCartRow['clothes_id'] ?>" class="add-to-cart-value add-to-cart-value-<?= $userCartRow['clothes_id'] ?>" name="addToCartValue" value="1" min="1" max=<?= $userClothesRow['count'] ?> />
-                                                <div class="value-button-increase" id="increase-<?= $userCartRow['clothes_id'] ?>" onclick="increaseValue(<?= $userCartRow['clothes_id'] ?>,<?= $userClothesRow['count'] ?>);reloadCartOrderCount();" value="Increase Value">+</div>
-                                            </div>
-                                            <input name='productId' id="product-id-<?= $userCartRow['clothes_id'] ?>" type="hidden" value="<?= $userCartRow['clothes_id'] ?>" />
-                                        </div>
-                                        <div id="add-to-cart-result-<?= $userCartRow['clothes_id'] ?>" class="add-cart-message">
-                                            <div class="loader-outside">
-                                                <div class="loader" style="max-width: 20px;max-height: 20px"></div>
-                                            </div>
-                                        </div>
-                                        <script>
-                                            $(document).ready(function (){
-                                                $('#decrease-<?= $userCartRow['clothes_id'] ?>,#increase-<?= $userCartRow['clothes_id'] ?>').click(function (){
-                                                    var product_id = $('#product-id-<?= $userCartRow['clothes_id'] ?>').val();
-                                                    var add_to_cart_value = $('.add-to-cart-value-<?= $userCartRow['clothes_id'] ?>').val();
-                                                    if (product_id != ''){
-                                                        $("#add-to-cart-result-<?= $userCartRow['clothes_id'] ?>").html('');
-                                                        $.ajax({
-                                                            url: "ordersRequest.php",
-                                                            method: "post",
-                                                            dataType: "text",
-                                                            data: {productId: product_id,addToCartValue: add_to_cart_value},
-                                                            success:function (data) {
-                                                                $("#add-to-cart-result-<?= $userCartRow['clothes_id'] ?>").show();
-                                                                $("#add-to-cart-result-<?= $userCartRow['clothes_id'] ?>").html(data);
-                                                                if (data == "" || data == null){
-                                                                    $("#add-to-cart-result-<?= $userCartRow['clothes_id'] ?>").hide();
-                                                                }
-                                                            }
-                                                        });
-                                                    }else{
-                                                        $("#add-to-cart-result-<?= $userCartRow['clothes_id'] ?>").html('برخی پارامتر ها خالی است');
-                                                    }
-                                                });
-                                            });
-                                        </script>
-                                        <br />
-                                        <div class="S_Description" style="text-align: right;float: right">
-                                            <p style="display:inline-block"><?= $userClothesRow['count'] ?> عدد</p>
-                                            <span style="display:inline-block">موجودی در انبار</span>
-                                        </div>
-                                        <input class="trash1" name="trash" type="submit" value="حذف" id="trash-<?= $userCartRow['clothes_id'] ?>" style="margin-top: 10px;color: red;border: none;background:none" /><i class="fa fa-trash" style="color: gray;"></i>
-                                        <script>
-                                            $(document).ready(function(){
-                                                $('#trash-<?= $userCartRow['clothes_id'] ?>').click(function (){
-                                                    var product_id = $('#product-id-<?= $userCartRow['clothes_id'] ?>').val();
-                                                    var trash = $('#trash-<?= $userCartRow['clothes_id'] ?>').val();
-                                                    if (product_id != '' && trash){
-                                                        $("#add-to-cart-result-<?= $userCartRow['clothes_id'] ?>").html('');
-                                                        $.ajax({
-                                                            url: "ordersRequest.php",
-                                                            method: "post",
-                                                            dataType: "text",
-                                                            beforeSend: function() {
-                                                                $('.loader-outside').show();
-                                                            },
-                                                            data: {productId: product_id,trash: trash},
-                                                            success:function (data) {
-                                                                $("#add-to-cart-result-<?= $userCartRow['clothes_id'] ?>").show();
-                                                                $("#add-to-cart-result-<?= $userCartRow['clothes_id'] ?>").html(data);
-                                                                if (data == "" || data == null){
-                                                                    $("#add-to-cart-result-<?= $userCartRow['clothes_id'] ?>").remove();
-                                                                    $("#cart-<?= $userCartRow['clothes_id'] ?>").remove();
-                                                                    reloadCartOrderCount();
-                                                                }else {
-                                                                    $("#cart-<?= $userCartRow['clothes_id'] ?>").show();
-                                                                }
-
-                                                            }
-                                                        });
-                                                    }else{
-                                                        $("#add-to-cart-result-<?= $userCartRow['clothes_id'] ?>").html('برخی پارامتر ها خالی است');
-                                                    }
-                                                });
-                                            });
-                                        </script>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php
-                    endif;
-                endwhile;
-                ?>
-
-            </div>
+include "vendor/autoload.php";
+use Rakit\Validation\Validator;
+if(  ($SS->loggedIn())   &&   ($DB->numRows($cart->cartByUserId()) !== 0)  ): ?>
+    <div class="container checkout">
+        <div class="py-5 text-center">
+            <h2 class="checkout-title">نهایی کردن خرید</h2>
+<!--            <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>-->
         </div>
-    </main>
 
-    <script>
-        function reloadCartOrderCount () {
-            var sum = 0 ;
-            var values = $('.add-to-cart-value').length;
-            for (i = 0; i < values; i++) {
-                //Push each element to the array
-                sum += parseInt($('.add-to-cart-value').eq(i).val());
-            }
-            document.getElementById('cartOrderCount').innerHTML = sum;
-        }
-    </script>
-    <script type="text/javascript" src="style/js/app.js"></script>
-    <script>
-        // $(document).ready(function (){
-        //
-        //
-        //     $('.trash1').click(function () {
-        //         $('#orders1').hide();
-        //     });
-        // });
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 order-md-1">
+                <?php
+                if (isset($_POST['checkoutSubmit'])){
+                    $validator = new Validator;
+                    $validation = $validator->make($_POST, [
+                        'firstName' => 'required|min:2|max:255',
+                        'lastName'  => 'required|min:2|max:255',
+                        'tell'      => 'required|min:11|max:11|regex:/^((09))[0-9]{9}/',
+                        'address'   => 'required|min:8|max:600',
+                        'state'     => 'required|min:2|max:255',
+                        'city'      => 'required|min:2|max:255',
+                        'zip'       => 'required|min:10|max:10|regex:/^[0-9]{10}/',
+                        'orderDescription'  => 'nullable|max:500'
+                    ]);
 
-    </script>
+                    $validation->setMessages([
+                        'required'      => 'برخی از فیلد ها خالی است',
+                        'firstName:min' => '"نام" نمی تواند کمتر از 2 حرف باشد',
+                        'firstName:max' => '"نام" نمی تواند بیشتر از 255 حرف باشد',
+                        'lastName:min'  => '"نام خانوادگی" نمی تواند کمتر از 3 حرف باشد',
+                        'lastName:max'  => '"نام خانوادگی" نمی تواند بیشتر از 255 حرف باشد',
+                        'tell:min'      => '"شماره تلفن" نباید کمتر از 11 رقم باشد',
+                        'tell:max'      => '"شماره تلفن" نباید بیشتر از 11 رقم باشد',
+                        'tell:regex'    => '"شماره تلفن" معتبر نیست',
+                        'address:min'   => '"آدرس" نباید کمتر از 8 حرف باشد',
+                        'address:max'   => '"آدرس" نباید بیشتر از 600 حرف باشد',
+                        'state:min'     => '"استان" نباید کمتر از ۲ حرف باشد',
+                        'state:max'     => '"استان" نباید بیشتر از 255 حرف باشد',
+                        'city:min'      => '"شهر" نباید کمتر از 2 حرف باشد',
+                        'city:max'      => '"شهر" نباید بیشتر از 255 حرف باشد',
+                        'zip:regex'     => '"کد پستی" معتبر نیست',
+                        'zip:min'       => '"کد پستی" نباید کمتر از 10 رقم باشد',
+                        'zip:max'       => '"کد پستی" نباید بیشتر از 10 رقم باشد',
+                        'orderDescription:min' => '"توضیحات سفارش" نباید بیشتر از 500 حرف باشد'
+                    ]);
+                    $validation->validate();
+                    if($validation->fails()) {
+                        $errors = $validation->errors();
+                        echo "<div class='e-message' style='direction: rtl;text-align: right'>
+                                <h4 style='margin: 8px'>خطاهای زیر را رفع کنید</h4>";
+                        foreach ($errors->all() as $error)
+                            echo "<p style='margin: 6px;'>{$error}</p>";
+                        echo "</div>";
+                    }else{
+//                        !empty($_POST['orderDescription']) ? '' : $_POST['orderDescription'] = " ";
+                       $checkout->addCheckout([
+                               $_POST['firstName'],
+                               $_POST['lastName'],
+                               $_POST['tell'],
+                               $_POST['address'],
+                               $_POST['state'],
+                               $_POST['city'],
+                               $_POST['zip'],
+                               $_POST['orderDescription']
+                       ]);
+                    }
+
+
+
+                }
+                ?>
+<!--                <h4 class="mb-3">Billing address</h4>-->
+                <form class="needs-validation" method="post">
+                    <div class="row">
+                        <div class="col-md-4 col-xs-12" id="checkout-first-name">
+                            <label for="firstName">نام</label>
+                            <input type="text" class="form-control" name="firstName" placeholder="علی" value="<?= $Users->first_name ?>" required />
+                        </div>
+                        <div class="col-md-4 col-xs-12" id="checkout-last-name">
+                            <label for="lastName">نام خانوادگی</label>
+                            <input type="text" class="form-control" name="lastName" placeholder="کریمی" value="<?= $Users->last_name ?>" required />
+                        </div>
+                        <div class="col-md-4 col-xs-12" id="checkout-tell">
+                            <label for="tell">شماره تلفن معتبر</label>
+                            <input type="text" class="form-control" name="tell" value="<?= $Users->tell ?>" placeholder="09121234567" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3" id="checkout-state">
+                            <label for="country">استان</label>
+                            <input type="text" name="state" class="form-control"placeholder="تهران" required />
+                        </div>
+                        <div class="col-md-4 mb-3" id="checkout-city">
+                            <label for="city">شهر</label>
+                            <input type="text" name="city" class="form-control" placeholder="تهران" required />
+                        </div>
+                        <div class="col-md-4 mb-3" id="checkout-zip">
+                            <label for="zip">کد پستی</label>
+                            <input type="text" class="form-control" name="zip" placeholder="1234567891" required />
+                        </div>
+                    </div>
+                    <div class="mb-3" id="checkout-address">
+                        <label for="address">آدرس دقیق</label>
+                        <input type="text" class="form-control" name="address" value="<?= $Users->address ?>" placeholder="خیابان طاهری - کوچه بهار - پلاک ۱" required />
+                    </div>
+                    <hr class="mb-4">
+                    <h4 class="mb-3">راه پرداخت</h4>
+
+                    <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked />
+                            <label class="custom-control-label" for="credit">پرداخت در محل</label>
+                        </div>
+                    </div>
+                    <div class="mb-3" id="checkout-address">
+                        <label for="address">توضیحات سفارش (دلخواه)</label>
+                        <input type="text" class="form-control" name="orderDescription" placeholder="ممنون از سایت شما" />
+                    </div>
+                    <hr class="mb-4">
+                    <div class="outside-checkout-submit">
+                        <input class="checkout-btn checkout-submit" value="تایید" name="checkoutSubmit" type="submit" />
+                    </div>
+
+                </form>
+            </div>
+            <div class="col-md-2" style="position: absolute;float: right"></div>
+        </div>
+
+    </div>
+<?php else: $Funcs->redirectTo('product.php'); ?>
+<?php endif; ?>
 <?php include "Incluedes/footer.php"; ?>
