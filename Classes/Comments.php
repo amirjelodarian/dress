@@ -101,6 +101,7 @@ namespace Comments;
                         break;
                     default:
                         echo "Sorry , Don't Change Value My Hacker Friend :D";
+                        exit;
                         break;
                 }
             }else{
@@ -191,6 +192,7 @@ namespace Comments;
                     break;
                 default:
                     echo 'I know You Are A Hacker :)';
+                    exit;
                     break;
             }
             if (isset($result)){

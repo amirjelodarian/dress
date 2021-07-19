@@ -1,5 +1,6 @@
 <?
     include "../Incluedes/panel-menu.php";
+if ($Users->isAdmin() || $Users->isAdministrator()):
 if (isset($_POST['addNewProduct'])){
     if ($Funcs->checkValue([$_POST["type"], $_POST["model"], $_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"], $_POST["price"], $_POST["offPrice"],$_POST['count']],true,true)){
         if($_FILES['uploadFile']['size'] == 0 && $_FILES['uploadFile']['name'] == "")
@@ -66,3 +67,6 @@ if (isset($_POST['addNewProduct'])){
     </div>
 </div>
 <?php include "../Incluedes/panel-footer.php"; ?>
+<?php
+else: $Funcs->redirectTo('profile.php');
+endif; ?>

@@ -21,7 +21,7 @@ date_default_timezone_set('Asia/Tehran');
 
     // Administrator Emails
     defined('ADMINISTRATOR_EMAIL') ? null : define('ADMINISTRATOR_EMAIL',[
-
+        'amirjelodarian@gmail.com'
     ]);
     ///////////////////////
 

@@ -22,9 +22,12 @@ if(!empty($_GET['clothesType']) && !empty($_GET['clothesModel']) && !$searchMode
         $allResult = $Clothes->searchByTitleOrPrice('clothes', $_GET['keyword'], $_GET['orderBy'], " LIMIT {$searchStartFrom},{$searchRecordPerPage}",true);
     }
 }else
-    $Funcs->redirectTo('profile.php');
+    $Funcs->redirectTo('dashboard.php');
 ?>
     <div class="main-col">
+        <div class="add-product-btn">
+            <a href="addProduct.php"><i class="icon-shop-1"></i><i class="icon-plus"></i></a>
+        </div>
         <div class="panel-search">
             <input type="text" name="clothesSearch" id="clothes-search" class="panel-search-bar"  placeholder="Search" />
             <select name="clothesOrderBy" id="clothes-order-by" class="order-by">

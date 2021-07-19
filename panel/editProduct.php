@@ -1,6 +1,6 @@
 <?
 include "../Incluedes/panel-menu.php";
-
+if ($Users->isAdmin() || $Users->isAdministrator()):
     if (isset($_POST['editProduct'])) {
         $id = $DB->escapeValue($_POST['id'],true);
         if ($Funcs->checkValue([$_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"],$_POST["model"],$_POST["type"], $_POST["price"], $_POST["offPrice"],$_POST["count"]], true, true)) {
@@ -349,3 +349,7 @@ include "../Incluedes/panel-menu.php";
     <?php
   }
     include "../Incluedes/panel-footer.php"; ?>
+<?php
+else: $Funcs->redirectTo('profile.php');
+endif;
+    ?>

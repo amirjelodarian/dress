@@ -36,7 +36,7 @@ if ($searchMode){
         if ($Users->isAdministrator() || $Users->isAdmin()) { ?>
                 <?= $users->user_mode ?>
                 <table class="table table-bordered table-striped">
-                    <thead style="background: #454242;color: white">
+                    <thead style="background: #343A40;color: white">
                         <tr>
                             <th scope="col" class="text-center">Id</th>
                             <th scope="col" class="text-center">نام کاربری</th>

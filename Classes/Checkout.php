@@ -55,7 +55,7 @@ class Checkout{
             /////////////////////////////////////////////////////
 
 
-            $Funcs->redirectTo('panel/');
+            $Funcs->redirectTo('panel/checkouts.php?delivery=not_delivery');
         }
     }
     protected function fillAddProductValues($values){
@@ -89,6 +89,29 @@ class Checkout{
         if ($checkoutIdRow = $DB->fetchArray($checkoutIdResult))
             $DB->update('cart','checkout_id',[$checkoutIdRow['id']],"WHERE user_id={$Users->id} AND checkout_id = 0");
         ///////////////////////////////////////////
+    }
+
+    public function allCheckoutByUserId($delivery,$startFrom,$recordPerPage){
+        global $DB,$Users;
+        switch ($delivery){
+            case 'delivery':
+                $result = $DB->selectAll('*','checkout'," WHERE user_id='{$Users->id}' AND delivery_at != 0 ORDER BY checkout.id DESC LIMIT {$startFrom},{$recordPerPage}");
+                break;
+            case 'not_delivery':
+                $result = $DB->selectAll('*','checkout'," WHERE user_id='{$Users->id}' AND delivery_at = 0 ORDER BY checkout.id DESC LIMIT {$startFrom},{$recordPerPage}");
+                break;
+            default:
+                echo "Sorry , Don't Change Value My Hacker Friend :D";
+                exit;
+                break;
+        }
+        return $result;
+    }
+    public function allCheckoutSearchByUserId($checkoutId,$startFrom,$recordPerPage){
+        global $DB,$Users;
+        $checkoutId = $DB->escapeValue($checkoutId,true);
+        $result = $DB->selectAll('*','checkout'," WHERE checkout.id = {$checkoutId} AND user_id='{$Users->id}' ORDER BY checkout.id DESC LIMIT {$startFrom},{$recordPerPage}");
+        return $result;
     }
 }
 $Checkout = new Checkout();

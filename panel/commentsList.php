@@ -50,7 +50,7 @@ if ($searchMode){
         <div id="comment_title_result"></div>
         <div id="comment_description_result"></div>
         <div id="comment_publish_mode_result"></div>
-    <a class="btn btn-success" id="btn-publish-mode" href="<?= $_SERVER['PHP_SELF'] ?>?publish_mode=published">منتشر شده ها</a>
+    <a class="btn btn-custome" id="btn-publish-mode" href="<?= $_SERVER['PHP_SELF'] ?>?publish_mode=published">منتشر شده ها</a>
     <a class="btn btn-danger" id="btn-publish-mode" href="<?= $_SERVER['PHP_SELF'] ?>?publish_mode=unpublished">منتشر نشده ها</a>
     <?php
     if (!$searchMode){
@@ -61,7 +61,7 @@ if ($searchMode){
             elseif ($Users->isAdministrator() || $Users->isAdmin())
                 $publishedCount = $DB->count('comments','id'," WHERE publish_mode='published'");
 
-            ?><h3 style="color: #28a745;font-family: IRANSansB">(<?= $publishedCount ?>)منتشر شده ها</h3><?php
+            ?><h3 style="color: #017BFF;font-family: IRANSansB">(<?= $publishedCount ?>)منتشر شده ها</h3><?php
             break;
         case 'unpublished':
             if ($Users->isStandard())

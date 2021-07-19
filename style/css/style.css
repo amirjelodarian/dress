@@ -593,7 +593,7 @@ header{
 .changePasswordBtn{
     font-size: 15px;
     font-family: IRANSansB;
-    background: #ff931d;
+    background: #017BFF;
     color: white;
     width: 150px;
     margin-top: 25px;
@@ -607,8 +607,8 @@ header{
 }
 .changePasswordBtn:hover{
     background: white;
-    border: 1px solid #ff931d;
-    color: #ff931d;
+    border: 1px solid #017BFF;
+    color: #017BFF;
 }
 .profile-label{
     color: white;
@@ -934,18 +934,27 @@ header{
     width: 23%;
     height: 100%;
     float: right;
-    background-color: #454242;
+    background-color: #343A40;
     position: fixed;
+    font-size: 13px;
     right: 0;
     top: 0;
     z-index: 10000;
     transition: all 0.5s;
     overflow-y: scroll;
 }
+.panel-object-count{
+    background: #017BFF;
+    color: #ffffff;
+    padding: 0px 6px 0px 6px;
+    float: left;
+    border-radius: 3px;
+    font-weight: bold;
+    font-family: 'IRANSansB';
+}
 .panels .panel{
     width: 100%;
     height: auto;
-    border-bottom: 1px solid gray;
     position: relative;
 }
 .panel .fa-angle-down{
@@ -967,6 +976,7 @@ header{
     text-decoration: none;
     color: #ffffff;
     transition: all 0.2s;
+    margin-right: 25px;
 }
 .panels .panel nav ul li a:hover{
     color: black;
@@ -1227,7 +1237,7 @@ main #Baby{
 }
 .del-btn a{
     border: none;
-    background: #ff931d;
+    background: #017BFF;
     padding: 0px 4px 4px 4px;
     opacity: 0.8;
     cursor: pointer;
@@ -1237,7 +1247,7 @@ main #Baby{
 }
 .del-btn a:hover {
     background: #454242;
-    color: #ff931d;
+    color: #017BFF;
 }
 .Mark i{
     font-size: 30px;
@@ -1258,13 +1268,13 @@ main #Baby{
     opacity: 0.8;
     font-weight: bold;
     font-family: IRANSansB;
-    background: #ff931d;
-    color: #454242;
+    background: #017BFF;
+    color: #ffffff;
     border: none;
 }
 #deleteProduct:hover{
     background: #454242;
-    color: #ff931d;
+    color: #017BFF;
     cursor: pointer;
 }
 #deleteImgProduct{
@@ -1292,7 +1302,7 @@ main #Baby{
     position: absolute;
     left: 0;
     bottom: 0;
-    color: #ff931d;
+    color: #017BFF;
     width: 50px;
 }
 #uploadImageIcon i{
@@ -1356,7 +1366,7 @@ main #Baby{
     font-family: IRANSansU;
 }
 .textProduct span{
-    color: #ff931d;
+    color: #017BFF;
 }
 .textProduct p{
     text-align: right;
@@ -1961,7 +1971,7 @@ main #Baby{
     border-radius: 3px;
     border: 1px solid gray;
     margin: 20px auto;
-
+    font-family : 'IRANSansL';
 }
 .select-box-panel{
     width: 100%;
@@ -2134,15 +2144,15 @@ main #Baby{
 }
 .result-list li{
     width: 100%;
-    color: #ff931d;
+    color: #017BFF;
     border-bottom: 1px solid gray;
     list-style: -moz-arabic-indic;
 }
 /*End-for-main*/
 .dropdown-list-panel{
-    float: right;
-    position: absolute;
-    right: 0;
+    /*float: right;*/
+    /*position: absolute;*/
+    /*right: 0;*/
 }
 .dropdown-list-panel li{
     text-align: right;
@@ -2154,14 +2164,45 @@ main #Baby{
     padding: 1px;
 }
 .dropdown a,.dropdown-main a{
-    color: #ff931d;
+    color: #C2C7CF;
     display: block;
     font-family: IRANSansW;
     text-decoration: none;
+    margin-right: 23px;
+}
+.add-product-btn{
+    position: fixed;
+    width: 55px;
+    height: 26px;
+    text-align: center;
+    bottom: 0;
+    z-index: 99;
+    background: #017BFF;
+    color: #ffffff;
+    margin: 21px;
+    border-radius: 3px;
+    opacity: 0.7;
+}
+.add-product-btn:hover{
+    background: #343A40;
+}
+.add-product-btn a{
+    text-align: center;
+    color: #ffffff;
+    text-decoration: none;
+}
+.add-product-btn a:hover{
+    text-decoration: none;
+    color: white;
 }
 .dropdown a:hover,.dropdown-main a:hover{
     color: #007bff;
     text-decoration: none;
+}
+.panel-icon{
+    float: right;
+    right: 0;
+    color: white;
 }
 .dropdown-menu,.dropdown-menu.show{
     position: relative;
@@ -2176,15 +2217,125 @@ main #Baby{
     margin-right: 25px;
     margin-bottom: -10px;
     padding: 0px;
+    list-style: square;
+    direction: rtl;
+    color: #C2C7CF;
+    margin-right: 42px;
+    font-size: 13px;
 }
 .dropdown-menu a{
     color: white;
     right: 38px;
-    text-decoration: none
+    text-decoration: none;
     margin: 6px 12px -8px 0;
 }
+.panel-line-2{
+    width: 80%;
+    height: 2px;
+    background: #017BFF;
+    margin-bottom: 17px;
+    margin-top: 0px;
+    position: inherit;
+    box-shadow: white 0px 0px 8px;
+}
 #logout{
-    color: red;
+    color: #DB3445;
+    font-family: IRANSansB;
+}
+.dashboard-btn{
+    background: #017BFF;
+    width: 91%;
+    height: 37px;
+    font-family: 'IRANSansB';
+    font-weight: bold;
+    position: absolute !important;
+    left: 10px;
+    border-radius: 2px;
+}
+.dashboard-btn i,.dashboard-btn a{
+    padding-top: 8px;
+}
+.dashboard-col-1{
+    background: #16A2B7;
+    color: white;
+    font-family: IRANSansB;
+    height: 150px;
+    max-height: 150px;
+    direction: rtl;
+    border-radius: 3px;
+    margin: 10px;
+}
+.dashboard-col-2{
+    background: #28A645;
+    color: white;
+    font-family: IRANSansB;
+    height: 150px;
+    max-height: 150px;
+    direction: rtl;
+    border-radius: 3px;
+    margin: 10px;
+}
+.dashboard-col-3{
+    background: #FFC108;
+    color: #1E2D3D;
+    font-family: IRANSansB;
+    height: 150px;
+    max-height: 150px;
+    direction: rtl;
+    border-radius: 3px;
+    margin: 10px;
+}
+.dashboard-col-4{
+    background: #DB3445;
+    color: white;
+    font-family: IRANSansB;
+    height: 150px;
+    max-height: 150px;
+    direction: rtl;
+    border-radius: 3px;
+    margin: 10px;
+}
+.dashboard-col-1 a,.dashboard-col-2 a,.dashboard-col-4 a{
+    color: white;
+    text-decoration: none;
+}
+.dashboard-col-3 a{
+    color: #1E2D3D;
+    text-decoration: none;
+}
+.dashboard-col-3 a:hover{
+    color: #1E2D3D;
+    text-decoration: none;
+}
+.dashboard-col-1 a:hover,.dashboard-col-2 a:hover,.dashboard-col-4 a:hover{
+    color: white;
+    text-decoration: none;
+}
+.dashboard-icons{
+    width: 70px;
+    height: 70px;
+    opacity: 0.7;
+}
+.more-info-dashboard{
+    background: rgba(64,75,81,0.58);
+    opacity: 0.6;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-radius: 0px 0px 3px 3px;
+    bottom: 0;
+}
+.dashboard-p-title{
+    margin-top: 10px;
+}
+.dashboard-btn i{
+    margin-right: 13px;
+}
+.dashboard-btn a{
+    padding-right: 22px;
+    color: white!important;
+    font-family: 'IRANSansB'!important;
 }
 .main-col{
     text-align: center;
@@ -2193,20 +2344,23 @@ main #Baby{
 }
 #for-dashboard{
     margin-top: 30px;
-    background: #454242;
+    background: #343A40;
     text-align: center;
     width: 300px;
 }
 #for-dashboard input{
     border-radius: 5.9px;
-    border: 2px solid #ff931d;
+    border: 2px solid #017BFF;
 }
 #for-dashboard textarea{
     border-radius: 5.9px;
     text-align: right;
     alignment: right;
     direction: rtl;
-    border: 2px solid #ff931d;
+    border: 2px solid #017BFF;
+}
+.product-main{
+    font-family: 'IRANSansM';
 }
 .panel-address{
     text-align: right;
@@ -2219,22 +2373,22 @@ main #Baby{
 #edit-profile-submit{
     margin-top: 30px;
     padding: 7px;
-    background: #ff931d;
+    background: #017BFF;
     border: none;
     font-family: IRANSansB;
     font-size: 14px;
 }
 #edit-profile-submit:hover{
-    color: #ff931d;
+    color: #017BFF;
     background: #454242;
-    border: 1px solid #ff931d;
+    border: 1px solid #017BFF;
     cursor: pointer;
 }
 #edit-profile-panel-icon{
     width: 75px;
     height: 75px;
-    border: 1px solid #ff931d;
-    background-color: #454242;
+    border: 1px solid #017BFF;
+    background-color: #343A40;
     position: relative;
     border-radius: 50%;
     margin-top: 3px;
@@ -2252,7 +2406,7 @@ main #Baby{
 .add-picture{
     position: absolute;
     bottom: 0;
-    background: #ff931d;
+    background: #017BFF;
     width: 20px;
     height: 20px;
     font-size: 13px;
@@ -2262,8 +2416,8 @@ main #Baby{
     margin-left: -14px;
 }
 #add-product-submit{
-    background: #ff931d;
-    color: #454242;
+    background: #017BFF;
+    color: #ffffff!important;
     text-align: center;
     font-family: IRANSansB;
     font-size: 14px;
@@ -2271,9 +2425,9 @@ main #Baby{
     border: none;
 }
 #add-product-submit:hover{
-    color: #ff931d;
+    color: #017BFF;
     background: #454242;
-    border: 1px solid #ff931d;
+    border: 1px solid #017BFF;
     cursor: pointer;
 }
 .loader {
@@ -2577,7 +2731,7 @@ main #Baby{
 #deactive-star,#active-star{
     width: 15px;
     height: 15px;
-    color: darkorange;
+    color: #017BFF;
 }
 .number-increase-decrease {
     display: inline-block;
@@ -2626,7 +2780,7 @@ main #Baby{
 }
 
 #comment_title_result{
-    background: #28a745;
+    background: #017BFF;
     border-bottom: 1px solid white;
     color: white;
     opacity: 0.5;
@@ -2635,7 +2789,7 @@ main #Baby{
     padding: 3px;
 }
 #comment_description_result{
-    background: #28a745;
+    background: #017BFF;
     margin-bottom: 5px;
     color: white;
     opacity: 0.5;
@@ -2645,7 +2799,7 @@ main #Baby{
     padding: 3px;
 }
 #comment_publish_mode_result{
-    background: #28a745;
+    background: #017BFF;
     margin-bottom: 5px;
     color: white;
     opacity: 0.5;
@@ -2659,7 +2813,7 @@ main #Baby{
     height: 60px;
     float: right;
     right: 0;
-    border: 4px solid #ff931d;
+    border: 4px solid #017BFF;
 }
 .survey{
     height: 93px;
@@ -2700,12 +2854,12 @@ main #Baby{
     font-family: IRANSansL;
 }
 .DateTime{
-    color: #999999;
+    color: #C2C7CF;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 11px;
     width: 100%;
     display: block;
-    margin-top: 5px;
+    margin-top: 17px;
     margin-bottom: 13px;
 }
 #today-date{
@@ -2754,7 +2908,7 @@ main #Baby{
 }
 #see-room-btn{
     display: inline-block;
-    background: darkorange;
+    background: #017BFF;
 }
 .survey{
     height: 93px;
@@ -2818,6 +2972,13 @@ main #Baby{
     height: 350px;
     max-height: 350px;
     display: inline-block;
+}
+.cover_checkout{
+    position: inherit!important;
+    z-index: 0!important;;
+    width: 66px!important;;
+    text-align: center!important;;
+    display: inline-block!important;
 }
 .edit-comment-panel-btn{
     background: #00A8FF;
@@ -2981,13 +3142,27 @@ main #Baby{
     -webkit-transition: .2s;
     transition: .2s;
 }
-
+.btn-custome{
+    color: white;
+    border-color: #017BFF;
+    background: #017BFF;
+}
+.btn-custome a,.btn-custome a:hover,.btn-custome:hover{
+    color: white;
+}
+.panel-line{
+    width: 100%;
+    height: 1px;
+    background: gray;
+    position: absolute;
+    left: 0;
+}
 .change-publish-mode-input:checked + .change-publish-mode-span {
-    background-color: #28a745;
+    background-color: #017BFF;
 }
 
 .change-publish-mode-input:focus + .change-publish-mode-span {
-    box-shadow: 0 0 1px #28a745;
+    box-shadow: 0 0 1px #017BFF;
 }
 
 .change-publish-mode-input:checked + .change-publish-mode-span:before {
@@ -3199,10 +3374,11 @@ main #Baby{
 }
 @media (min-width: 890px) {
     .panels{
-        width: 25%;
+        width: 20%;
+        font-size: 14px;
     }
     #header-panel,.main-col{
-        width: 75%;
+        width: 80%;
     }
     #main-for-panel{
         width: 75%;
@@ -3266,6 +3442,83 @@ main #Baby{
         position: absolute;
         float: right;
         right: 33%;
+    }
+}
+@media (max-width: 575px){
+    .dashboard-count{
+        font-size: 35px!important;
+        position: absolute;
+    }
+    .dashboard-icons{
+        font-size: 30px;
+    }
+}
+@media (min-width: 576px) and (max-width: 767px){
+    .dashboard-col-1,.dashboard-col-2,.dashboard-col-3,.dashboard-col-4{
+        max-width: 46%!important;
+        height: 120px;
+        max-height: 120px;
+    }
+    .dashboard-p-title{
+        font-size: 15px;
+    }
+    .dashboard-count{
+        font-size: 30px!important;
+        position: absolute;
+    }
+    .dashboard-icons{
+        font-size: 25px;
+    }
+}
+@media (min-width: 768px) and (max-width: 875px){
+    .dashboard-col-1,.dashboard-col-2,.dashboard-col-3,.dashboard-col-4{
+        max-width: 20.5%!important;
+        height: 100px;
+        max-height: 100px;
+    }
+    .dashboard-p-title{
+        font-size: 14px;
+    }
+    .dashboard-count{
+        font-size: 25px!important;
+        position: absolute;
+    }
+    .dashboard-icons{
+        font-size: 22px;
+    }
+}
+@media (min-width: 876px) and (max-width: 1110px){
+    .dashboard-col-1,.dashboard-col-2,.dashboard-col-3,.dashboard-col-4{
+        max-width: 21.5%!important;
+        height: 120px;
+        max-height: 120px;
+    }
+    .dashboard-p-title{
+        font-size: 19px;
+    }
+    .dashboard-count{
+        font-size: 35px!important;
+        position: absolute;
+    }
+    .dashboard-icons{
+        font-size: 30px;
+    }
+}
+@media (min-width: 1111px){
+    .dashboard-col-1,.dashboard-col-2,.dashboard-col-3,.dashboard-col-4{
+        max-width: 22.5%!important;
+        height: 150px;
+        max-height: 150px;
+    }
+    .dashboard-p-title{
+        font-size: 21px;
+    }
+    .dashboard-count{
+        font-size: 45px!important;
+        position: absolute;
+    }
+    .dashboard-icons{
+        font-size: 40px;
     }
 }
 /*@media (max-width: 950px){*/

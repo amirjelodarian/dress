@@ -293,6 +293,7 @@ use Rakit\Validation\Validator;
                     break;
                 default:
                     echo 'I know You Are A Hacker :)';
+                    exit;
                     break;
             }
 
@@ -301,6 +302,36 @@ use Rakit\Validation\Validator;
                 $Zebra->_properties['variable_name'] = 'searchPage';
             }else{
                 $Zebra->base_url('commentsList.php?'.'orderBy='.$orderBy.'&keyword='.$keyword);
+                $Zebra->_properties['variable_name'] = 'orderBy='.$orderBy.'&keyword='.$keyword.'&searchPage';
+                $Zebra->_properties['avoid_duplicate_content'] = false;
+            }
+
+//            $Zebra->_build_uri('index.php');
+            $Zebra->set_page($page);
+            $Zebra->records($totalRecord);
+            $Zebra->navigation_position('center');
+            $Zebra->labels('قبلی', 'بعدی',$page);
+            $Zebra->records_per_page($recordsPerPage);
+            $Zebra->render();
+        }
+        public function checkoutsSearchPagination($tableName,$keyword,$orderBy,$tableId,$page = 1,$recordsPerPage = 10,$indexPage = ''){
+            global $Zebra,$DB,$Users;
+            switch ($orderBy){
+                case 'checkout_id':
+                    settype($keyword,'integer');
+                    $result = $DB->selectAll('*',$tableName,"WHERE id = {$keyword} AND user_id = {$Users->id}");
+                    break;
+                default:
+                    echo 'I know You Are A Hacker :)';
+                    exit;
+                    break;
+            }
+
+            $totalRecord = $DB->numRows($result);
+            if ($indexPage == true){
+                $Zebra->_properties['variable_name'] = 'searchPage';
+            }else{
+                $Zebra->base_url('checkouts.php?'.'orderBy='.$orderBy.'&keyword='.$keyword);
                 $Zebra->_properties['variable_name'] = 'orderBy='.$orderBy.'&keyword='.$keyword.'&searchPage';
                 $Zebra->_properties['avoid_duplicate_content'] = false;
             }
@@ -322,6 +353,26 @@ use Rakit\Validation\Validator;
             global $Zebra,$DB;
             $publish_mode = $DB->escapeValue($publish_mode);
             $result = $DB->selectAll($tableId,$tableName," WHERE publish_mode='{$publish_mode}'");
+            $totalRecord = $DB->numRows($result);
+            $Zebra->records($totalRecord);
+            $Zebra->navigation_position('center');
+            $Zebra->labels('قبلی', 'بعدی',$page);
+            $Zebra->records_per_page($recordsPerPage);
+            $Zebra->render();
+        }
+        public function checkoutsPagination($tableName,$tableId,$page = 1,$recordsPerPage = 10,$delivery){
+            global $Zebra,$DB,$Users;
+            $delivery = $DB->escapeValue($delivery);
+            switch ($delivery){
+                case 'delivery':
+                    $result = $DB->selectAll($tableId,$tableName," WHERE user_id = {$Users->id} AND delivery_at != 0");
+                    break;
+                case 'not_delivery':
+                    $result = $DB->selectAll($tableId,$tableName," WHERE user_id = {$Users->id} AND delivery_at = 0");
+                    break;
+                default:
+                    break;
+            }
             $totalRecord = $DB->numRows($result);
             $Zebra->records($totalRecord);
             $Zebra->navigation_position('center');

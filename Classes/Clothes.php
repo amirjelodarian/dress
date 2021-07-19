@@ -219,6 +219,7 @@ namespace Clothes;
                     break;
                 default:
                     echo 'I know You Are A Hacker :)';
+                    exit;
                     break;
             }
             if (isset($result)){

@@ -123,7 +123,7 @@ if(  ($SS->loggedIn())   &&   ($DB->numRows($cart->cartByUserId()) !== 0)  ): ?>
                     </div>
                     <hr class="mb-4">
                     <div class="outside-checkout-submit">
-                        <input class="checkout-btn checkout-submit" value="تایید" name="checkoutSubmit" type="submit" />
+                        <input class="checkout-btn checkout-submit" id="AreYouSure" value="تایید" name="checkoutSubmit" type="submit" />
                     </div>
 
                 </form>
