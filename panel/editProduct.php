@@ -3,7 +3,7 @@ include "../Incluedes/panel-menu.php";
 if ($Users->isAdmin() || $Users->isAdministrator()):
     if (isset($_POST['editProduct'])) {
         $id = $DB->escapeValue($_POST['id'],true);
-        if ($Funcs->checkValue([$_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"],$_POST["model"],$_POST["type"], $_POST["price"], $_POST["offPrice"],$_POST["count"]], true, true)) {
+        if ($Funcs->checkValue([$_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"],$_POST["model"],$_POST["type"], $_POST["price"], $_POST["offPrice"]], true, true)) {
             if ($_FILES['uploadFile']['size'] == 0 && $_FILES['uploadFile']['name'] == "")
                 $Clothes->editProduct([$_POST["title"], $_POST["fabricType"], $_POST["description"], $_POST["size"], $_POST["color"],$_POST["model"],$_POST["type"], $Funcs->EnFa($_POST["price"], false, true), $Funcs->EnFa($_POST["offPrice"], false, true), $Funcs->EnFa($_POST["count"], false, true)],'',$_POST['id']);
             else

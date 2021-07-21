@@ -120,8 +120,8 @@ $(document).ready(function(){
     });
     $('#panel-menu-icon').click(function (){
         if($(window).width() > 768){
-            $('#bars').css({'width':'25%'});
-            $('#header-panel,.main-col').css({'width':'75%'});
+            $('#bars').css({'width':'20%'});
+            $('#header-panel,.main-col').css({'width':'80%'});
         }else if ($(window).width() <= 768){
             $('#bars').css({'width':'250px'});
             $('#header-panel,.main-col').css({'width':'100%'});
@@ -633,7 +633,7 @@ $(document).ready(function(){
 
     $('#header-panel .fa-bars').click(function () {
         $('.panels').css('right','0');
-        $('#header-panel,#main-for-panel,.main-col').css('width','75%');
+        $('#header-panel,#main-for-panel,.main-col').css('width','80%');
         $('#header-panel .fa-bars').hide();
     });
     $('#close').click(function () {

@@ -180,9 +180,9 @@ use Rakit\Validation\Validator;
             $Zebra->records_per_page($recordsPerPage);
             $Zebra->render();
         }
-        public function cartPagination($tableName,$tableId,$page = 1,$recordsPerPage = 10){
+        public function cartPagination($tableName,$tableId,$page = 1,$recordsPerPage = 10,$customCheckoutId = 0){
             global $Zebra,$DB,$Users;
-            $result = $DB->selectAll($tableId,$tableName,"WHERE user_id={$Users->id} AND checkout_id = 0 ");
+            $result = $DB->selectAll($tableId,$tableName,"WHERE user_id={$Users->id} AND checkout_id = {$customCheckoutId} ");
             $totalRecord = $DB->numRows($result);
             $Zebra->records($totalRecord);
             $Zebra->navigation_position('center');

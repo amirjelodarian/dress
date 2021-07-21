@@ -2316,6 +2316,63 @@ main #Baby{
     height: 70px;
     opacity: 0.7;
 }
+.checkout-details{
+    color: white;
+    font-size: 13px;
+    font-family: 'IRANSansB';
+    padding: 4px;
+    border-radius: 3.5px;
+}
+.panel-title{
+    text-align: center;
+    text-align: -webkit-center;
+    text-align: -moz-center;
+    font-family: 'IRANSansB';
+    margin-top: 10px;
+}
+.product-id-panel{
+    background: #017BFF;
+    color: white;
+    height: 23px;
+    padding-left: 6px;
+    padding-right: 7px;
+    font-family: IRANSansB;
+    right: 16px;
+    position: absolute;
+}
+.word-order-panel{
+    font-family: 'IRANSansM';
+    direction: rtl;
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 25px;
+}
+.number-order-panel{
+    color: #017BFF;
+    font-family: 'IRANSansB';
+    display: inline-block;
+    direction: rtl;
+    margin-top: 10px;
+    font-size: 25px;
+}
+.before-off{
+    color:rgba(64,75,81,0.69);
+    text-decoration-line: line-through;
+}
+.before-off span{
+    float: right;
+    text-decoration-line: line-through;
+}
+.panel-table thead{
+    background: #343A40;
+    font-family: IRANSansB;
+    color: #017BFF;
+    text-align: center;
+}
+.panel-table tbody{
+    font-family: IRANSansM;
+    text-align: center;
+}
 .more-info-dashboard{
     background: rgba(64,75,81,0.58);
     opacity: 0.6;

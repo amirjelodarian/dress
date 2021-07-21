@@ -74,9 +74,15 @@ if(!empty($_GET['clothesType']) && !empty($_GET['clothesModel']) && !$searchMode
                                     <a href='../singleProduct.php?id=<?= $allRow["id"] ?>'><img src=<?= $Funcs->showPic("../style/images/ProductPics/",$allRow['pic_loc'],'../style/images/Defaults/default-product.jpg'); ?> alt=<?= stripslashes($allRow['pic_loc']) ?> /></a>
                                 </div>
                                 <div class="aboutProduct">
-                                    <?= $allRow["id"] ?>
+                                    <p class="product-id-panel"><?= $allRow["id"] ?></p>
                                     <div class="Price">
-                                        <p><?= $Funcs->EnFa($Funcs->insertSeperator($allRow['off_price']),true) ?> تومان</p>
+                                        <p>
+                                            <?php if ($allRow['count'] !== "0"): ?>
+                                                <?= $Funcs->EnFa($Funcs->insertSeperator($allRow['off_price']),true) ?> تومان
+                                            <? else: ?>
+                                                <p style="color: #DB3445;">ناموجود</p>
+                                            <?php endif; ?>
+                                        </p>
                                     </div>
                                     <div class="Mark">
                                         <div class="container">

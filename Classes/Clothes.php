@@ -28,12 +28,13 @@ namespace Clothes;
                     return null;
             }
         }
-        public function selectPanelMenu($columnName = "",$tableName,$reverseId = ""){
+        public function selectPanelMenu($columnName = "",$tableName,$reverseId = "",$panel = ""){
             global $DB;
+            $panel == true ? $countSql = '' : $countSql = 'WHERE count != 0';
                 if ($reverseId == true)
-                    $result = $DB->selectAll('DISTINCT('.$columnName.')',$tableName,'WHERE count != 0 ORDER BY id DESC');
+                    $result = $DB->selectAll('DISTINCT('.$columnName.')',$tableName,"{$countSql} ORDER BY id DESC");
                 else
-                    $result = $DB->selectAll('DISTINCT('.$columnName.')',$tableName,'WHERE count != 0');
+                    $result = $DB->selectAll('DISTINCT('.$columnName.')',$tableName,$countSql);
                 if($DB->numRows($result) > 0)
                     return $result;
                 else
@@ -117,7 +118,7 @@ namespace Clothes;
         public function editProduct($values = array(),$fileNameForUpload = "",$id){
             global $DB,$Funcs,$Sessions;
             $id = $DB->escapeValue($id,true);
-            ($values[9] == "" || empty($values[9]) || !(filter_var($values[9], FILTER_VALIDATE_INT))) ? $values[9] = "1" : TRUE;
+            ($values[9] == "" || empty($values[9]) || !(filter_var($values[9], FILTER_VALIDATE_INT))) ? $values[9] = "0" : TRUE;
             if ($Funcs->checkValue($fileNameForUpload,true,true)){
                 $Funcs->uploadPic($fileNameForUpload, '../style/images/ProductPics/', '2097152');
                 array_push($values,Functions::$fileName);

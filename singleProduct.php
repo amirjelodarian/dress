@@ -35,12 +35,14 @@ if ($DB->numRows($allResult) !== 0){
             </div>
             <div class="Single L_single">
                 <h4><?= $allRow['title'] ?></h4><br>
-                <button id="add-to-cart" class="btn btn-primary">افزودن به سبد خرید</button>
-                <div class="number-increase-decrease">
-                    <div class="value-button-decrease" id="decrease" onclick="decreaseValueSingleProduct(<?= $allRow['count'] ?>)" value="Decrease Value">-</div>
-                    <input id="number" class="add-to-cart-value" name="addToCartValue" value="1" min="1" max=<?= $allRow['count'] ?> />
-                    <div class="value-button-increase" id="increase" onclick="increaseValueSingleProduct(<?= $allRow['count'] ?>)" value="Increase Value">+</div>
-                </div>
+                <?php if ($allRow['count'] !== "0"): ?>
+                    <button id="add-to-cart" class="btn btn-primary">افزودن به سبد خرید</button>
+                    <div class="number-increase-decrease">
+                        <div class="value-button-decrease" id="decrease" onclick="decreaseValueSingleProduct(<?= $allRow['count'] ?>)" value="Decrease Value">-</div>
+                        <input id="number" class="add-to-cart-value" name="addToCartValue" value="1" min="1" max=<?= $allRow['count'] ?> />
+                        <div class="value-button-increase" id="increase" onclick="increaseValueSingleProduct(<?= $allRow['count'] ?>)" value="Increase Value">+</div>
+                    </div>
+                <?php endif; ?>
                 <div class="S_Description">
                     موجودی در انبار
                     <p><?= $allRow['count'] ?> عدد</p>

@@ -141,7 +141,13 @@
                                 <input name="deleteProductId" type="hidden" value='<?= $allResult["id"] ?>' />
                                     <div class="Mark">
                                         <div class="container d-flex justify-content-between">
-                                            <p style="font-size: 13px;padding: 5px;position: relative;top: 6px;"><?= $Funcs->insertSeperator($allResult['off_price']) ?> تومان</p>
+                                            <p>
+                                                <?php if ($allResult['count'] !== "0"): ?>
+                                                    <?= $Funcs->EnFa($Funcs->insertSeperator($allResult['off_price']),true) ?> تومان
+                                                <? else: ?>
+                                                    <p style="color: #DB3445;margin-top: 8px;">ناموجود</p>
+                                                <?php endif; ?>
+                                            </p>
                                             <h5 style="font-size: 13px;padding: 5px;position: relative;top: 8px;"><?= $allResult['title'] ?></h5>
                                         </div>
                                     </div>

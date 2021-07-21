@@ -51,11 +51,11 @@ class Checkout{
 
 
             // find this check out id for change cart.checkout_id
-            $this->changeCartCheckoutId();
+            $changeCartCheckoutId = $this->changeCartCheckoutId();
             /////////////////////////////////////////////////////
 
 
-            $Funcs->redirectTo('panel/checkouts.php?delivery=not_delivery');
+            $Funcs->redirectTo("panel/singleCheckout.php?id={$changeCartCheckoutId}");
         }
     }
     protected function fillAddProductValues($values){
@@ -89,6 +89,8 @@ class Checkout{
         if ($checkoutIdRow = $DB->fetchArray($checkoutIdResult))
             $DB->update('cart','checkout_id',[$checkoutIdRow['id']],"WHERE user_id={$Users->id} AND checkout_id = 0");
         ///////////////////////////////////////////
+
+        return $checkoutIdRow['id'];
     }
 
     public function allCheckoutByUserId($delivery,$startFrom,$recordPerPage){

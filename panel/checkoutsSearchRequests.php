@@ -35,10 +35,9 @@ if (isset($_POST['checkoutsSearch']) && !(empty($_POST['checkoutsSearch'])) && i
                                         <small id='panel-date-comment'><?= $Funcs->EnFa($Funcs->dateTimeToJalaliDate($divid_date_time[1],'/',true),true) ?></small>
                                         <small class='icon-clock-8' id='panel-time-comment'><?= $Funcs->EnFa($divid_date_time[0],true) ?></small>
                                         <div class='comment-panel-btns col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-                                            <a href='../singleProduct.php?id=<?= $checkoutsRow["clothes_id"] ?>'>
-                                                <p id='see-room-btn' class='submit_edit'>محصول</p>
+                                            <a href='singleCheckout.php?id=<?= $checkoutsRow["id"] ?>'>
+                                                <p id='see-room-btn' class='checkout-details'>جز‌‌ییات</p>
                                             </a>
-
                                         </div>
                                     </div>
                                 </div>
@@ -61,5 +60,3 @@ if (isset($_POST['checkoutsSearch']) && !(empty($_POST['checkoutsSearch'])) && i
 <!--                </div>-->
 </div>
 </div>
-
-</script>

@@ -113,8 +113,8 @@ if ($Funcs->checkValue($_SESSION["errorMessage"],false,true)){
                         <a href="usersList.php">کاربران <span class="panel-object-count"><?= $DB->count('users','id') ?></span></a>
                     </li><br />
                     <?php
-                    if ($Clothes->selectPanelMenu('type',$DB->tableName)):
-                        $menuResult = $Clothes->selectPanelMenu('type',$DB->tableName);
+                    if ($Clothes->selectPanelMenu('type',$DB->tableName,false,true)):
+                        $menuResult = $Clothes->selectPanelMenu('type',$DB->tableName,false,true);
                         while ($Menu = $DB->fetchArray($menuResult)) : ?>
                             <li class="dropdown">
                                <i class="panel-icon icon-shop-1"></i>

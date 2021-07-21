@@ -52,18 +52,18 @@ class Cart{
         }
     }
 
-    public function cartOrderCount(){
+    public function cartOrderCount($customCheckoutId = 0){
         global $DB,$Users;
-        $result = $DB->selectById('cart',$Users->id,'SUM(count) AS count',' AND checkout_id = 0','user_id');
+        $result = $DB->selectById('cart',$Users->id,'SUM(count) AS count'," AND checkout_id = {$customCheckoutId} ",'user_id');
         if($row = $DB->fetchArray($result))
                 $order = $row['count'];
         ($order == "" || empty($order)) ? $order = '0' : $order;
         return $order;
     }
 
-    public function showCartByUserId($startFrom,$recordPerPage){
+    public function showCartByUserId($startFrom,$recordPerPage,$customCheckoutId = 0){
         global $DB,$Users;
-        $result = $DB->selectAll('*','cart',"WHERE user_id={$Users->id} AND checkout_id = 0 ORDER BY cart.id DESC LIMIT {$startFrom},{$recordPerPage}");
+        $result = $DB->selectAll('*','cart',"WHERE user_id={$Users->id} AND checkout_id = {$customCheckoutId} ORDER BY cart.id DESC LIMIT {$startFrom},{$recordPerPage}");
         return $result;
     }
     public function cartByUserId(){
@@ -78,10 +78,10 @@ class Cart{
             echo "مشکی در حذف پیش آمد!";
     }
 
-    public function calculateCart(){
+    public function calculateCart($customCheckoutId = 0){
         global $DB,$Users;
 //        $userCartResult = $DB->selectAll('*','cart',"WHERE user_id={$Users->id}");
-        $userCartResult = $DB->selectById('cart',$Users->id,'*',' AND checkout_id = 0','user_id');
+        $userCartResult = $DB->selectById('cart',$Users->id,'*'," AND checkout_id = {$customCheckoutId}",'user_id');
         $sum = 0;
         $count = [];
         $price = [];
