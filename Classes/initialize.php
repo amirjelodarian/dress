@@ -18,17 +18,19 @@ date_default_timezone_set('Asia/Tehran');
     defined('EMAIL_SUBJECT') ? null : define('EMAIL_SUBJECT','کد شما');
     //////////////////////
 
+    // administrator != ;) wox
 
     // Administrator Emails
     defined('ADMINISTRATOR_EMAIL') ? null : define('ADMINISTRATOR_EMAIL',[
-        'amirjelodarian@gmail.com'
+//        'amirjelodarian@gmail.com'
+
     ]);
     ///////////////////////
 
 
     // Cancel Administrator Emails
     defined('CANCEL_ADMINISTRATOR_EMAIL') ? null : define('CANCEL_ADMINISTRATOR_EMAIL',[
-
+//        'amir2@gmail.com' => 'admin'
     ]);
 
     ///////////////////////////
@@ -53,6 +55,7 @@ date_default_timezone_set('Asia/Tehran');
     require_once "Comments.php";
     require_once "Cart.php";
     require_once "Checkout.php";
+    require_once "Delivery.php";
     $currentDir = getcwd();
     if (preg_match('/\/panel/',$currentDir) || preg_match('/\/Classes/',$currentDir)) {
         require_once '../vendor/stefangabos/zebra_pagination/Zebra_Pagination.php';

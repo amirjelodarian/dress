@@ -1,5 +1,6 @@
 <?php
 require_once "../Classes/initialize.php";
+
 !empty($_GET['searchPage']) ? $searchPage = $DB->escapeValue($_GET['searchPage'],true) : $searchPage = 1;
 $recordPerPage = 50;
 $startFrom = ($searchPage-1)*$recordPerPage;
@@ -52,7 +53,7 @@ if (isset($_POST['usersSearch']) && !(empty($_POST['usersSearch'])) && isset($_P
                                                 <?php
                                             }
                                             break;
-                                        case 'admin' || 'standard': ?>
+                                        case 'admin' || 'deliveryAgent' || 'standard': ?>
                                             <a href="editUser.php?id=<?= htmlspecialchars($allUser['id']) ?>">
                                                 <img class="profile-icon" id="user-profile-pic" alt="404" src=<?= $Funcs->showPic('../style/images/UsersPics/' , $allUser['pro_pic'],'../style/images/Defaults/default-user.png') ?> />
                                                 <?= $allUser['username'] ?>
@@ -78,10 +79,10 @@ if (isset($_POST['usersSearch']) && !(empty($_POST['usersSearch'])) && isset($_P
                                                 <?= $allUser['username'] ?><?php
                                             }
                                             break;
-                                        case 'standard': ?>
-                                        <a href="editUser.php?id=<?= htmlspecialchars($allUser['id']) ?>">
-                                            <img class="profile-icon" id="user-profile-pic" alt="404" src=<?= $Funcs->showPic('../style/images/UsersPics/' , $allUser['pro_pic'],'../style/images/Defaults/default-user.png') ?> />
-                                            <?= $allUser['username'] ?>
+                                        case 'deliveryAgent' || 'standard': ?>
+                                            <a href="editUser.php?id=<?= htmlspecialchars($allUser['id']) ?>">
+                                                <img class="profile-icon" id="user-profile-pic" alt="404" src=<?= $Funcs->showPic('../style/images/UsersPics/' , $allUser['pro_pic'],'../style/images/Defaults/default-user.png') ?> />
+                                                <?= $allUser['username'] ?>
                                             </a><?php
                                             break;
                                     }
@@ -110,8 +111,9 @@ if (isset($_POST['usersSearch']) && !(empty($_POST['usersSearch'])) && isset($_P
                         </td>
                         <?php
                         switch ($allUser['user_mode']){
-                            case "administrator": echo "<td style='background: #ff931d;text-align: center;color: white'>مدیر</td>"; break;
+                            case "administrator": echo "<td style='text-align: center;color: white'>wox</td>"; break;
                             case "admin": echo "<td style='background: #007bff;text-align: center;color: white'>ادمین</td>"; break;
+                            case "deliveryAgent": echo "<td style='background: #007bff;text-align: center;color: white'>مامور تحویل</td>"; break;
                             case "standard": echo "<td style='text-align: center'>استاندارد</td>"; break;
                         }
                         ?>
@@ -124,14 +126,13 @@ if (isset($_POST['usersSearch']) && !(empty($_POST['usersSearch'])) && isset($_P
         <?php endif; ?>
 <?php
         }else
-        echo "<p class='product-route' style='position: relative;top: 20px;font-size: 20px;float: right;right: 0;'>Error 404 ! Not Found</p>";
-    }
-    ?>
+        echo "<p class='product-route' style='position: relative;top: 20px;font-size: 20px;float: right;right: 0;'>Error 404 ! Not Found</p>"; ?>
+        </div>
+            <?php $Funcs->usersSearchPagination('users',$_POST['usersSearch'],$_POST['usersOrderBy'],'id',$searchPage,$recordPerPage); ?>
+        </div>
+<?php } ?>
 
 
     <!--                <div class="container">-->
     <!--                    <a href="more-Product.php" class="float-right mt-3" style="color: red;text-decoration: none"><i class="fa fa-angle-left" style="margin-right: 10px;"></i> More Product</a>-->
     <!--                </div>-->
-    </div>
-    <?php $Funcs->usersSearchPagination('users',$_POST['usersSearch'],$_POST['usersOrderBy'],'id',$searchPage,$recordPerPage); ?>
-    </div>

@@ -6,7 +6,10 @@ include "../Incluedes/panel-menu.php";
 !empty($_GET['id']) ? $id = $DB->escapeValue($_GET['id'],true) : $id = 1;
 $recordPerPage = 10;
 $startFrom = ($page-1)*$recordPerPage;
-if($SS->loggedIn()): ?>
+if($SS->loggedIn()):
+    $userCartResult = $cart->showCartByUserId($startFrom,$recordPerPage,$id);
+    if ($DB->numRows($userCartResult) != 0):
+    ?>
 
 
 
@@ -52,9 +55,8 @@ if($SS->loggedIn()): ?>
                     </div>
                 </div>
                 <?php
-                $userCartResult = $cart->showCartByUserId($startFrom,$recordPerPage,$id);
                 while($userCartRow = $DB->fetchArray($userCartResult)):
-                    $userClothesResult = $DB->selectById('clothes',$userCartRow['clothes_id']);
+                    $userClothesResult = $DB->selectAll('*','clothes',"WHERE id IN ({$userCartRow['clothes_id']})");
                     if ($userClothesRow = $DB->fetchArray($userClothesResult)): ?>
                     <?php $offer = $Funcs->calcOff($userClothesRow['price'], $userClothesRow['off_price']); ?>
                         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 customize-col-lg-3-order" style="font-family: IRANSansU" id="cart-<?= $userCartRow['clothes_id'] ?>">
@@ -116,6 +118,11 @@ if($SS->loggedIn()): ?>
         // });
 
     </script>
+<?php else: ?>
+    <div class="main-col">
+        <p class='product-route' style='position: relative;direction: rtl;top: 20px;font-size: 20px;float: right;right: 15px;'>این شماره سفارش متعلق به شما نیست !</p>
+    </div>
+<?php endif; ?>
 <?php include "../Incluedes/panel-footer.php"; ?>
 <?php else: $Funcs->redirectTo('../product.php'); ?>
 <?php endif; ?>

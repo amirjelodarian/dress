@@ -1,0 +1,7 @@
+CREATE TABLE delivery(
+   	id INT(9) NOT NULL AUTO_INCREMENT,
+	checkout_id INT(9) NOT NULL,
+  	user_id INT(9) NOT NULL,
+    create_at VARCHAR(255) NOT NULL,
+    PRIMARY KEY(id)
+);

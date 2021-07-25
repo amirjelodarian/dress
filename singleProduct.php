@@ -59,7 +59,7 @@ if ($DB->numRows($allResult) !== 0){
                     </div>
                     <div class="sin R_Sin">
                         <h6>قیمت قبل تخفیف</h6>
-                        <h6><b><?= $Funcs->insertSeperator($allRow['price']) ?></b></h6>
+                        <h6><b style="text-decoration-line: line-through;"><?= $Funcs->insertSeperator($allRow['price']) ?></b></h6>
                     </div>
                 </div>
                 <div class="row_single">

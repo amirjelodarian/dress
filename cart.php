@@ -52,7 +52,7 @@ $startFrom = ($page-1)*$recordPerPage;
                                </tr><?php
                            endfor;
                        else:
-                           echo "Something Wrong !";
+                           echo "Something Wrong In Cart Calculate !";
                        endif; ?>
                    </tbody>
                </table>
@@ -81,7 +81,7 @@ $startFrom = ($page-1)*$recordPerPage;
                            <div class="R-order text-right">
                                <div class="container">
                                    <h5><?= $userClothesRow['title'] ?></h5>
-                                   <p>قیمت نهایی : <?= $userClothesRow['off_price'] ?></p>
+                                   <p style="font-family: IRANSansB">قیمت نهایی : <?= $Funcs->EnFa($Funcs->insertSeperator($userClothesRow['off_price']),true,false) ?></p>
                                    <p>رنگ : <span><?= $userClothesRow['color'] ?></span></p>
 
                                    <div class="btns d-flex float-right">

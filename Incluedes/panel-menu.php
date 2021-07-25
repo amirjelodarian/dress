@@ -84,10 +84,14 @@ if ($Funcs->checkValue($_SESSION["errorMessage"],false,true)){
             </li><br />
             <div style="display: block;margin-top: 39px"></div>
             <?php
-            if($Users->isAdministrator() || $Users->isAdmin()){ ?>
+            if($Users->isAdministrator() || $Users->isAdmin() || $Users->isDeliveryAgent()){ ?>
                 <li class="dropdown">
                     <i class="panel-icon icon-plus"></i>
                     <a href="addProduct.php" data-toggle="dropdown">اضافه کردن محصول<i class="icon-arrow"></i></a>
+                </li><br />
+                <li class="dropdown">
+                    <i class="panel-icon icon-basket-4"></i><i class="panel-icon icon-users"></i>
+                    <a href="allCheckouts.php" data-toggle="dropdown">تمام سفارشات<span class="panel-object-count"><?= $DB->count('checkout','id') ?></span><i class="icon-arrow"></i></a>
                 </li><br />
             <?php } ?>
             <li class="dropdown">
@@ -100,7 +104,7 @@ if ($Funcs->checkValue($_SESSION["errorMessage"],false,true)){
                 <a href="commentsList.php">کامنت ها <span class="panel-object-count"><?= $DB->count('comments','id') ?></span></a>
             </li><br />
             <?php endif;
-            if ($Users->isStandard()): ?>
+            if ($Users->isStandard() || $Users->isDeliveryAgent()): ?>
             <li class="dropdown-main">
                 <i class="panel-icon icon-comment"></i>
                 <a href="commentsList.php">کامنت ها <span class="panel-object-count"><?= $DB->count('comments','id'," WHERE user_id = {$Users->id}") ?></span></a>

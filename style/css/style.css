@@ -2365,9 +2365,23 @@ main #Baby{
 }
 .panel-table thead{
     background: #343A40;
-    font-family: IRANSansB;
+    font-family: IRANSansM;
     color: #017BFF;
     text-align: center;
+}
+.count-of-search-result{
+    text-align: center;
+    text-align: -moz-center;
+    text-align: -webkit-center;
+    background: #017BFF;
+    color: #343A40;
+    font-family: IRANSansL;
+    padding: 3px;
+}
+.count-of-search-result span{
+    margin: 5px;
+    color: #ffffff;
+    font-family: IRANSansB;
 }
 .panel-table tbody{
     font-family: IRANSansM;
@@ -2958,6 +2972,7 @@ main #Baby{
     left: 0;
     display: inline-block;
     float: left;
+    font-family: IRANSansB;
 }
 .comment-panel-btns{
     text-align: center;
@@ -2966,6 +2981,27 @@ main #Baby{
 #see-room-btn{
     display: inline-block;
     background: #017BFF;
+}
+#delivered{
+    display: inline-block;
+    background: #343A40;
+    color: white;
+    border: none;
+}
+#delivered:hover{
+    background: gray;
+    cursor: pointer;
+}
+#checkouts-delivered-result{
+    position: fixed;
+    bottom: 0;
+    background: #017BFF;
+    color: white;
+    font-family: IRANSansB;
+    opacity: 0.7;
+    padding: 5px;
+    z-index: 9;
+    font-size: 14px;
 }
 .survey{
     height: 93px;

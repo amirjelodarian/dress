@@ -5,17 +5,28 @@ if(!($Users->isAdministrator() || $Users->isAdmin()))
 if (isset($_POST['editUser'])) {
     $id = $DB->escapeValue($_POST['id'],true);
     if ($_FILES['uploadFile']['size'] == 0 && $_FILES['uploadFile']['name'] == "")
-        if ($users->user_mode == "administrator") 
-            $Users->editPanelUser([$_POST["first_name"], $_POST["last_name"], $_POST["tell"], $_POST["address"],$_POST['user_mode']],'',$_POST['id']);
-        else
-            $Users->editPanelUser([$_POST["first_name"], $_POST["last_name"], $_POST["tell"], $_POST["address"]],'',$_POST['id']);
+        $Users->editPanelUser([
+            $_POST["first_name"],
+            $_POST["last_name"],
+            $_POST["tell"],
+            $_POST["address"],
+            $_POST['user_mode']
+        ],
+            '',
+            $_POST['id']
+        );
+    else
+        $Users->editPanelUser([
+            $_POST["first_name"],
+            $_POST["last_name"],
+            $_POST["tell"],
+            $_POST["address"],
+            $_POST['user_mode']
+        ],
+            "uploadFile",
+            $_POST['id']
+        );
 
-    else{
-      if ($users->user_mode == "administrator")
-          $Users->editPanelUser([$_POST["first_name"], $_POST["last_name"], $_POST["tell"], $_POST["address"],$_POST['user_mode']], "uploadFile",$_POST['id']);
-      else
-          $Users->editPanelUser([$_POST["first_name"], $_POST["last_name"], $_POST["tell"], $_POST["address"]], "uploadFile",$_POST['id']);
-    }
 }
 if (isset($_GET['deletePanelUser'])){
     $deletePanelUserId = $DB->escapeValue($_GET['deletePanelUserId'],true);
@@ -52,6 +63,10 @@ if (isset($_GET['id'])) {
                     echo "Access Denied";
                     die();
                   }
+                    if ($allRow['user_mode'] == "admin" && $users->id !== $allRow['id']) {
+                        echo "Access Denied";
+                        die();
+                    }
                   ?>
                   <div class="return"><a href="usersList.php">< بازگشت</a></div>
                     <div class="col-sm-3 col-md-3 col-lg-3"></div>
@@ -91,6 +106,7 @@ if (isset($_GET['id'])) {
                                           <option value="administrator" <?= $Funcs->returnSomeThingByEqualTwoVal($allRow['user_mode'],'administrator','selected') ?>>مدیر</option>
                                         <?php endif; ?>
                                         <option value="admin" <?= $Funcs->returnSomeThingByEqualTwoVal($allRow['user_mode'],'admin','selected') ?>>ادمین</option>
+                                        <option value="deliveryAgent" <?= $Funcs->returnSomeThingByEqualTwoVal($allRow['user_mode'],'deliveryAgent','selected') ?>>مامور تحویل</option>
                                         <option value="standard" <?= $Funcs->returnSomeThingByEqualTwoVal($allRow['user_mode'],'standard','selected') ?>>استاندارد</option>
                                       </select>
                                       <span>سطح دسترسی</span>

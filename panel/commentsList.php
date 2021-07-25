@@ -17,13 +17,13 @@ if ($searchMode){
     $searchRecordPerPage = 20;
     $searchStartFrom = ($searchPage-1)*$searchRecordPerPage;
     if (!empty($_GET['keyword']) && !empty($_GET['orderBy'])) {
-        if ($Users->isStandard())
+        if ($Users->isStandard() || $Users->isDeliveryAgent())
             $commentsResult = $Comments->searchByTitleOrDescriptionOrUsernameOrEmail('comments',$_GET['keyword'],$_GET['orderBy']," LIMIT {$startFrom},{$recordPerPage}",true,true);
         elseif ($Users->isAdministrator() || $Users->isAdmin())
             $commentsResult = $Comments->searchByTitleOrDescriptionOrUsernameOrEmail('comments',$_GET['keyword'],$_GET['orderBy']," LIMIT {$startFrom},{$recordPerPage}",true);
     }
 }else{
-    if ($Users->isStandard())
+    if ($Users->isStandard() || $Users->isDeliveryAgent())
         $commentsResult = $Comments->selectCommentStandardUser($publish_mode,$startFrom,$recordPerPage);
     elseif ($Users->isAdministrator() || $Users->isAdmin())
         $commentsResult = $Comments->allComments($publish_mode,$startFrom,$recordPerPage);
@@ -36,7 +36,6 @@ if ($searchMode){
         <select name="commentsOrderBy" id="comments-order-by" class="order-by">
             <option value="comment_title">موضوع</option>
             <option value="comment_description">نظر</option>
-<!--            <option value="comment_username">نام کاربری</option>-->
             <option value="comment_user_id">آیدی کاربر</option>
             <option value="comment_email">ایمیل</option>
             <option value="comment_id">Id</option>
@@ -56,7 +55,7 @@ if ($searchMode){
     if (!$searchMode){
         switch ($publish_mode){
         case 'published':
-            if ($Users->isStandard())
+            if ($Users->isStandard() || $Users->isDeliveryAgent())
                 $publishedCount = $DB->count('comments','id'," WHERE user_id = {$Users->id} AND publish_mode='published'");
             elseif ($Users->isAdministrator() || $Users->isAdmin())
                 $publishedCount = $DB->count('comments','id'," WHERE publish_mode='published'");
@@ -64,7 +63,7 @@ if ($searchMode){
             ?><h3 style="color: #017BFF;font-family: IRANSansB">(<?= $publishedCount ?>)منتشر شده ها</h3><?php
             break;
         case 'unpublished':
-            if ($Users->isStandard())
+            if ($Users->isStandard() || $Users->isDeliveryAgent())
                 $unPublishedCount = $DB->count('comments','id'," WHERE user_id = {$Users->id} AND publish_mode='unpublished'");
             elseif ($Users->isAdministrator() || $Users->isAdmin())
                 $unPublishedCount = $DB->count('comments','id'," WHERE publish_mode='unpublished'");
@@ -79,7 +78,7 @@ if ($searchMode){
         <div class="row">
             <?php
             if (!$searchMode) {
-                if ($Users->isStandard())
+                if ($Users->isStandard() || $Users->isDeliveryAgent())
                     $commentsResult = $Comments->selectCommentStandardUser($publish_mode, $startFrom, $recordPerPage);
                 elseif ($Users->isAdministrator() || $Users->isAdmin())
                     $commentsResult = $Comments->allComments($publish_mode, $startFrom, $recordPerPage);

@@ -179,9 +179,9 @@ namespace Comments;
                     break;
                 case 'comment_email':
                     if ($reverseId == true)
-                        $result = $DB->selectAll('*',$tableName,"WHERE email LIKE '{$keyword}%' ORDER BY id DESC {$customSQL}");
+                        $result = $DB->selectAll('*',$tableName,"INNER JOIN users ON users.email LIKE '{$keyword}%' ORDER BY comments.id DESC {$customSQL}");
                     else
-                        $result = $DB->selectAll('*',$tableName,"WHERE email LIKE '{$keyword}%' {$customSQL}");
+                        $result = $DB->selectAll('*',$tableName,"INNER JOIN users ON users.email LIKE '{$keyword}%' {$customSQL}");
                     break;
                 case 'comment_id':
                     settype($keyword,'integer');

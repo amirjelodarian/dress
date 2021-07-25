@@ -154,6 +154,8 @@ use Rakit\Validation\Validator;
 
         public function clothesPagination($tableName,$type,$model,$tableId,$page = 1,$recordsPerPage = 10){
             global $Zebra,$DB;
+            $type = $DB->escapeValue($type);
+            $model = $DB->escapeValue($model);
             if ($type == '*')
                 $result = $DB->selectAll('*',$tableName);
             if ($model == '*')
@@ -182,7 +184,10 @@ use Rakit\Validation\Validator;
         }
         public function cartPagination($tableName,$tableId,$page = 1,$recordsPerPage = 10,$customCheckoutId = 0){
             global $Zebra,$DB,$Users;
-            $result = $DB->selectAll($tableId,$tableName,"WHERE user_id={$Users->id} AND checkout_id = {$customCheckoutId} ");
+            if ($Users->isAdministrator())
+                $result = $DB->selectAll($tableId,$tableName,"WHERE checkout_id = {$customCheckoutId} ");
+            else
+                $result = $DB->selectAll($tableId,$tableName,"WHERE user_id={$Users->id} AND checkout_id = {$customCheckoutId} ");
             $totalRecord = $DB->numRows($result);
             $Zebra->records($totalRecord);
             $Zebra->navigation_position('center');
@@ -193,6 +198,7 @@ use Rakit\Validation\Validator;
         public function clothesSearchPagination($tableName,$keyword,$orderBy,$tableId,$page = 1,$recordsPerPage = 10,$indexPage = ''){
             global $Zebra,$DB;
             $keyword = $DB->escapeValue($keyword);
+            $orderBy = $DB->escapeValue($orderBy);
             switch ($orderBy){
                 case 'clothes_title':
                     $result = $DB->selectAll('*',$tableName,"WHERE title LIKE '%{$keyword}%'");
@@ -206,6 +212,7 @@ use Rakit\Validation\Validator;
                     break;
                 default:
                     echo 'I know You Are A Hacker :)';
+                    exit;
                     break;
             }
 
@@ -230,6 +237,7 @@ use Rakit\Validation\Validator;
         public function usersSearchPagination($tableName,$keyword,$orderBy,$tableId,$page = 1,$recordsPerPage = 10,$indexPage = ''){
             global $Zebra,$DB;
             $keyword = $DB->escapeValue($keyword);
+            $orderBy = $DB->escapeValue($orderBy);
             switch ($orderBy){
                 case 'user_username':
                     $result = $DB->selectAll('*',$tableName,"WHERE username LIKE '%{$keyword}%'");
@@ -246,6 +254,7 @@ use Rakit\Validation\Validator;
                     break;
                 default:
                     echo 'I know You Are A Hacker :)';
+                    exit;
                     break;
             }
 
@@ -270,6 +279,7 @@ use Rakit\Validation\Validator;
         public function commentsSearchPagination($tableName,$keyword,$orderBy,$tableId,$page = 1,$recordsPerPage = 10,$indexPage = ''){
             global $Zebra,$DB;
             $keyword = $DB->escapeValue($keyword);
+            $orderBy = $DB->escapeValue($orderBy);
             switch ($orderBy){
                 case 'comment_title':
                     $result = $DB->selectAll('*',$tableName,"WHERE title LIKE '%{$keyword}%'");
@@ -314,12 +324,18 @@ use Rakit\Validation\Validator;
             $Zebra->records_per_page($recordsPerPage);
             $Zebra->render();
         }
-        public function checkoutsSearchPagination($tableName,$keyword,$orderBy,$tableId,$page = 1,$recordsPerPage = 10,$indexPage = ''){
+        public function checkoutsSearchPagination($tableName,$keyword,$orderBy,$tableId,$page = 1,$recordsPerPage = 10,$indexPage = '',$allUsers = ''){
             global $Zebra,$DB,$Users;
+            $orderBy = $DB->escapeValue($orderBy);
+            $keyword = $DB->escapeValue($keyword,true);
+            $allUsers == true ? $customeSql = '' : $customeSql = "AND user_id = {$Users->id}";
             switch ($orderBy){
                 case 'checkout_id':
                     settype($keyword,'integer');
-                    $result = $DB->selectAll('*',$tableName,"WHERE id = {$keyword} AND user_id = {$Users->id}");
+                    $result = $DB->selectAll('id',$tableName,"WHERE id = {$keyword} {$customeSql}");
+                    break;
+                case 'user_id' && $allUsers == true:
+                    $result = $DB->selectAll('id',$tableName,"WHERE user_id = {$keyword} {$customeSql}");
                     break;
                 default:
                     echo 'I know You Are A Hacker :)';
@@ -331,7 +347,10 @@ use Rakit\Validation\Validator;
             if ($indexPage == true){
                 $Zebra->_properties['variable_name'] = 'searchPage';
             }else{
-                $Zebra->base_url('checkouts.php?'.'orderBy='.$orderBy.'&keyword='.$keyword);
+                if ($allUsers == true)
+                    $Zebra->base_url('allCheckouts.php?'.'orderBy='.$orderBy.'&keyword='.$keyword);
+                else
+                    $Zebra->base_url('checkouts.php?'.'orderBy='.$orderBy.'&keyword='.$keyword);
                 $Zebra->_properties['variable_name'] = 'orderBy='.$orderBy.'&keyword='.$keyword.'&searchPage';
                 $Zebra->_properties['avoid_duplicate_content'] = false;
             }
@@ -365,12 +384,14 @@ use Rakit\Validation\Validator;
             $delivery = $DB->escapeValue($delivery);
             switch ($delivery){
                 case 'delivery':
-                    $result = $DB->selectAll($tableId,$tableName," WHERE user_id = {$Users->id} AND delivery_at != 0");
+                    $result = $DB->selectAll($tableId,$tableName," WHERE delivery_id != 0");
                     break;
                 case 'not_delivery':
-                    $result = $DB->selectAll($tableId,$tableName," WHERE user_id = {$Users->id} AND delivery_at = 0");
+                    $result = $DB->selectAll($tableId,$tableName," WHERE delivery_id = 0");
                     break;
                 default:
+                    echo 'I know You Are A Hacker :)';
+                    exit;
                     break;
             }
             $totalRecord = $DB->numRows($result);
@@ -616,6 +637,11 @@ use Rakit\Validation\Validator;
         }
         public function ifEqual($value,$value2,$doAnyThing){
             if ($value == $value2){
+                return $doAnyThing;
+            }
+        }
+        public function ifNotEqual($value,$value2,$doAnyThing){
+            if ($value !== $value2){
                 return $doAnyThing;
             }
         }

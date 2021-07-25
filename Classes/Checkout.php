@@ -15,7 +15,7 @@ class Checkout{
     public $address; // VARCHAR(255)
     public $zip; // VARCHAR(255)
     public $order_desciption; // TEXT
-    public $delivery_at; // // VARCHAR(255)
+    public $delivery_id; // // VARCHAR(255)
     public $create_at; // // VARCHAR(255)
     public function fillCheckoutAttribute(){
         global $DB,$Users;
@@ -97,10 +97,26 @@ class Checkout{
         global $DB,$Users;
         switch ($delivery){
             case 'delivery':
-                $result = $DB->selectAll('*','checkout'," WHERE user_id='{$Users->id}' AND delivery_at != 0 ORDER BY checkout.id DESC LIMIT {$startFrom},{$recordPerPage}");
+                $result = $DB->selectAll('*','checkout'," WHERE user_id='{$Users->id}' AND delivery_id != 0 ORDER BY checkout.id DESC LIMIT {$startFrom},{$recordPerPage}");
                 break;
             case 'not_delivery':
-                $result = $DB->selectAll('*','checkout'," WHERE user_id='{$Users->id}' AND delivery_at = 0 ORDER BY checkout.id DESC LIMIT {$startFrom},{$recordPerPage}");
+                $result = $DB->selectAll('*','checkout'," WHERE user_id='{$Users->id}' AND delivery_id = 0 ORDER BY checkout.id DESC LIMIT {$startFrom},{$recordPerPage}");
+                break;
+            default:
+                echo "Sorry , Don't Change Value My Hacker Friend :D";
+                exit;
+                break;
+        }
+        return $result;
+    }
+    public function allCheckout($delivery,$startFrom,$recordPerPage){
+        global $DB;
+        switch ($delivery){
+            case 'delivery':
+                $result = $DB->selectAll('*','checkout'," WHERE delivery_id != 0 ORDER BY checkout.id DESC LIMIT {$startFrom},{$recordPerPage}");
+                break;
+            case 'not_delivery':
+                $result = $DB->selectAll('*','checkout'," WHERE delivery_id = 0 ORDER BY checkout.id DESC LIMIT {$startFrom},{$recordPerPage}");
                 break;
             default:
                 echo "Sorry , Don't Change Value My Hacker Friend :D";
@@ -113,6 +129,33 @@ class Checkout{
         global $DB,$Users;
         $checkoutId = $DB->escapeValue($checkoutId,true);
         $result = $DB->selectAll('*','checkout'," WHERE checkout.id = {$checkoutId} AND user_id='{$Users->id}' ORDER BY checkout.id DESC LIMIT {$startFrom},{$recordPerPage}");
+        return $result;
+    }
+    public function allCheckoutSearch($checkoutSearch,$checkoutsOrderBy,$startFrom,$recordPerPage){
+        global $DB,$Users;
+        $checkoutSearch = $DB->escapeValue($checkoutSearch,true);
+        $checkoutsOrderBy = $DB->escapeValue($checkoutsOrderBy);
+
+        switch ($checkoutsOrderBy){
+            case 'checkout_id':
+                $result = $DB->selectAll('*','checkout'," WHERE checkout.id = {$checkoutSearch} ORDER BY checkout.id DESC LIMIT {$startFrom},{$recordPerPage}");
+                break;
+            case 'user_id':
+                $result = $DB->selectAll('*','checkout'," WHERE checkout.user_id = {$checkoutSearch} ORDER BY checkout.id DESC LIMIT {$startFrom},{$recordPerPage}");
+                break;
+            case 'delivery_user_id' && ($Users->isAdministrator() || $Users->isAdmin()):
+                $deliveryResult = $DB->selectAll('checkout_id AS checkout_id','delivery'," WHERE user_id = {$checkoutSearch} ORDER BY delivery.id DESC LIMIT {$startFrom},{$recordPerPage}");
+                $deliveryCheckoutIds = [];
+                while ($deliveryRow = $DB->fetchArray($deliveryResult))
+                    array_push($deliveryCheckoutIds,$deliveryRow['checkout_id']);
+                $deliveryCheckoutIds = implode(',',$deliveryCheckoutIds);
+                $result = $DB->selectAll('*','checkout'," WHERE checkout.id IN ({$deliveryCheckoutIds}) ORDER BY checkout.id DESC LIMIT {$startFrom},{$recordPerPage}");
+                break;
+            default:
+                echo 'I know You Are A Hacker :)';
+                exit;
+                break;
+        }
         return $result;
     }
 }

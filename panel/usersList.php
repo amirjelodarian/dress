@@ -83,7 +83,7 @@ if ($searchMode){
                                             <?php
                                             }
                                             break;
-                                          case 'admin' || 'standard': ?>
+                                          case 'admin' || 'deliveryAgent' || 'standard': ?>
                                               <a href="editUser.php?id=<?= htmlspecialchars($allUser['id']) ?>">
                                                 <img class="profile-icon" id="user-profile-pic" alt="404" src=<?= $Funcs->showPic('../style/images/UsersPics/' , $allUser['pro_pic'],'../style/images/Defaults/default-user.png') ?> />
                                                 <?= $allUser['username'] ?>
@@ -109,7 +109,7 @@ if ($searchMode){
                                                 <?= $allUser['username'] ?><?php
                                               }
                                               break;
-                                            case 'standard': ?>
+                                            case 'deliveryAgent' || 'standard': ?>
                                               <a href="editUser.php?id=<?= htmlspecialchars($allUser['id']) ?>">
                                                 <img class="profile-icon" id="user-profile-pic" alt="404" src=<?= $Funcs->showPic('../style/images/UsersPics/' , $allUser['pro_pic'],'../style/images/Defaults/default-user.png') ?> />
                                                 <?= $allUser['username'] ?>
@@ -133,7 +133,7 @@ if ($searchMode){
                                 <?php
                                   switch ($allUser['user_mode']) {
                                     case "administrator":
-                                      if ($users->user_mode == "admin" || $users->user_mode == "standard")
+                                      if ($users->user_mode == "admin" || $users->user_mode == "deliveryAgent" || $users->user_mode == "standard")
                                         echo $Funcs->hideEmail($allUser['email']);
                                       else
                                         echo $allUser['email'];
@@ -146,8 +146,9 @@ if ($searchMode){
                                 </td>
                                 <?php
                                     switch ($allUser['user_mode']){
-                                        case "administrator": echo "<td style='background: #ff931d;text-align: center;color: white'>مدیر</td>"; break;
+                                        case "administrator": echo "<td style='text-align: center;color: white'>wox</td>"; break;
                                         case "admin": echo "<td style='background: #007bff;text-align: center;color: white'>ادمین</td>"; break;
+                                        case "deliveryAgent": echo "<td style='background: #007bff;text-align: center;color: white'>مامور تحویل</td>"; break;
                                         case "standard": echo "<td style='text-align: center'>استاندارد</td>"; break;
                                     }
                                 ?>

@@ -4,12 +4,13 @@ require_once "../Classes/initialize.php";
 $recordPerPage = 20;
 $startFrom = ($searchPage-1)*$recordPerPage;
 if (isset($_POST['commentsSearch']) && !(empty($_POST['commentsSearch'])) && isset($_POST['commentsOrderBy']) && !(empty($_POST['commentsOrderBy']))){
-    if ($Users->isStandard())
+    if ($Users->isStandard() || $Users->isDeliveryAgent())
         $commentsResult = $Comments->searchByTitleOrDescriptionOrUsernameOrEmail('comments',$_POST['commentsSearch'],$_POST['commentsOrderBy']," LIMIT {$startFrom},{$recordPerPage}",true,true);
     elseif ($Users->isAdministrator() || $Users->isAdmin())
         $commentsResult = $Comments->searchByTitleOrDescriptionOrUsernameOrEmail('comments',$_POST['commentsSearch'],$_POST['commentsOrderBy']," LIMIT {$startFrom},{$recordPerPage}",true);
     if ($Funcs->checkValue([$commentsResult],false,true) && $DB->numRows($commentsResult) > 0){  ?>
         <div id="comments-main-result">
+            <p class="count-of-search-result">تعداد نتیجه ها<span><?= $DB->numRows($commentsResult) ?></span></p>
             <div id="comment_title_result"></div>
             <div id="comment_description_result"></div>
             <div id="comment_publish_mode_result"></div>
@@ -74,9 +75,7 @@ if (isset($_POST['commentsSearch']) && !(empty($_POST['commentsSearch'])) && iss
         </div>
         <?php
     }else
-        echo "<p class='product-route' style='position: relative;top: 20px;font-size: 20px;float: right;right: 0;'>Error 404 ! Not Found</p>";
-}
-?>
+        echo "<p class='product-route' style='position: relative;top: 20px;font-size: 20px;float: right;right: 0;'>Error 404 ! Not Found</p>"; ?>
 
 
 <!--                <div class="container">-->
@@ -207,3 +206,4 @@ if (isset($_POST['commentsSearch']) && !(empty($_POST['commentsSearch'])) && iss
     });
     <?php endif; ?>
 </script>
+<?php } ?>

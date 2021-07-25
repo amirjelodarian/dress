@@ -6,6 +6,7 @@ $startFrom = ($searchPage-1)*$recordPerPage;
 if (isset($_POST['clothesSearch']) && !(empty($_POST['clothesSearch'])) && isset($_POST['clothesOrderBy']) && !(empty($_POST['clothesOrderBy']))){
 $allResult = $Clothes->searchByTitleOrPrice('clothes',$_POST['clothesSearch'],$_POST['clothesOrderBy']," LIMIT {$startFrom},{$recordPerPage}",true);
 if ($Funcs->checkValue([$allResult],false,true) && $DB->numRows($allResult) > 0) { ?>
+    <p class="count-of-search-result">تعداد نتیجه ها<span><?= $DB->numRows($allResult) ?></span></p>
     <div class="row ManProduct">
     <?php while ($allRow = $DB->fetchArray($allResult)) { ?>
         <div class="col-12 col-sm-6 col-md-6 col-lg-3">

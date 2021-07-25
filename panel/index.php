@@ -24,6 +24,7 @@ if(!empty($_GET['clothesType']) && !empty($_GET['clothesModel']) && !$searchMode
 }else
     $Funcs->redirectTo('dashboard.php');
 ?>
+<?php if ($Users->isAdministrator() || $Users->isAdmin()){ ?>
     <div class="main-col">
         <div class="add-product-btn">
             <a href="addProduct.php"><i class="icon-shop-1"></i><i class="icon-plus"></i></a>
@@ -162,3 +163,4 @@ if(!empty($_GET['clothesType']) && !empty($_GET['clothesModel']) && !$searchMode
     </div>
 
     <?php include "../Incluedes/panel-footer.php"; ?>
+<?php }else $Funcs->redirectTo('dashboard.php'); ?>

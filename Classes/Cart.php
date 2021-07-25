@@ -63,7 +63,10 @@ class Cart{
 
     public function showCartByUserId($startFrom,$recordPerPage,$customCheckoutId = 0){
         global $DB,$Users;
-        $result = $DB->selectAll('*','cart',"WHERE user_id={$Users->id} AND checkout_id = {$customCheckoutId} ORDER BY cart.id DESC LIMIT {$startFrom},{$recordPerPage}");
+        if ($Users->isAdministrator() || $Users->isAdmin() || $Users->isDeliveryAgent())
+            $result = $DB->selectAll('*','cart',"WHERE checkout_id = {$customCheckoutId} ORDER BY cart.id DESC LIMIT {$startFrom},{$recordPerPage}");
+        else
+            $result = $DB->selectAll('*','cart',"WHERE user_id={$Users->id} AND checkout_id = {$customCheckoutId} ORDER BY cart.id DESC LIMIT {$startFrom},{$recordPerPage}");
         return $result;
     }
     public function cartByUserId(){
@@ -81,7 +84,10 @@ class Cart{
     public function calculateCart($customCheckoutId = 0){
         global $DB,$Users;
 //        $userCartResult = $DB->selectAll('*','cart',"WHERE user_id={$Users->id}");
-        $userCartResult = $DB->selectById('cart',$Users->id,'*'," AND checkout_id = {$customCheckoutId}",'user_id');
+        if ($Users->isAdministrator() || $Users->isAdmin() || $Users->isDeliveryAgent())
+            $userCartResult = $DB->selectById('cart',$customCheckoutId,'*','','checkout_id');
+        else
+            $userCartResult = $DB->selectById('cart',$Users->id,'*'," AND checkout_id = {$customCheckoutId}",'user_id');
         $sum = 0;
         $count = [];
         $price = [];

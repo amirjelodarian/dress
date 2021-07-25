@@ -180,33 +180,36 @@ namespace Users;
         public function editPanelUser($values = [],$fileNameForUpload = "",$id){
             global $DB,$Funcs,$Sessions,$users;
             $id = $DB->escapeValue($id,true);
-            if ($Funcs->checkValue($fileNameForUpload,true,true)){
-                $Funcs->uploadPic($fileNameForUpload, '../style/images/UsersPics/', '2097152');
-                array_push($values,Functions::$fileName);
-                if ($users->user_mode == "administrator"){
-                    if($DB->update("users", "first_name,last_name,tell,address,user_mode,pro_pic", $values," WHERE id = {$id}"))
-                        $Funcs->redirectTo("editUser.php?id={$id}");
+            $indexOfUserMode = sizeof($values) - 1;
+            $userMode = $values[$indexOfUserMode];
+
+
+            if($this->validateUserMode($userMode)) {
+
+                if ($Funcs->checkValue($fileNameForUpload, true, true)) {
+                    $Funcs->uploadPic($fileNameForUpload, '../style/images/UsersPics/', '2097152');
+                    array_push($values, Functions::$fileName);
+                    if ($DB->update("users", "first_name,last_name,tell,address,user_mode,pro_pic", $values, " WHERE id = {$id}"))
+                        $Funcs->redirectTo("usersList.php");
                     else
                         $_SESSION['errorMessage'] = "خطایی رخ داد !|";
-                }else {
-                    if($DB->update("users", "first_name,last_name,tell,address,pro_pic", $values," WHERE id = {$id}"))
-                        $Funcs->redirectTo("editUser.php?id={$id}");
+                } else {
+                    if ($DB->update("users", "first_name,last_name,tell,address,user_mode", $values, " WHERE id = {$id}"))
+                        $Funcs->redirectTo("usersList.php");
                     else
                         $_SESSION['errorMessage'] = "خطایی رخ داد !|";
                 }
-            }else {
-              if ($users->user_mode == "administrator"){
-                  if($DB->update("users", "first_name,last_name,tell,address,user_mode", $values," WHERE id = {$id}"))
-                      $Funcs->redirectTo("editUser.php?id={$id}");
-                  else
-                      $_SESSION['errorMessage'] = "خطایی رخ داد !|";
-              }else {
-                  if($DB->update("users", "first_name,last_name,tell,address", $values," WHERE id = {$id}"))
-                      $Funcs->redirectTo("editUser.php?id={$id}");
-                  else
-                      $_SESSION['errorMessage'] = "خطایی رخ داد !|";
-              }
-            }
+            }else
+                $_SESSION['errorMessage'] = "مشکلی در سطح دسترسی پیش آمده !|";
+        }
+        private function validateUserMode($userMode){
+            global $users;
+            if ($users->isAdmin() && ($userMode == 'admin' || $userMode == 'deliveryAgent' || $userMode == 'standard'))
+                return true;
+            elseif($users->isAdministrator() && ($userMode == 'administrator' || $userMode == 'admin' || $userMode == 'deliveryAgent' || $userMode == 'standard'))
+                return true;
+            else
+                return false;
         }
         public function deletePanelUser($id){
             global $DB,$Funcs,$Sessions;
@@ -248,7 +251,7 @@ namespace Users;
 
         }
         public function isAdmin($redirectTo = ''){
-          global $users;
+            global $Funcs;
           if($this->user_mode == "admin")
             return true;
           else{
@@ -256,8 +259,17 @@ namespace Users;
               $Funcs->redirectTo($redirectTo);
           }
         }
+        public function isDeliveryAgent($redirectTo = ''){
+            global $Funcs;
+            if($this->user_mode == "deliveryAgent")
+                return true;
+            else{
+                if (!empty($redirectTo))
+                    $Funcs->redirectTo($redirectTo);
+            }
+        }
         public function isStandard($redirectTo = ''){
-          global $users;
+            global $Funcs;
           if($this->user_mode == "standard")
             return true;
           else{
