@@ -31,13 +31,16 @@ if ($searchMode){
 
 ?>
 <div class="main-col">
+    <h1 class="panel-title">کامنت ها</h1>
     <div class="panel-search">
         <input type="text" name="commentsSearch" id="comments-search" class="panel-search-bar"  placeholder="Search" />
         <select name="commentsOrderBy" id="comments-order-by" class="order-by">
             <option value="comment_title">موضوع</option>
             <option value="comment_description">نظر</option>
-            <option value="comment_user_id">آیدی کاربر</option>
-            <option value="comment_email">ایمیل</option>
+            <?php if($Users->isAdministrator() || $Users->isAdmin()): ?>
+                <option value="comment_user_id">آیدی کاربر</option>
+                <option value="comment_email">ایمیل</option>
+            <?php endif; ?>
             <option value="comment_id">Id</option>
         </select>
     </div>

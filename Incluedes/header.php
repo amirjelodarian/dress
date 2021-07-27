@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="node_modules/ion-rangeslider/css/ion.rangeSlider.min.css">
     <link rel="stylesheet" href="style/fontawesome/fontawesome-free-5.14.0-web/css/all.min.css">
     <link rel="stylesheet" href="vendor/stefangabos/zebra_pagination/public/css/zebra_pagination.css" type="text/css">
+    <link rel="stylesheet" href="style/swiper/swiper-bundle.min.css" />
+    <script src="style/swiper/swiper-bundle.min.js"></script>
 </head>
 <body style="background: #eeeeee;">
 <?php

@@ -39,7 +39,10 @@ if ($Funcs->checkValue($_SESSION["errorMessage"],false,true)){
 ?>
 <header id="header-panel">
     <div class="container">
-        <img id="user-profile-pic" style="margin-top: 10px;border: 2px solid grey" src=<?= $Funcs->showPic('../style/images/UsersPics/' , $users->pro_pic,'../style/images/Defaults/default-user.png') ?> alt="" />
+        <div class="user-details">
+            <img id="user-profile-pic" style="margin-top: 10px;border: 2px solid grey" src=<?= $Funcs->showPic('../style/images/UsersPics/' , $users->pro_pic,'../style/images/Defaults/default-user.png') ?> alt="" />
+            <p><?= $users->user_mode ?></p>
+        </div>
         <input type="file" id="user-profile-pic">
         <i class="fa fa-bars" id="panel-menu-icon"></i>
     </div>
@@ -83,12 +86,13 @@ if ($Funcs->checkValue($_SESSION["errorMessage"],false,true)){
                 <a href="dashboard.php" data-toggle="dropdown">داشبورد</a>
             </li><br />
             <div style="display: block;margin-top: 39px"></div>
-            <?php
-            if($Users->isAdministrator() || $Users->isAdmin() || $Users->isDeliveryAgent()){ ?>
+            <?php if($Users->isAdministrator() || $Users->isAdmin()){ ?>
                 <li class="dropdown">
                     <i class="panel-icon icon-plus"></i>
                     <a href="addProduct.php" data-toggle="dropdown">اضافه کردن محصول<i class="icon-arrow"></i></a>
                 </li><br />
+            <?php } ?>
+            <?php if($Users->isAdministrator() || $Users->isAdmin() || $Users->isDeliveryAgent()){ ?>
                 <li class="dropdown">
                     <i class="panel-icon icon-basket-4"></i><i class="panel-icon icon-users"></i>
                     <a href="allCheckouts.php" data-toggle="dropdown">تمام سفارشات<span class="panel-object-count"><?= $DB->count('checkout','id') ?></span><i class="icon-arrow"></i></a>
@@ -151,3 +155,12 @@ if ($Funcs->checkValue($_SESSION["errorMessage"],false,true)){
         </ul>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        $('.user-details p,.id-of-user-panel').hide();
+        $('.user-details img').click(function(){
+            $('.user-details p').fadeIn(0).fadeOut(4000);
+            $('.id-of-user-panel').fadeIn(0).fadeOut(4000);
+        });
+    });
+</script>

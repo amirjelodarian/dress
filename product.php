@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="aboutSite">
-                    <h4>Site Name</h4>
+                    <h4>محصولات</h4>
                 </div>
             </div>
         </div>
@@ -22,36 +22,28 @@
         <div class="container">
             <div class="owl-box">
                 <div class="slider">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="style/images/SitePics/slider4.jpg" class="d-block w-100" alt="...">
+                    <div class="swiper-container">
+
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="style/images/SitePics/slider1.jpg" alt="404" class="img-fluid" />
                             </div>
-                            <div class="carousel-item">
-                                <img src="style/images/SitePics/slider2.jpg" class="d-block w-100" alt="..." title="E-ConnectُS اندو موتور">
+                            <div class="swiper-slide">
+                                <img src="style/images/SitePics/slider2.jpg" alt="404" class="img-fluid" />
                             </div>
-                            <div class="carousel-item">
-                                <img src="style/images/SitePics/slider3..jpg" class="d-block w-100" alt="...">
+                            <div class="swiper-slide">
+                                <img src="style/images/SitePics/slider4.jpg" alt="404" class="img-fluid" />
                             </div>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
-            </div>
+                </div>
         </div>
 <!--        End-owl-->
-
         <div class="row">
             <div class="col-12">
                 <div class="aboutSelect">
@@ -172,6 +164,25 @@
 </div>
 
 </main>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        autoplay:true,
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'progressbar',
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        scrollbar: {
+            el: '.swiper-scrollbar',
+            hide: true,
+        },
+        loop: true,
+    });
+
+</script>
 <br><br><br>
 <!--End-Main-->
 <!--End-footer-->

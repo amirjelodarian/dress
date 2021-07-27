@@ -1,6 +1,5 @@
 /* this is for panel */
 $(document).ready(function(){
-
     // commentsList.php Page
     $('#comments-search').keyup(function () {
         var commentsSearch = $("#comments-search").val();
@@ -101,8 +100,10 @@ $(document).ready(function(){
     $('#menu-btn').click(function (){
         $('#mobile-menu').show();
     });
+    $('#panel-menu-icon').hide();
     if ($(window).width() <= 768){
         $('#bars').css({'width':'0px'});
+        $('#panel-menu-icon').show();
     }
     $("#limitToNumber,.limitToNumber").keypress(function (e) {
         var ew = e.which || e.keyCode;
@@ -117,12 +118,15 @@ $(document).ready(function(){
     $('#close').click(function (){
         $('#bars').css({'width':'0px'});
         $('#header-panel,.main-col').css({'width':'100%'});
+        $('#panel-menu-icon').show();
     });
     $('#panel-menu-icon').click(function (){
+        $('#panel-menu-icon').hide();
         if($(window).width() > 768){
             $('#bars').css({'width':'20%'});
             $('#header-panel,.main-col').css({'width':'80%'});
         }else if ($(window).width() <= 768){
+            $('#panel-menu-icon').show();
             $('#bars').css({'width':'250px'});
             $('#header-panel,.main-col').css({'width':'100%'});
         }

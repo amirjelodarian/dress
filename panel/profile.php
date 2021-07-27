@@ -12,6 +12,7 @@ if (isset($_GET['deleteComment'])){
 }
 ?>
 <div class="main-col">
+    <p class="id-of-user-panel"><?= $users->id ?></p>
     <div id="comment_title_result"></div>
     <div id="comment_description_result"></div>
     <div id="comment_publish_mode_result"></div>

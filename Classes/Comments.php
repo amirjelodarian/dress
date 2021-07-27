@@ -170,14 +170,14 @@ namespace Comments;
 //                    }else
 //                        $result = $DB->selectAll('*',$tableName,"INNER JOIN users ON users.username LIKE '{$keyword}%' ORDER BY comments.id DESC {$customSQL}");
 //                    break;
-                case 'comment_user_id':
+                case 'comment_user_id' && ($Users->isAdministrator() || $Users->isAdmin()):
                     settype($keyword,'integer');
                     if ($reverseId == true)
                         $result = $DB->selectAll('*',$tableName,"WHERE {$limitToUserComment} user_id = {$keyword} ORDER BY id DESC {$customSQL}");
                     else
                         $result = $DB->selectAll('*',$tableName,"WHERE {$limitToUserComment} user_id = {$keyword} {$customSQL}");
                     break;
-                case 'comment_email':
+                case 'comment_email' && ($Users->isAdministrator() || $Users->isAdmin()):
                     if ($reverseId == true)
                         $result = $DB->selectAll('*',$tableName,"INNER JOIN users ON users.email LIKE '{$keyword}%' ORDER BY comments.id DESC {$customSQL}");
                     else
@@ -186,9 +186,9 @@ namespace Comments;
                 case 'comment_id':
                     settype($keyword,'integer');
                     if ($reverseId == true)
-                        $result = $DB->selectAll('*',$tableName,"WHERE id = {$keyword} ORDER BY id DESC {$customSQL}");
+                        $result = $DB->selectAll('*',$tableName,"WHERE {$limitToUserComment} id = {$keyword} ORDER BY id DESC {$customSQL}");
                     else
-                        $result = $DB->selectAll('*',$tableName,"WHERE id = {$keyword} {$customSQL}");
+                        $result = $DB->selectAll('*',$tableName,"WHERE {$limitToUserComment} id = {$keyword} {$customSQL}");
                     break;
                 default:
                     echo 'I know You Are A Hacker :)';

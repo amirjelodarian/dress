@@ -21,9 +21,7 @@ if ($searchMode){
 
 ?>
 <div class="main-col">
-    <div class="col-12 text-right">
-        <h1 class="panel-title">سفارشات</h1>
-    </div>
+    <h1 class="panel-title">سفارشات</h1>
     <div class="panel-search">
         <input type="text" name="checkoutsSearch" id="checkouts-search" class="panel-search-bar m-2"  placeholder="شماره سفارش" />
         <i class="icon-search"></i>

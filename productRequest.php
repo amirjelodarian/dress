@@ -40,7 +40,13 @@ include "Classes/initialize.php";
                                 <input name="deleteProductId" type="hidden" value='<?= $allRow["id"] ?>' />
                                 <div class="Mark">
                                     <div class="container d-flex justify-content-between">
-                                        <p style="font-size: 13px;padding: 5px;position: relative;top: 6px;"><?= $allRow['off_price'] ?> تومان</p>
+                                        <p>
+                                            <?php if ($allRow['count'] !== "0"): ?>
+                                                <?= $Funcs->EnFa($Funcs->insertSeperator($allRow['off_price']),true) ?> تومان
+                                            <? else: ?>
+                                        <p style="color: #DB3445;margin-top: 8px;">ناموجود</p>
+                                        <?php endif; ?>
+                                        </p>
                                         <h5 style="font-size: 13px;padding: 5px;position: relative;top: 8px;"><?= $allRow['title'] ?></h5>
                                     </div>
                                 </div>

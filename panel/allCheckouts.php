@@ -22,9 +22,7 @@ if ($searchMode){
 
 ?>
 <div class="main-col">
-    <div class="col-12 text-right">
-        <h1 class="panel-title">تمام سفارشات</h1>
-    </div>
+    <h1 class="panel-title">تمام سفارشات</h1>
     <div id="checkouts-delivered-result"></div>
     <div class="panel-search">
         <input type="text" name="checkoutsSearch" id="checkouts-search" class="panel-search-bar m-2"  placeholder="جستجو بر اساس" />

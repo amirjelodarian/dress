@@ -165,6 +165,8 @@ if ($searchMode){
                     $Funcs->usersSearchPagination('users', $_GET['keyword'], $_GET['orderBy'], 'id', $searchPage, $searchRecordPerPage,true);
                 else
                     $Funcs->pagination('users','id',$page,$recordPerPage);
+        }else{
+            $Funcs->redirectTo('dashboard.php');
         }
     ?>
     </div>
