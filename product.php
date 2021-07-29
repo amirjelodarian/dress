@@ -56,7 +56,7 @@
                 <div class="Select-box">
 
                     <select name="userMenu" id="userMenu" class="Select">
-                        <option value="*">*</option>
+                        <option value="*">انتخاب کنید -</option>
                         <?php
                         $menuResult = $Clothes->selectPanelMenu('type',$DB->tableName,true);
                         if ($Funcs->checkValue(array($menuResult),false,true) && $DB->numRows($menuResult) > 0) {
@@ -84,7 +84,7 @@
             <div class="col-12">
                 <div class="Select-box" id="Man">
                     <select name="userSubMenu" id="userSubMenu" class="Select">
-                        <option value="*">*</option>
+                        <option value="*">انتخاب کنید -</option>
                         <?php
                         $subMenuResult = $Clothes->selectPanelSubMenu('model',$DB->tableName,$menuArr[0],true);
                         if ($Funcs->checkValue(array($subMenuResult),false,true) && ($DB->numRows($subMenuResult) > 0)) {
@@ -128,7 +128,7 @@
                                         </div>
                                     <?php endif; ?>
                                     <img src=<?= $Funcs->showPic("style/images/ProductPics/",$allResult['pic_loc'],'style/images/Defaults/default-product.jpg'); ?> alt=<?= stripslashes($allResult['pic_loc']) ?> />
-                                    <a  href=singleProduct.php?id=<?= $allResult['id'] ?> id="more-details" class="more-details">...جزئیات بیشتر</a>
+                                    <a href=singleProduct.php?id=<?= $allResult['id'] ?> id="more-details" class="more-details">...جزئیات بیشتر</a>
                                 </div>
                                 <input name="deleteProductId" type="hidden" value='<?= $allResult["id"] ?>' />
                                     <div class="Mark">
@@ -180,6 +180,8 @@
             hide: true,
         },
         loop: true,
+        speed: 500,
+        cssMode: true,
     });
 
 </script>

@@ -3011,6 +3011,31 @@ main #Baby{
     background: gray;
     cursor: pointer;
 }
+.delivery{
+    background: #343A40;
+    color: white;
+    font-family: IRANSansM;
+    text-align: center;
+    text-align: -webkit-center;
+    text-align: -moz-center;
+    text-align-last:center;
+    border: none;
+    font-size: 13px;
+    border-radius: 2.3px;
+    transition: all 0.5s;
+    cursor: pointer;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 3.5px;
+}
+.delivery:hover{
+    background: rgba(64,75,81,0.69);
+    transition: 0.5s;
+}
+.delivery option{
+    font-family: IRANSansM;
+}
 #checkouts-delivered-result{
     position: fixed;
     bottom: 0;

@@ -13,6 +13,7 @@ if (isset($_POST['checkoutsSearch']) && !(empty($_POST['checkoutsSearch'])) && i
                 <div id="checkouts-delivered-result"></div>
                 <div class="row">
                     <?php
+                  if ($Funcs->checkValue(array($checkoutsResult),false,true) && $DB->numRows($checkoutsResult) > 0) {
                     while($checkoutsRow = $DB->fetchArray($checkoutsResult)):
                         $delivery = $checkoutsRow['delivery_id'];
                         $divid_date_time = $Funcs->divid_date_time_database($checkoutsRow['create_at']);
@@ -79,6 +80,7 @@ if (isset($_POST['checkoutsSearch']) && !(empty($_POST['checkoutsSearch'])) && i
                             </div>
                         </div>
                     <?php endwhile; ?>
+                          <?php }else { echo "<p class='product-route' style='position: relative;top: 20px;font-size: 20px;float: right;right: 0;'>Error 404 ! Not Found</p>"; }  ?>
                 </div>
             </div>
             <?php $Funcs->checkoutsSearchPagination('checkout', $_POST['checkoutsSearch'], $_POST['checkoutsOrderBy'], 'id', $searchPage, $recordPerPage,'',true); ?>
@@ -116,4 +118,4 @@ if (isset($_POST['checkoutsSearch']) && !(empty($_POST['checkoutsSearch'])) && i
             });
         });
     </script>
-<?php }else $Funcs->redirectTo('dashboard.php'); ?>
+<?php }else{ $Funcs->redirectTo('dashboard.php'); } ?>

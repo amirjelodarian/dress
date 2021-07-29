@@ -132,7 +132,7 @@ class Checkout{
         return $result;
     }
     public function allCheckoutSearch($checkoutSearch,$checkoutsOrderBy,$startFrom,$recordPerPage){
-        global $DB,$Users;
+        global $DB,$Users,$Funcs;
         $checkoutSearch = $DB->escapeValue($checkoutSearch,true);
         $checkoutsOrderBy = $DB->escapeValue($checkoutsOrderBy);
 
@@ -146,10 +146,12 @@ class Checkout{
             case 'delivery_user_id' && ($Users->isAdministrator() || $Users->isAdmin()):
                 $deliveryResult = $DB->selectAll('checkout_id AS checkout_id','delivery'," WHERE user_id = {$checkoutSearch} ORDER BY delivery.id DESC LIMIT {$startFrom},{$recordPerPage}");
                 $deliveryCheckoutIds = [];
-                while ($deliveryRow = $DB->fetchArray($deliveryResult))
-                    array_push($deliveryCheckoutIds,$deliveryRow['checkout_id']);
-                $deliveryCheckoutIds = implode(',',$deliveryCheckoutIds);
-                $result = $DB->selectAll('*','checkout'," WHERE checkout.id IN ({$deliveryCheckoutIds}) ORDER BY checkout.id DESC LIMIT {$startFrom},{$recordPerPage}");
+                if ($Funcs->checkValue(array($deliveryResult),false,true) && $DB->numRows($deliveryResult) > 0) {
+                    while ($deliveryRow = $DB->fetchArray($deliveryResult))
+                        array_push($deliveryCheckoutIds, $deliveryRow['checkout_id']);
+                    $deliveryCheckoutIds = implode(',', $deliveryCheckoutIds);
+                    $result = $DB->selectAll('*', 'checkout', " WHERE checkout.id IN ({$deliveryCheckoutIds}) ORDER BY checkout.id DESC LIMIT {$startFrom},{$recordPerPage}");
+                }else return false;
                 break;
             default:
                 echo 'I know You Are A Hacker :)';

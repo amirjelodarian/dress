@@ -31,6 +31,11 @@ if ($DB->numRows($allResult) !== 0){
                         <p><?= $Funcs->EnFa($offer,true) ?>%</p>
                     </div>
                 <?php endif; ?>
+                <?php if($SS->loggedIn() && ($Users->isAdministrator() || $Users->isAdmin())): ?>
+                    <div class="edit-btn">
+                        <a href='panel/editProduct.php?id=<?= $allRow["id"] ?>'>ویرایش</a>
+                    </div>
+                <?php endif; ?>
                 <img src=<?= $Funcs->showPic("style/images/ProductPics/",$allRow['pic_loc'],'style/images/Defaults/default-product.jpg'); ?> alt=<?= stripslashes($allRow['pic_loc']) ?> />
             </div>
             <div class="Single L_single">
@@ -59,12 +64,22 @@ if ($DB->numRows($allResult) !== 0){
                     </div>
                     <div class="sin R_Sin">
                         <h6>قیمت قبل تخفیف</h6>
-                        <h6><b style="text-decoration-line: line-through;"><?= $Funcs->insertSeperator($allRow['price']) ?></b></h6>
+                        <p>
+                            <?php if ($allRow['count'] !== "0"): ?>
+                                <h6><b style="text-decoration-line: line-through;"><?= $Funcs->insertSeperator($allRow['price']) ?></b></h6>
+                            <?php endif; ?>
+                        </p>
                     </div>
                 </div>
                 <div class="row_single">
                     <div class="rows R_row">
-                        <h6><b><?= $Funcs->insertSeperator($allRow['off_price']) ?> تومان</b></h6>
+                        <p>
+                            <?php if ($allRow['count'] !== "0"): ?>
+                                <h6><b style="color: #017BFF"><?= $Funcs->insertSeperator($allRow['off_price']) ?> تومان</b></h6>
+                            <? else: ?>
+                                <p style="color: #DB3445;margin-top: 8px;">ناموجود</p>
+                            <?php endif; ?>
+                        </p>
                     </div>
                     <div class="rows L_row">
                         <h6>قیمت </h6>

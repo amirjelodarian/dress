@@ -72,6 +72,7 @@ if($SS->loggedIn()):
                                                     </div>
                                                 <?php endif; ?>
                                                     <img src=<?= $Funcs->showPic("../style/images/ProductPics/",$userClothesRow['pic_loc'],'../style/images/Defaults/default-product.jpg'); ?> alt=<?= stripslashes($userClothesRow['pic_loc']) ?> />
+                                                    <a href=../singleProduct.php?id=<?= $userClothesRow['id'] ?> id="more-details" class="more-details">...جزئیات بیشتر</a>
                                                 </div>
                                             </div>
                                         </div>

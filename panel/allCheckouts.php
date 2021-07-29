@@ -63,7 +63,7 @@ if ($searchMode){
                 <?php
                 if (!$searchMode)
                     $checkoutsResult = $checkout->allCheckout($delivery, $startFrom, $recordPerPage);
-
+                if ($Funcs->checkValue(array($checkoutsResult),false,true) && $DB->numRows($checkoutsResult) > 0) {
                 while($checkoutsRow = $DB->fetchArray($checkoutsResult)):
                     $divid_date_time = $Funcs->divid_date_time_database($checkoutsRow['create_at']);
                     $clothesResult = $DB->selectAll('pic_loc as pic_loc','clothes',"WHERE id IN ({$checkoutsRow['clothes_id']})"); ?>
@@ -123,6 +123,7 @@ if ($searchMode){
                         </div>
                     </div>
                 <?php endwhile; ?>
+                <?php } ?>
             </div>
         </div>
         <?php

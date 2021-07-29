@@ -37,6 +37,7 @@ if ($Funcs->checkValue($_SESSION["errorMessage"],false,true)){
 
 /* End */
 ?>
+<p class="id-of-user-panel"><?= $users->id ?></p>
 <header id="header-panel">
     <div class="container">
         <div class="user-details">

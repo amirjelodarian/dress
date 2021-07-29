@@ -25,7 +25,7 @@ class Delivery{
                         $deliveryResult = $DB->selectAll('max(id) AS id','delivery',"WHERE checkout_id={$deliveryModeId} AND user_id={$Users->id}");
                         if ($deliveryRow = $DB->fetchArray($deliveryResult)){
                             if ($DB->update("checkout", "delivery_id", $deliveryRow['id'], " WHERE checkout.id = {$deliveryModeId}"))
-                                echo "Changed To 'Delivery' (CID : <span style='color: black;'>{$deliveryModeId}</span>)";
+                                echo "تحویل (CID : <span style='color: black;'>{$deliveryModeId}</span>)";
                         }
                     }else
                         echo "Before Added !";
@@ -34,7 +34,7 @@ class Delivery{
                 case 'notDelivery' && ($Users->isAdministrator() || $Users->isAdmin()):
                         $DB->delete('delivery','checkout_id',$deliveryModeId);
                         if ($DB->update("checkout", "delivery_id", "0", " WHERE checkout.id = {$deliveryModeId}"))
-                            echo "Changed To 'Not Delivery' (CID : <span style='color: black;'>{$deliveryModeId}</span>)";
+                            echo "تحویل نشده (CID : <span style='color: black;'>{$deliveryModeId}</span>)";
                     break;
                 default:
                     echo "Access Denied ! ";
